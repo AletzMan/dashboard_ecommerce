@@ -1,0 +1,35 @@
+.section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2em;
+    padding: 3em 2.5em;
+    width: 90%;
+    max-width: 25em;
+    margin: 8em auto;
+    background: linear-gradient(var(--primaryColor), var(--secondaryColor));
+    border: 1px solid var(--fourthColor);
+    border-bottom: 2px solid var(--highLightColor);
+    border-radius: 0.15em 0.15em 0 0;
+
+    &__title {
+        color: var(--newBorderColor);
+        font-size: 1.2em;
+    }
+
+    &__icon {
+        width: 6em;
+        height: 6em;
+        opacity: 0.4;
+        color: var(--saleColor);
+    }
+
+    &__message {
+        color: var(--fontSecondColor);
+        font-size: 0.8em;
+        margin: 1em 0 2em 0;
+        text-align: center;
+    }
+
+}
