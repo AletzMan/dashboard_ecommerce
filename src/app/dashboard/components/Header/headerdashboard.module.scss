@@ -1,0 +1,74 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 5em;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding: 0.5em;
+    background-color: var(--primaryColor);
+    border-bottom: 1px solid var(--borderCardHoverColor);
+
+    &__title {
+        font-size: 1.5em;
+        margin: 0em 0 0 0;
+        text-align: center;
+        color: var(--fontColor);
+    }
+
+    &_nav {
+        display: flex;
+    }
+
+    &_profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 0.65em;
+        padding: 0 0.5em 0 1.5em;
+        border-left: 1px solid var(--borderCardColor);
+        transition: all 0.25s ease-in-out;
+        cursor: pointer;
+
+        &User {
+            display: flex;
+            flex-direction: column;
+            color: var(--fontColor);
+
+
+        }
+
+        &:hover {
+            background-color: var(--backCategoryColor);
+        }
+
+
+        &Email {
+            font-size: 0.7em;
+            color: var(--fontSecondColor);
+        }
+
+        &Picture {
+            display: flex;
+            padding: 0.15em;
+            border: 3px solid var(--highLightColor);
+            border-radius: 4em;
+            overflow: hidden;
+        }
+
+        &Image {
+            width: 2.5em;
+            height: 2.5em;
+            object-fit: cover;
+            border-radius: 4em;
+        }
+
+        &>svg {
+            color: var(--fontColor);
+            width: 1em;
+            height: 1em;
+            margin: 0 0 0 0.5em;
+        }
+    }
+
+}

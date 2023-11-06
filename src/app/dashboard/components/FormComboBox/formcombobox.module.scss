@@ -1,0 +1,120 @@
+.combobox {
+    width: 100%;
+    position: relative;
+
+    &Disabled {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+
+    }
+
+    &__input {
+        width: 100%;
+        padding: 0.5em 0.2rem 0.5em 1em;
+        border: 1px solid transparent;
+        font-family: var(--fontFamily);
+        font-weight: 400;
+        font-size: 0.9em;
+        color: var(--primaryColor);
+        background-color: var(--backgroundColor);
+        border: none;
+        border-bottom: 2px solid var(--fontSecondColor);
+        outline: none;
+        color: var(--primaryColor);
+        transition: 0.25s ease-in-out all;
+
+        &Error {
+            border-color: var(--errorColor);
+        }
+    }
+
+    &__arrow {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 2em;
+        max-height: 2.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        //background-color: red;
+
+        &Checkbox {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 1;
+            cursor: pointer;
+
+
+            &:checked {
+
+                &~svg {
+                    transform: rotate(0);
+                }
+            }
+        }
+
+        &>svg {
+            color: var(--shadowColor);
+            transform: rotate(180deg);
+            width: 1.2em;
+            height: 1.2em;
+            transition: transform 0.3s ease-in-out;
+        }
+
+    }
+
+    &__loading {
+        display: flex;
+        position: absolute;
+        top: calc(50% - 0.8em);
+        right: calc(50% - 0.8em);
+
+        &Inactive {
+            display: none;
+        }
+    }
+
+    &__options {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1em;
+        max-height: 7.5em;
+        width: 100%;
+        background-color: var(--fontColor);
+        border: 1px solid var(--secondaryColor);
+        overflow-y: auto;
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: top;
+        transition: all 0.3s ease-in-out;
+        z-index: 2;
+
+        &Active {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+
+        &Option {
+            padding: 0.1em 0.5em 0.25em 0.5em;
+            font-size: 0.8em;
+            cursor: pointer;
+            color: var(--terciaryColor);
+
+            &:hover {
+                background-color: var(--fourthColor);
+            }
+
+            &Select {
+                background-color: var(--fourthColor);
+            }
+        }
+    }
+
+}
