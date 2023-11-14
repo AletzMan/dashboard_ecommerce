@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { IOrderByState } from "../Types/types"
 
 const PASSWORD = process.env.NEXT_PUBLIC_PASSWORD as string
 
@@ -67,4 +68,70 @@ export const GetPriceWithDiscount = (price: number, discount: number): string =>
   const totalPrice = price - discountedAmount
   const formatPrice = gasPrice.format(totalPrice)
   return formatPrice
+}
+
+
+export const FormattedString = (value: number) => {
+  const formatted = value?.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  })
+  return formatted
+}
+
+/*
+Rango Alto (Verde oscuro o Azul oscuro):
+
+Color: #006400 (verde oscuro) o #00008B (azul oscuro)
+Rango Moderado-Alto (Verde claro o Azul claro):
+
+Color: #008000 (verde claro) o #4169E1 (azul claro)
+Rango Moderado-Bajo (Amarillo o Naranja):
+
+Color: #FFFF00 (amarillo) o #FFA500 (naranja)
+Rango Bajo (Rojo o Gris):
+
+Color: #FF0000 (rojo) o #808080 (gris)
+*/
+
+const colorsRange = ["#00660099", "#00cc6699", "#ff990099", "#80808099"]
+export interface ISalesRank {
+  name: string
+  color: string
+}
+
+export const GetSalesRank = (orders: IOrderByState[]) => {
+
+  let totalAmount: number[] = []
+  for (let index = 0; index < orders.length; index++) {
+    totalAmount.push(orders[index].amount)
+  }
+
+  let ranges: number[] = []
+
+
+  const maxValue = Math.max(...totalAmount)
+
+  const value = maxValue / 4.15
+
+  for (let index = 1; index < 4; index++) {
+    ranges.push(value * index)
+  }
+
+  let salesRank: ISalesRank[] = []
+
+  for (let index = 0; index < orders.length; index++) {
+    if (orders[index].amount >= ranges[2]) {
+      salesRank.push({ color: colorsRange[0], name: orders[index].state })
+    } else if (orders[index].amount < ranges[2] && orders[index].amount >= ranges[1]) {
+      salesRank.push({ color: colorsRange[1], name: orders[index].state })
+    } else if (orders[index].amount < ranges[1] && orders[index].amount >= ranges[0]) {
+      salesRank.push({ color: colorsRange[2], name: orders[index].state })
+    } else if (orders[index].amount < ranges[0]) {
+      salesRank.push({ color: colorsRange[3], name: orders[index].state })
+    }
+
+  }
+
+  return salesRank
 }

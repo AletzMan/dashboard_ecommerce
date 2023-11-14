@@ -1,0 +1,340 @@
+.graphic {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    height: 100%;
+    //border-radius: 0.25em;
+    //border: 1px solid var(--borderCardHoverColor);
+    //background: radial-gradient(ellipse at top, var(--secondaryColor), var(--primaryColor));
+
+
+    @media (width < 600px) {
+        //height: 240px;
+
+    }
+
+
+
+
+    &_groupBar {
+        opacity: 1;
+
+        &Active {
+            opacity: 1;
+            filter: brightness(140%);
+        }
+
+        @media (pointer: fine) {
+            &Inactive {
+                opacity: 0.15;
+            }
+        }
+
+        &Normal {
+            opacity: 1;
+        }
+
+        &Disabled {
+            opacity: 0;
+            pointer-events: none;
+
+        }
+
+        /*
+        &One {
+            &:hover {
+                opacity: 0.5;
+            }
+        }*/
+    }
+
+    &_bar {
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        animation: animationBar 0.7s cubic-bezier(.51, .13, .61, 1.15) both;
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: 350px 350px;
+        stroke-width: 1;
+        stroke: transparent;
+        filter: brightness(80%);
+
+        @keyframes animationBar {
+            0% {
+                transform: scaleY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        &:hover {
+            //fill: aquamarine;
+            filter: brightness(150%);
+            opacity: 1;
+
+
+        }
+
+        &One {
+            @media (pointer: fine) {
+                &:hover:is(.graphic_barTwo) {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &_container {
+        width: 100%;
+        height: 100%;
+        fill: red;
+
+        &:hover {
+            fill: var(--borderCardHoverColor);
+        }
+    }
+
+
+
+    &_text {
+        opacity: 1;
+        fill: var(--fontSecondColor);
+
+        &Desc {
+            fill: var(--fontSecondColor);
+        }
+    }
+}
+
+.container {
+    position: relative;
+    //padding: 0.5em;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    height: 100%;
+    max-width: 550px;
+    background: radial-gradient(ellipse at top, var(--secondaryColor), var(--primaryColor));
+    //border-right: 1px solid #FFFFFF11;
+
+    @media (width < 600px) {
+        height: 200px;
+    }
+
+    &Shadow {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        background-color: #FFFFFF10;
+    }
+}
+
+.chart {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    grid-template-rows: 2em 1fr 4em;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 0.3em;
+    //box-shadow: var(--boxShadow);
+    //background-color: var(--primaryColor);
+
+    &_download {
+        position: relative;
+        justify-self: end;
+        z-index: 3;
+
+        &Icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.1em;
+            height: 2.1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            color: var(--fontSecondColor);
+            background-color: var(--secondaryColor);
+
+            &:hover {
+                background-color: var(--terciaryColor);
+            }
+        }
+
+        &Button {
+            border: 0;
+            padding: 0.5em;
+            color: var(--fontSecondColor);
+            background-color: transparent;
+            transition: background-color 0.2s ease-in-out;
+
+            &:hover {
+                background-color: var(--secondaryColor);
+            }
+        }
+
+    }
+
+    &_axisX {
+        display: flex;
+        grid-row: 1 / span 2;
+
+        &SVG {
+            position: absolute;
+            top: 0;
+            grid-row: 1 / span 2;
+            width: 100%;
+            height: 100%;
+        }
+
+        &Text {
+            color: var(--fontSecondColor);
+            margin: auto auto;
+            padding: 0 0 0 3em;
+            font-size: 0.75em;
+            text-orientation: mixed;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+    }
+
+    &_axisY {
+        position: relative;
+        grid-row: 3 / 4;
+        grid-column: 2 / 3;
+
+        &SVG {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        &Series {
+            position: absolute;
+            left: -5em;
+            display: flex;
+            align-items: center;
+            grid-column: 1 / span 2;
+            justify-content: center;
+            column-gap: 1em;
+            width: 117%;
+            height: 100%;
+        }
+
+        &Name {
+            color: var(--fontSecondColor);
+            list-style: none;
+        }
+
+        &Button {
+            display: flex;
+            align-items: center;
+            column-gap: 0.5em;
+            width: max-content;
+            padding: 0.75em 0.5em;
+            height: 1em;
+            border-radius: 2em;
+            border: none;
+            background-color: transparent;
+            color: var(--fontSecondColor);
+            cursor: pointer;
+            transition: all 0.35s ease-in-out;
+
+            &Circle {
+                width: 1.2em;
+                height: 1.2em;
+
+            }
+
+            &Disabled {
+                text-decoration: line-through;
+                opacity: 0.3;
+            }
+
+            @media (pointer: fine) {
+
+                &:hover {
+                    background-color: var(--borderCardHoverColor);
+                }
+            }
+        }
+    }
+}
+
+.popup {
+    position: absolute;
+    right: 0;
+    top: 0;
+    grid-row: 2 / span 2;
+    grid-column: 2 / 3;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    &_dialog {
+        opacity: 0;
+
+        &Active {
+            opacity: 1;
+        }
+
+    }
+
+    &_window {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 0.2em;
+        position: absolute;
+        border-radius: 0.25em 0.25em 0 0;
+        transition: all 0.15s ease-in-out;
+        opacity: 1;
+        overflow: hidden;
+        background-color: var(--fontSecondColor);
+
+        &Header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 1.5em;
+            border-bottom: 1px solid var(--fourthColor);
+            transition: all 0.35s ease-in-out;
+            background-color: var(--shadowColor);
+
+        }
+
+        &Title {
+            padding: 0 0.4em;
+            font-weight: 500;
+        }
+
+        &Icon {
+            width: 1em;
+            height: 1em;
+        }
+
+        &Name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 0.5em;
+            font-weight: 500;
+            font-size: 0.8em;
+            color: var(--primaryColor);
+        }
+
+        &Value {
+            font-weight: 600;
+            font-size: 0.8em;
+            color: var(--primaryColor);
+        }
+
+
+
+    }
+}

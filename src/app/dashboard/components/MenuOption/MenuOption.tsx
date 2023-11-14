@@ -16,6 +16,7 @@ export function MenuOption(props: props) {
 	const sectionName = pathname.split("/")[3]
 	//console.log(sectionName)
 	const { currentSection, options, handleActiveSections } = props
+
 	return (
 		<>
 			<button

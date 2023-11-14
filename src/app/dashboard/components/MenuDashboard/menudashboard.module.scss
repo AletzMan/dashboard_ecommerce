@@ -77,8 +77,8 @@
         }
 
         &Active {
-            color: var(--highLightColor);
-            background-color: var(--terciaryColor);
+            color: var(--highLightHoverColor);
+            background-color: var(--fourthColor);
             border-radius: 1.5em 1em 0 1.5em;
 
 
@@ -136,13 +136,13 @@
         transition: all 0.3s ease-in-out;
         background-color: var(--secondaryColor);
 
-        &:hover {
+        &:hover:not(.aside__sublinkActive) {
             color: var(--highLightColor);
             background-color: var(--terciaryColor);
         }
 
         &Active {
-            color: var(--highLightColor);
+            color: var(--highLightHoverColor);
             background-color: var(--terciaryColor);
         }
 

@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
 
 export interface IActiveSections {
@@ -84,4 +85,35 @@ export type ButtonProps = {
     onClick: () => void
     isSecondary?: boolean
     type: "button" | "reset" | "submit"
+}
+
+
+export interface IProductData {
+    id: number;
+    name: string;
+    sku: string;
+    quantitySold: number;
+    piecesSold: number;
+    price: number
+}
+
+export interface IOrderByState {
+    id: string
+    state: string
+    orders: number
+    amount: number
+}
+
+export interface IOrder {
+    orderId: number,
+    products:
+    {
+        id: number,
+        quantity: number
+    }[]
+    state: string,
+    status: string,
+    amount: number
+    date: string
+
 }

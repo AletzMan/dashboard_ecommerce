@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "./menudashboard.module.scss"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { MouseEvent, useState } from "react"
 import { MenuOption } from "../MenuOption/MenuOption"
 import { IActiveSections } from "@/app/Types/types"
@@ -10,6 +10,7 @@ import { Logo } from "@/app/SVG/componentsSVG"
 
 export function MenuDashboard() {
 	const pathname = usePathname()
+	const router = useRouter()
 	const [activeSection, setActiveSection] = useState<IActiveSections>({
 		dashboard: true,
 		sales: false,
@@ -26,6 +27,7 @@ export function MenuDashboard() {
 
 	const HandleActiveSection = (e: MouseEvent<HTMLButtonElement>) => {
 		const nameSection = e.currentTarget.name
+
 		//setCurrentSection(nameSection)
 		const isCurrentSectionActive = Object.entries(activeSection).filter((section) => section[0] === nameSection)[0][1]
 		const updatedActiveSection: IActiveSections = {
@@ -40,6 +42,10 @@ export function MenuDashboard() {
 			settings: false,
 		}
 		// Establecer en true solo el nombre que coincida
+		if (nameSection === "dashboard") {
+			router.push("/dashboard")
+			setActiveSection({ ...updatedActiveSection, [nameSection]: true })
+		}
 		setActiveSection({ ...updatedActiveSection, [nameSection]: !isCurrentSectionActive })
 	}
 

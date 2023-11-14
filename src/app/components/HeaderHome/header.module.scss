@@ -4,11 +4,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 2em 0 0 0;
     justify-content: space-between;
     background-color: var(--primaryColor);
     width: 100%;
     height: 15em;
+
+    &__title {
+        color: var(--highLightColor);
+        text-align: center;
+    }
 
     &__band {
         background-color: var(--highLightColor);

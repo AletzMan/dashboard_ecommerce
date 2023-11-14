@@ -1,0 +1,21 @@
+.pie {
+
+    &_section {
+        transition: all 0.35s ease-in-out;
+
+        &:hover {
+            filter: brightness(150%);
+
+            &~path {
+                filter: brightness(80%);
+
+            }
+        }
+
+        &:active {
+            stroke: black;
+            stroke-width: 2;
+            z-index: 3;
+        }
+    }
+}
