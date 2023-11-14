@@ -64,10 +64,10 @@
         font-family: var(--fontFamily);
         font-weight: 500;
         font-size: 0.9em;
-        color: var(--primaryColor);
-        background-color: var(--backgroundColor);
+        color: var(--fontColor);
+        background-color: var(--fourthColor);
         border: none;
-        border-bottom: 2px solid var(--fontSecondColor);
+        border-bottom: 2px solid var(--backgroundColor);
         outline: none;
         transition: 0.25s ease-in-out all;
 
@@ -105,7 +105,7 @@
         border: none;
         transform: scale(0.6);
         color: var(--fontSecondColor);
-        background-color: var(--backgroundColor);
+        background-color: var(--fourthColor);
         cursor: pointer;
         transition: 0.35s ease-in-out color;
 

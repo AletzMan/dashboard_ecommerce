@@ -1,0 +1,218 @@
+.map {
+    width: 450px;
+    height: 253px;
+    fill: #969674;
+
+    &_state {
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            fill: #76d7e2;
+        }
+    }
+
+
+}
+
+.section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 1em;
+    width: 100%;
+}
+
+.tooltip {
+    position: absolute;
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--fontColor);
+    border: 1px solid var(--borderCardHoverColor);
+    background-color: var(--fontSecondColor);
+    border-radius: 0.2em;
+    transition: all 0.1s ease-in-out;
+    pointer-events: none;
+    min-width: 6em;
+    z-index: 3;
+
+    &Inactive {
+        opacity: 0;
+
+    }
+
+    &_state {
+        width: 100%;
+        background-color: var(--shadowColor);
+        padding: 0.2em 0.5em;
+        color: var(--primaryColor);
+        font-weight: 500;
+        font-family: var(--font-montserrat);
+        border-bottom: 1px solid var(--fourthColor);
+    }
+
+    &_sales {
+        color: var(--primaryColor);
+        font-size: 1em;
+        font-weight: 600;
+        padding: 0.25em 0.4em;
+    }
+
+    &_orders {
+        color: var(--fourthColor);
+        font-size: 0.95em;
+        font-weight: 600;
+    }
+}
+
+.areaHover {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    //height: 100%;
+    //background-color: #76d7e225;
+    //transform: scale(1.5);
+    //transform-origin: top left
+}
+
+.toporders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1em;
+    width: 100%;
+    min-height: 24em;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid var(--fourthColor);
+    background: var(--backgroundGradient);
+
+
+    &_title {
+        color: var(--fontColor);
+        font-size: 1.3em;
+        font-weight: 500;
+    }
+
+    &_data {
+        font-weight: 100;
+        display: grid;
+        grid-template-columns: 3em repeat(3, 1fr);
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+    }
+
+    &_table {
+        width: 100%;
+    }
+
+    &_header {
+        display: grid;
+        grid-template-columns: 3em repeat(3, 1fr);
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+    }
+
+
+    &_titles {
+        font-weight: 500;
+        color: var(--fontColor);
+        padding: 0.2em 0.4em;
+        background-color: #FFFFFF09;
+        text-align: center;
+    }
+
+    &_state {
+        color: var(--fontSecondColor);
+        font-weight: 400;
+        font-size: 0.9em;
+        text-align: left;
+        padding: 0.15em 0.4em;
+        text-align: center;
+
+    }
+
+    &_amount {
+        color: var(--fontSecondColor);
+        font-weight: 300;
+        padding: 0.15em 0.4em;
+        text-align: center;
+
+    }
+
+    &_orders {
+        color: var(--fontColor);
+        font-weight: 400;
+        padding: 0.15em 0.4em;
+        text-align: center;
+
+    }
+
+}
+
+.container {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 0.7em;
+    border-radius: 0.25em;
+    border: 1px solid var(--borderCardColor);
+    background: var(--backgroundGradient);
+
+
+    &_title {
+        color: var(--fontColor);
+        font-size: 1.3em;
+        font-weight: 500;
+    }
+
+    &Map {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        //overflow: auto;
+
+        &_buttons {
+            position: absolute;
+            right: -2em;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.25em;
+        }
+
+        &_button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--borderCardHoverColor);
+            padding: 0.2em 0.4em;
+            z-index: 2;
+            border: none;
+            width: 2.5em;
+            height: 2.5em;
+            color: var(--fontSecondColor);
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+            backdrop-filter: blur(5px) invert(5%);
+
+            &:hover {
+                color: var(--highLightHoverColor);
+            }
+
+            &Icon {
+                width: 1.7em;
+                height: 1.7em;
+            }
+
+        }
+    }
+}

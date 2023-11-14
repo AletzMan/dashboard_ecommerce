@@ -34,9 +34,14 @@ function FormLogin() {
 		const response = await signIn("credentials", {
 			email: credentials.email,
 			password: credentials.password,
-			redirect: true,
+			redirect: false,
 			callbackUrl: "/dashboard",
 		})
+		console.log(response)
+		if (response?.ok) {
+			router.push("/dashboard")
+			setLoading(false)
+		}
 		if (response?.error) {
 			enqueueSnackbar(response.error.replaceAll(`'email'`, "").replaceAll(`'password'`, ""), { variant: "error" })
 			setError({
@@ -45,9 +50,6 @@ function FormLogin() {
 			})
 
 			setLoading(false)
-		} else {
-			setLoading(false)
-			console.error(error)
 		}
 	}
 

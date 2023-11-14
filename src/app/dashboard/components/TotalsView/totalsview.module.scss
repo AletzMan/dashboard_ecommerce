@@ -1,0 +1,94 @@
+.article {
+    display: grid;
+    grid-template-columns: 1fr 3em;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    row-gap: 0.5em;
+    padding: 1em;
+    border-radius: 0.25em;
+    border: 1px solid var(--borderCardColor);
+    background: var(--backgroundGradient);
+
+    &_header {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.25em;
+        color: var(--fontColor);
+    }
+
+    &_title {
+        font-weight: 400;
+        font-size: 0.85em;
+        color: var(--highLightHoverColor);
+    }
+
+    &_number {
+        color: var(--fontSecondColor);
+        font-size: 1.1em;
+        font-weight: 800;
+    }
+
+    &_balance {
+        color: #4A46F7;
+        font-size: 0.9em;
+    }
+
+    &_image {
+        width: 2.5em;
+        height: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2em;
+        padding: 0.25em;
+    }
+
+    &_icon {
+        width: 1.5em;
+        height: 1.5em;
+        //color: var(--clearanceColor);
+    }
+
+    &_sales {
+        color: #F7464A;
+        border: 1px solid #F7464A;
+        background-color: #F7464A20;
+    }
+
+    &_orders {
+        border: 1px solid #46F7A1;
+        color: #46F7A1;
+        background-color: #46F7A120;
+    }
+
+    &_spending {
+        border: 1px solid #4A46F7;
+        color: #4A46F7;
+        background-color: #4A46F720;
+    }
+
+    &_products {
+        border: 1px solid #F7B746;
+        color: #F7B746;
+        background-color: #F7B74620;
+    }
+
+    &_customers {
+        border: 1px solid #46F7E2;
+        color: #46F7E2;
+        background-color: #46F7E220;
+    }
+
+    &_visitors {
+        border: 1px solid #F746A7;
+        color: #F746A7;
+        background-color: #F746A720;
+    }
+
+    &_conversion {
+        border: 1px solid #B746F7;
+        color: #B746F7;
+        background-color: #B746F720;
+    }
+}

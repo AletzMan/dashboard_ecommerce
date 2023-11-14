@@ -10,41 +10,44 @@ export async function middleware(req: NextRequest) {
   const KEY_SECRET = process.env.NEXT_PUBLIC_KEY_SECRET_LOGIN as string
   const { pathname } = req.nextUrl
 
-  // AL INGRESAR DIRECTAMENTE AL DASHBOARD SI NO ESTA LOGEADO REDIRIGIR AL LOGIN
-  // SI ESTA LOGEADO SEGUIR AL DASHBOARD
-  if (pathname.endsWith("/")) {
-    if (myTokenLogin === undefined) {
-      req.nextUrl.pathname = "/login"
-      return NextResponse.redirect(req.nextUrl)
-    } else {
-      req.nextUrl.pathname = "/dashboard"
-      return NextResponse.redirect(req.nextUrl)
-    }
-  }
 
-  //AL INGRESAR A LOGIN O REGISTER SI ESTA LOGEADO REDIRIGIR AL DASHBOARD
-  //SI NO ESTA LOGEADO SEGUIR A LA RUTA DE LA QUE SE VIENE
-  if (pathname.endsWith("/login")) {
-    if (myTokenLogin !== undefined) {
-      try {
+  /*
+  
+    // AL INGRESAR DIRECTAMENTE AL DASHBOARD SI NO ESTA LOGEADO REDIRIGIR AL LOGIN
+    // SI ESTA LOGEADO SEGUIR AL DASHBOARD
+    if (pathname.endsWith("/")) {
+      if (myTokenLogin === undefined) {
+        req.nextUrl.pathname = "/login"
+        return NextResponse.redirect(req.nextUrl)
+      } else {
         req.nextUrl.pathname = "/dashboard"
         return NextResponse.redirect(req.nextUrl)
-      } catch (error) {
+      }
+    }
+  
+    //AL INGRESAR A LOGIN O REGISTER SI ESTA LOGEADO REDIRIGIR AL DASHBOARD
+    //SI NO ESTA LOGEADO SEGUIR A LA RUTA DE LA QUE SE VIENE
+    if (pathname.endsWith("/login")) {
+      if (myTokenLogin !== undefined) {
+        try {
+          req.nextUrl.pathname = "/dashboard"
+          return NextResponse.redirect(req.nextUrl)
+        } catch (error) {
+          return NextResponse.next()
+        }
+      }
+    }
+  
+    //SOLO INGRESAR A LA PAGINA DE RESET PASSWORD SI NO ESTA LOGEADO
+    if (pathname.startsWith("/dashboard")) {
+      if (myTokenLogin === undefined) {
+        req.nextUrl.pathname = "/login"
+        return NextResponse.redirect(req.nextUrl)
+      } else {
         return NextResponse.next()
       }
     }
-  }
-
-  //SOLO INGRESAR A LA PAGINA DE RESET PASSWORD SI NO ESTA LOGEADO
-  if (pathname.endsWith("/dashboard")) {
-    if (myTokenLogin === undefined) {
-      req.nextUrl.pathname = "/login"
-      return NextResponse.redirect(req.nextUrl)
-    } else {
-      return NextResponse.next()
-    }
-  }
-
+  */
   //SI SE INGRESA A LA RUTA REDIRIGIR A HOME
   if (pathname.endsWith("/technolife") || pathname.endsWith("/technolife/checkout")) {
     req.nextUrl.pathname = "/"

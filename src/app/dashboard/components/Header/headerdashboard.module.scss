@@ -2,50 +2,91 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 5em;
+    height: 4em;
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    padding: 0.5em;
+    //padding: 0.5em;
     background-color: var(--primaryColor);
     border-bottom: 1px solid var(--borderCardHoverColor);
 
+    @media (width < 920px) {
+        grid-column: 1 / span 2;
+
+    }
+
     &__title {
-        font-size: 1.5em;
+        display: flex;
+        align-self: center;
+        column-gap: 0.5em;
+        font-size: 1.1em;
         margin: 0em 0 0 0;
         text-align: center;
         color: var(--fontColor);
+        text-transform: capitalize;
+        padding: 0.5em;
+
+        @media (width < 500px) {
+            font-size: 0.85em;
+
+        }
+
+        &>svg {
+            width: 1.25em;
+            height: 1.25em;
+        }
     }
 
     &_nav {
         display: flex;
+        align-items: center;
     }
 
     &_profile {
+        position: relative;
         display: flex;
-        flex-direction: row;
         align-items: center;
-        column-gap: 0.65em;
-        padding: 0 0.5em 0 1.5em;
-        border-left: 1px solid var(--borderCardColor);
-        transition: all 0.25s ease-in-out;
-        cursor: pointer;
+        justify-content: center;
+        z-index: 3;
+
+
 
         &User {
             display: flex;
             flex-direction: column;
             color: var(--fontColor);
-
+            font-size: 1.2em;
 
         }
-
-        &:hover {
-            background-color: var(--backCategoryColor);
-        }
-
 
         &Email {
             font-size: 0.7em;
             color: var(--fontSecondColor);
+        }
+
+        &Button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 90%;
+            column-gap: 0.65em;
+            padding: 0 1em 0 1.5em;
+            border: none;
+            font-family: var(--font-montserrat);
+            background-color: transparent;
+            border-left: 1px solid var(--borderCardColor);
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+
+            &>svg {
+                color: var(--fontColor);
+                width: 1em;
+                height: 1em;
+                margin: 0 0 0 0.5em;
+            }
+
+            &:hover {
+                background-color: var(--backCategoryColor);
+            }
         }
 
         &Picture {
@@ -63,12 +104,107 @@
             border-radius: 4em;
         }
 
-        &>svg {
-            color: var(--fontColor);
-            width: 1em;
-            height: 1em;
-            margin: 0 0 0 0.5em;
+
+
+        &Menu {
+            position: absolute;
+            width: 100%;
+            right: 2em;
+            max-height: 0;
+            top: 150%;
+            background-color: var(--fourthColor);
+            overflow: hidden;
+            transition: all 0.2s ease-in-out;
+
+            &Active {
+                max-height: 10em;
+                overflow: visible;
+            }
+
+            &Tag {
+                position: absolute;
+                top: -1.5em;
+                right: 0;
+                //background-color: red;
+                width: 100%;
+                height: 1em;
+            }
+
+            &Triangle {
+                position: absolute;
+                right: 1em;
+                top: 0.85em;
+                width: 0;
+                height: 0;
+                border-left: 0.7em solid transparent;
+                border-right: 0.7em solid transparent;
+                border-bottom: 0.7em solid var(--fourthColor);
+            }
+
+            &Link {
+                display: grid;
+                grid-template-columns: 2.5em 1fr;
+                place-items: center start;
+                column-gap: 0.5em;
+                width: 100%;
+                font-size: 1em;
+                font-family: var(--font-montserrat);
+                background-color: transparent;
+                border: none;
+                color: var(--fontSecondColor);
+                padding: 0.5em 1em;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+                text-decoration: none;
+
+                @media (pointer: fine) {
+                    &:hover {
+                        color: var(--highLightHoverColor);
+                        background-color: var(--borderCardHoverColor);
+                    }
+                }
+
+                &>svg {
+                    width: 1.5em;
+                    height: 1.5em;
+                }
+            }
         }
     }
 
+}
+
+.notifications {
+    position: relative;
+    z-index: 3;
+
+    &_title {
+        padding: 0.5em 4em 0.5em 0.5em;
+        border-bottom: 1px solid var(--borderCardHoverColor);
+        color: var(--highLightColor);
+    }
+
+    &_option {
+        padding: 0.5em;
+        color: var(--fontSecondColor);
+    }
+
+    &_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 1em;
+        border: none;
+        padding: 0.5em;
+        border-radius: 0.25em;
+        background-color: var(--secondaryColor);
+        cursor: pointer;
+    }
+
+    &_icon {
+        width: 1.5em;
+        height: 1.5em;
+        color: var(--fontSecondColor);
+
+    }
 }

@@ -78,16 +78,20 @@ const handler = NextAuth({
   ],
   session: {
     strategy: "jwt",
-    maxAge: 60 * 30,
+    maxAge: 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
+      if (trigger === "update" && session.name) {
+        token.name = session.name
+      }
       if (user) token.user = { id: user.id, name: user.name, email: user.email, image: user.image }
       return token
     },
-    session({ session, token, user }) {
+    session({ session, token }) {
       session.user = token.user as UserToken
+
       return session
     },
   },

@@ -1,11 +1,9 @@
-import { SessionProvider } from "next-auth/react"
 import "./globals.css"
-import styles from "./page.module.css"
 import type { Metadata } from "next"
-import { Montserrat } from "next/font/google"
+import { Raleway } from "next/font/google"
 import Providers from "./components/Providers"
 
-const montserrat = Montserrat({ subsets: ["latin"] })
+const montserrat = Raleway({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "Dashboard",
@@ -16,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<Providers>
-				<body className={`${montserrat.className} ${styles.body}`}>{children}</body>
+				<body className={montserrat.className}>{children}</body>
 			</Providers>
 		</html>
 	)
