@@ -88,7 +88,12 @@ export const totalProductsData = { totalProducts: 26 };
 
 export const totalOrdersData = { totalOrders: 1200 };
 
-export const totalSalesData = {
+export interface ITotalSales {
+    quantity: number
+    amount: number
+}
+
+export const totalSalesData: ITotalSales = {
     quantity: monthlySalesData.reduce((total, month) => total + month.revenue, 0),
     amount: monthlySalesData.reduce((total, month) => total + month.profit, 0),
 }
@@ -745,5 +750,165 @@ export const OrderList: IOrder[] = [
         "status": "finished",
         "amount": 308,
         "date": "5/2/2023, 00:00:00"
+    }
+]
+
+export interface ICustomer {
+    customerID: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    address: IAddress;
+}
+
+export interface IAddress {
+    street: string;
+    city: string;
+    state: string;
+    zipcode: string;
+    country: string;
+}
+
+export const customers: ICustomer[] = [
+    {
+        "customerID": 1,
+        "firstName": "Juan",
+        "lastName": "Pérez",
+        "email": "juan.perez@example.com",
+        "phone": "123-456-7890",
+        "address": {
+            "street": "123 Calle Principal",
+            "city": "Ciudad",
+            "state": "Estado",
+            "zipcode": "12345",
+            "country": "País"
+        }
+    },
+    {
+        "customerID": 2,
+        "firstName": "María",
+        "lastName": "Gómez",
+        "email": "maria.gomez@example.com",
+        "phone": "987-654-3210",
+        "address": {
+            "street": "456 Avenida Secundaria",
+            "city": "Otra Ciudad",
+            "state": "Otro Estado",
+            "zipcode": "54321",
+            "country": "Otro País"
+        }
+    },
+    {
+        "customerID": 3,
+        "firstName": "Carlos",
+        "lastName": "López",
+        "email": "carlos.lopez@example.com",
+        "phone": "555-123-4567",
+        "address": {
+            "street": "789 Calle Residencial",
+            "city": "Nueva Ciudad",
+            "state": "Nuevo Estado",
+            "zipcode": "67890",
+            "country": "Nuevo País"
+        }
+    },
+    {
+        "customerID": 4,
+        "firstName": "Ana",
+        "lastName": "Rodríguez",
+        "email": "ana.rodriguez@example.com",
+        "phone": "111-222-3333",
+        "address": {
+            "street": "567 Avenida Principal",
+            "city": "Ciudad Principal",
+            "state": "Estado Principal",
+            "zipcode": "11111",
+            "country": "País Principal"
+        }
+    },
+    {
+        "customerID": 5,
+        "firstName": "Luis",
+        "lastName": "Martínez",
+        "email": "luis.martinez@example.com",
+        "phone": "444-555-6666",
+        "address": {
+            "street": "890 Calle Secundaria",
+            "city": "Ciudad Secundaria",
+            "state": "Estado Secundario",
+            "zipcode": "22222",
+            "country": "País Secundario"
+        }
+    },
+    {
+        "customerID": 6,
+        "firstName": "Elena",
+        "lastName": "Sánchez",
+        "email": "elena.sanchez@example.com",
+        "phone": "777-888-9999",
+        "address": {
+            "street": "123 Avenida Residencial",
+            "city": "Ciudad Residencial",
+            "state": "Estado Residencial",
+            "zipcode": "33333",
+            "country": "País Residencial"
+        }
+    },
+    {
+        "customerID": 7,
+        "firstName": "Miguel",
+        "lastName": "Hernández",
+        "email": "miguel.hernandez@example.com",
+        "phone": "666-777-8888",
+        "address": {
+            "street": "456 Calle Principal",
+            "city": "Otra Ciudad Principal",
+            "state": "Otro Estado Principal",
+            "zipcode": "44444",
+            "country": "Otro País Principal"
+        }
+    },
+    {
+        "customerID": 8,
+        "firstName": "Isabel",
+        "lastName": "Díaz",
+        "email": "isabel.diaz@example.com",
+        "phone": "999-000-1111",
+        "address": {
+            "street": "789 Avenida Secundaria",
+            "city": "Nueva Ciudad Secundaria",
+            "state": "Nuevo Estado Secundario",
+            "zipcode": "55555",
+            "country": "Nuevo País Secundario"
+        }
+    },
+    {
+        "customerID": 9,
+        "firstName": "Pedro",
+        "lastName": "García",
+        "email": "pedro.garcia@example.com",
+        "phone": "222-333-4444",
+        "address": {
+            "street": "567 Calle Residencial",
+            "city": "Ciudad Residencial",
+            "state": "Estado Residencial",
+            "zipcode": "66666",
+            "country": "País Residencial"
+        }
+    },
+    {
+        "customerID": 10,
+        "firstName": "Laura",
+        "lastName": "Fernández",
+        "email": "laura.fernandez@example.com",
+        "phone": "333-444-5555",
+        "address": {
+            "street": "890 Avenida Principal",
+            "city": "Ciudad Principal",
+            "state": "Estado Principal",
+            "zipcode": "77777",
+            "country": "País Principal"
+        }
     }
 ]

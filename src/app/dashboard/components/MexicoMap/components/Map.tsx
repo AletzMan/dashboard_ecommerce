@@ -1,3 +1,4 @@
+"use client"
 import { IOrderByState } from "@/app/Types/types"
 import styles from "../mexicomap.module.scss"
 import { useRef, MouseEvent, useState, useEffect } from "react"
