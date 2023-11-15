@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest, context: any) {
     const params = request.nextUrl.searchParams
     const paramSort = params.get("sort")
-    const paramQuantity = params.get("quantity")
+    const paramQuantity: string = params.get("quantity") || ""
     try {
         /* TODO */
         //Agregar aqui el fetch a la base de datos
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest, context: any) {
                     return 1
                 }
                 return 0
-            }).filter((product, index) => index < 10)
+            }).filter((product, index) => index < parseInt(paramQuantity))
             return NextResponse.json({ response }, { status: 200 })
 
         }
