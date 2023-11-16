@@ -20,7 +20,7 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.sales,
-		subSections: ["Recent orders", "Sales reports"],
+		subSections: ["Sales by period", "Best selling products", "Revenues by category"],
 		icon: <SalesIcon />,
 	},
 	{
