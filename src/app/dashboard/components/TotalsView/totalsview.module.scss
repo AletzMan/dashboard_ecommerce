@@ -36,8 +36,29 @@
     }
 
     &_balance {
-        color: #4A46F7;
+        display: flex;
+        align-items: center;
+        column-gap: 0.25em;
+        font-weight: 700;
+        color: var(--fontSecondColor);
         font-size: 0.9em;
+
+        &Icon {
+            width: 1.3em;
+            height: 1.3em;
+            color: var(--saleColor);
+            transform: rotate(180deg);
+
+            &Increment {
+                transform: rotate(0);
+                color: var(--newColor);
+            }
+        }
+
+        &Text {
+            font-weight: 400;
+            color: var(--fontSecondColor);
+        }
     }
 
     &_image {

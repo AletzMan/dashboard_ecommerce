@@ -43,57 +43,6 @@ export interface IOptionsChart {
 	}
 }
 
-const options: IOptionsChart = {
-	series: [
-		{
-			name: "Profit",
-			data: [12000, 21567, 22345, 19234, 14000, 16890, 8200],
-		},
-		{
-			name: "Lost",
-			data: [6000, 14000, 17234, 11234, 20000, 10000, 27356],
-		},
-	],
-	xaxis: {
-		title: {
-			enabled: true,
-			text: "Months",
-		},
-		categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Aug"],
-	},
-	yaxis: {
-		title: {
-			enabled: true,
-			text: "$ USD",
-		},
-	},
-	chart: {
-		height: 350,
-	},
-	stroke: {
-		show: true,
-		width: 2,
-		colors: ["transparent"],
-	},
-	fill: {
-		opacity: 1,
-		colors: [
-			"#059a23", // Azul
-			"#5e9bab", // Amarillo
-			"#c8c32f", // Rojo
-			"#2f71c8", // Verde
-			"#9b59b6", // Morado
-		],
-	},
-}
-
-const colors = [
-	"#059a23", // Azul
-	"#c8c32f", // Rojo
-	"#99e0a7", // Amarillo
-	"#2f71c8", // Verde
-	"#9b59b6", // Morado
-]
 const classGroupBar = [
 	styles.graphic_groupBarOne, // Azul
 	styles.graphic_groupBarTwo, // Rojo
@@ -140,7 +89,12 @@ export interface IAxisLines {
 const WIDTH_CHART = 140
 const HEIGHT_CHART = 65
 
-export function BarChart() {
+interface Props {
+	options: IOptionsChart
+}
+
+export function BarChart(props: Props) {
+	const { options } = props
 	const refSVG = useRef<SVGSVGElement>(null)
 	const containerSVG = useRef<HTMLDivElement>(null)
 	const refCHart = useRef<HTMLDivElement>(null)
@@ -457,7 +411,7 @@ export function BarChart() {
 					))}
 				</ul>
 			</div>
-			<div className={styles.container} ref={containerSVG} style={{ maxHeight: options.chart.height }}>
+			<div className={styles.container} ref={containerSVG} style={{ minHeight: options.chart.height }}>
 				{positionPopUp.active && (
 					<div className={styles.containerShadow} style={{ left: positionPopUp.positionShadow, width: positionPopUp.widthShadow }}></div>
 				)}

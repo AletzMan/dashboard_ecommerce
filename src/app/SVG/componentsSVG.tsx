@@ -714,11 +714,8 @@ export function YoutubeIcon({ className }: { className?: string }) {
 
 export function ArrowIcon({ className }: { className?: string }) {
 	return (
-		<svg className={className} width="15" height="14" viewBox="0 0 15 14" fill="none">
-			<path
-				d="M0 6.99643C0 6.75287 0.0967563 6.51928 0.268984 6.34705C0.441211 6.17482 0.674802 6.07807 0.918369 6.07807H11.678L7.65307 2.47684C7.47316 2.31402 7.365 2.08663 7.35221 1.84432C7.33941 1.60202 7.42303 1.3645 7.5848 1.18365C7.74656 1.00279 7.97332 0.89331 8.21555 0.879109C8.45777 0.864907 8.69578 0.947144 8.87756 1.10785L14.6939 6.31194C14.7902 6.39808 14.8672 6.50358 14.92 6.62153C14.9727 6.73948 15 6.86723 15 6.99643C15 7.12564 14.9727 7.25339 14.92 7.37134C14.8672 7.48929 14.7902 7.59478 14.6939 7.68093L8.87756 12.885C8.78781 12.9662 8.68288 13.0289 8.56882 13.0694C8.45475 13.11 8.3338 13.1276 8.21292 13.1212C8.09204 13.1148 7.97361 13.0846 7.86445 13.0323C7.75528 12.9799 7.65754 12.9066 7.57684 12.8163C7.49614 12.7261 7.43407 12.6208 7.3942 12.5065C7.35434 12.3922 7.33746 12.2712 7.34455 12.1503C7.35163 12.0295 7.38254 11.9112 7.43549 11.8024C7.48843 11.6935 7.56238 11.5962 7.65307 11.516L11.678 7.9148H0.918369C0.674802 7.9148 0.441211 7.81805 0.268984 7.64582C0.0967563 7.47359 0 7.24 0 6.99643Z"
-				fill="white"
-			/>
+		<svg className={className} width="21" height="21" viewBox="0 0 21 21">
+			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m14.5 7.5l-4-4l-4.029 4m4.029-4v13" />
 		</svg>
 	)
 }
@@ -1823,6 +1820,25 @@ export function ConversionIcon({ className }: { className?: string }) {
 				<path d="M13.388 5.804a6.5 6.5 0 0 1-11.39 5.35M.612 8.196a6.5 6.5 0 0 1 11.39-5.35" />
 				<path d="M12.002.502v2.5h-2.5" />
 			</g>
+		</svg>
+	)
+}
+
+export function ArrowUpIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 1024 1024">
+			<path
+				fill="currentColor"
+				d="M104.704 685.248a64 64 0 0 0 90.496 0l316.8-316.8l316.8 316.8a64 64 0 0 0 90.496-90.496L557.248 232.704a64 64 0 0 0-90.496 0L104.704 594.752a64 64 0 0 0 0 90.496z"
+			/>
+		</svg>
+	)
+}
+
+export function CheckTwoIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 12l5 5L20 7" />
 		</svg>
 	)
 }

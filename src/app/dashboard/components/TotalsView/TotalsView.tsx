@@ -1,6 +1,16 @@
 import { FormattedString } from "@/app/utils/functions"
 import styles from "./totalsview.module.scss"
-import { CartIcon, ConversionIcon, CustomersIcon, OrdersIcon, ProductsIcon, VisitorsIcon } from "@/app/SVG/componentsSVG"
+import {
+	ArrowDownIcon,
+	ArrowDownLineIcon,
+	ArrowIcon,
+	CartIcon,
+	ConversionIcon,
+	CustomersIcon,
+	OrdersIcon,
+	ProductsIcon,
+	VisitorsIcon,
+} from "@/app/SVG/componentsSVG"
 import axios from "axios"
 
 export async function TotalsView() {
@@ -24,7 +34,11 @@ export async function TotalsView() {
 					<div className={`${styles.article_sales} ${styles.article_image}`}>
 						<CartIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+					<span className={styles.article_balance}>
+						<ArrowIcon className={`${styles.article_balanceIcon} ${styles.article_balanceIconIncrement}`} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 				<article className={styles.article}>
 					<header className={styles.article_header}>
@@ -34,7 +48,12 @@ export async function TotalsView() {
 					<div className={`${styles.article_orders} ${styles.article_image}`}>
 						<OrdersIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+
+					<span className={styles.article_balance}>
+						<ArrowIcon className={styles.article_balanceIcon} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 			</div>
 			<div className={styles.section}>
@@ -46,7 +65,11 @@ export async function TotalsView() {
 					<div className={`${styles.article_products} ${styles.article_image}`}>
 						<ProductsIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+					<span className={styles.article_balance}>
+						<ArrowIcon className={styles.article_balanceIcon} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 				<article className={styles.article}>
 					<header className={styles.article_header}>
@@ -56,7 +79,11 @@ export async function TotalsView() {
 					<div className={`${styles.article_customers} ${styles.article_image}`}>
 						<CustomersIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+					<span className={styles.article_balance}>
+						<ArrowIcon className={styles.article_balanceIcon} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 			</div>
 			<div className={styles.section}>
@@ -68,7 +95,11 @@ export async function TotalsView() {
 					<div className={`${styles.article_visitors} ${styles.article_image}`}>
 						<VisitorsIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+					<span className={styles.article_balance}>
+						<ArrowIcon className={styles.article_balanceIcon} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 				<article className={styles.article}>
 					<header className={styles.article_header}>
@@ -78,7 +109,11 @@ export async function TotalsView() {
 					<div className={`${styles.article_conversion} ${styles.article_image}`}>
 						<ConversionIcon className={styles.article_icon} />
 					</div>
-					<span className={styles.article_balance}>{`${20}%`}</span>
+					<span className={styles.article_balance}>
+						<ArrowIcon className={styles.article_balanceIcon} />
+						{`${20}%`}
+						<span className={styles.article_balanceText}> this week</span>
+					</span>
 				</article>
 			</div>
 		</>

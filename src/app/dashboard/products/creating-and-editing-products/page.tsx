@@ -5,7 +5,7 @@ import { useState, ChangeEvent } from "react"
 import stylesGeneral from "../../dashboard.module.scss"
 import styles from "../products.module.scss"
 import { UploadFile } from "@/Firebase/firebase"
-import { FormComboBox } from "../../components/FormComboBox/FormComboBox"
+import { FormComboBox } from "../../components/ComboBox/ComboBox"
 
 const EmptyProduct = {
 	sku: "",

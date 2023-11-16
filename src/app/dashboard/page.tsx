@@ -1,4 +1,4 @@
-import { BarChart } from "./components/BarChart/BarChart"
+import { BarChart, IOptionsChart } from "./components/BarChart/BarChart"
 import { MexicoMap } from "./components/MexicoMap/MexicoMap"
 import Link from "next/link"
 import styles from "./dashboard.module.scss"
@@ -10,6 +10,50 @@ import { TopProducts } from "./components/TopProducts/TopProducts"
 import axios from "axios"
 import { IOrderByState } from "../Types/types"
 import { TopSales } from "./components/TopSales/TopSales"
+
+const options: IOptionsChart = {
+	series: [
+		{
+			name: "Profit",
+			data: [12000, 21567, 22345, 19234, 14000, 16890, 8200],
+		},
+		{
+			name: "Lost",
+			data: [6000, 14000, 17234, 11234, 20000, 10000, 27356],
+		},
+	],
+	xaxis: {
+		title: {
+			enabled: true,
+			text: "Months",
+		},
+		categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Aug"],
+	},
+	yaxis: {
+		title: {
+			enabled: true,
+			text: "$ USD",
+		},
+	},
+	chart: {
+		height: 220,
+	},
+	stroke: {
+		show: true,
+		width: 2,
+		colors: ["transparent"],
+	},
+	fill: {
+		opacity: 1,
+		colors: [
+			"#059a23", // Azul
+			"#5e9bab", // Amarillo
+			"#c8c32f", // Rojo
+			"#2f71c8", // Verde
+			"#9b59b6", // Morado
+		],
+	},
+}
 
 export default async function DashboardPage() {
 	const response = await axios.get("http://localhost:3000/api/orders?sort=state")
@@ -23,7 +67,7 @@ export default async function DashboardPage() {
 			<div className={styles.container}>
 				<section className={`${styles.container_profit} ${styles.container_section}`}>
 					<h2 className={styles.container_title}>Profit & Loss</h2>
-					<BarChart />
+					<BarChart options={options} />
 				</section>
 				<section className={`${styles.container_sales} ${styles.container_section}`}>
 					<MexicoMap orders={orders} />
