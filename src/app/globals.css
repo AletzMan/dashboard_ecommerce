@@ -16,7 +16,7 @@
   --freeBorderColor: #FFC449;
   --freeColor: #d29721;
   --freeBackgroundColor: #fde8ba20;
-  --clearanceBorderColor: #36A0BF;
+  --clearanceBorderColor: #3dc7f1;
   --clearanceColor: #208eb0;
   --clearanceBackgroundColor: #93ddf420;
   --newBorderColor: #8be113;
@@ -29,6 +29,7 @@
   --deleteButton: #cb3838BB;
   --errorColor: #ed3030;
   --checkColor: #58ff25;
+  --toolTipColor: #f1f4c4;
 
   --boxShadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   /*--boxShadow: rgba(74, 78, 82, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;*/
@@ -41,7 +42,7 @@
 
 
   --max-width: 1200px;
-  --border-radius: 12px;
+  --border-radius: 4px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
@@ -85,5 +86,26 @@ html {
 }
 
 .scrollBarStyle::-webkit-scrollbar-track {
+  background-color: var(--terciaryColor);
+}
+
+
+.scrollBarStyleX {
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-color: red;
+
+}
+
+.scrollBarStyleX::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollBarStyleX::-webkit-scrollbar-thumb {
+  background-color: var(--highLightColor);
+}
+
+.scrollBarStyleX::-webkit-scrollbar-track {
   background-color: var(--terciaryColor);
 }

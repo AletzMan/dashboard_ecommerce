@@ -1,8 +1,9 @@
 import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
+import { IMonthlySales } from "../utils/mockdata"
 
 export interface IActiveSections {
-    dashboard: boolean
+    overview: boolean
     sales: boolean
     inventory: boolean
     products: boolean
@@ -15,7 +16,7 @@ export interface IActiveSections {
 
 
 export enum MenuOptionsTypes {
-    dashboard = "dashboard",
+    overview = "overview",
     sales = "sales",
     inventory = "inventory",
     products = "products",
@@ -30,6 +31,7 @@ export enum MenuOptionsTypes {
 export type OptionsType = {
     section: MenuOptionsTypes,
     subSections: string[]
+    links: string
     icon: JSX.Element
 }
 
@@ -40,6 +42,7 @@ export enum TextFieldType {
     Mail = "email",
     Password = "password",
     File = "file",
+    Number = "number"
 }
 
 export type ProductType = {
@@ -52,6 +55,7 @@ export type ProductType = {
     brandLogo: string,
     category: string,
     subcategory: string,
+    description: string,
     sameDayDelivery: boolean,
     storePickUp: boolean,
     price: number,
@@ -116,4 +120,53 @@ export interface IOrder {
     amount: number
     date: string
 
+}
+
+export interface IImage {
+    file: File | null
+    url: string
+}
+
+
+export interface IAllTimePeriod {
+    period: IPeriodSales
+    year: number
+}
+
+export interface ISalesPerYear {
+    year: number[]
+    amount: number[]
+    sales: number[]
+}
+
+export interface IPeriodSales {
+    period: string;
+    sales: number;
+    salesAmount: number;
+}
+
+export interface ICategory {
+    id: number
+    name: string
+    name_abbr: string
+}
+
+export interface IBrand {
+    id: number
+    name: string
+    name_logo: string
+    logo: string
+    createdDate: string
+    lastModified: string
+
+}
+
+export interface IAttribute {
+    name: string
+    value: string
+}
+
+export interface ICharacteristicProduct {
+    name: string
+    attributes: IAttribute[]
 }

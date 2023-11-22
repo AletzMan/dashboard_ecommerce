@@ -366,7 +366,7 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 
 export function SearchIcon({ className }: { className?: string }) {
 	return (
-		<svg className={className} width="42" height="42" viewBox="0 0 24 24" fill="none">
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none">
 			<path
 				d="M10.5 4.00001C8.77609 4.00001 7.12279 4.68483 5.90381 5.90382C4.68482 7.1228 4 8.7761 4 10.5C4 12.2239 4.68482 13.8772 5.90381 15.0962C7.12279 16.3152 8.77609 17 10.5 17C12.2239 17 13.8772 16.3152 15.0962 15.0962C16.3152 13.8772 17 12.2239 17 10.5C17 8.7761 16.3152 7.1228 15.0962 5.90382C13.8772 4.68483 12.2239 4.00001 10.5 4.00001ZM2 10.5C2.00012 9.1446 2.32436 7.80887 2.94569 6.60427C3.56702 5.39966 4.46742 4.3611 5.57175 3.57525C6.67609 2.78939 7.95235 2.27902 9.29404 2.08672C10.6357 1.89442 12.004 2.02576 13.2846 2.46979C14.5652 2.91382 15.7211 3.65766 16.6557 4.63925C17.5904 5.62084 18.2768 6.81171 18.6576 8.11252C19.0384 9.41333 19.1026 10.7864 18.8449 12.117C18.5872 13.4477 18.015 14.6975 17.176 15.762L20.828 19.414C21.0102 19.6026 21.111 19.8552 21.1087 20.1174C21.1064 20.3796 21.0012 20.6304 20.8158 20.8158C20.6304 21.0012 20.3796 21.1064 20.1174 21.1087C19.8552 21.111 19.6026 21.0102 19.414 20.828L15.762 17.176C14.5086 18.164 13.0024 18.7792 11.4157 18.9511C9.82905 19.123 8.22602 18.8448 6.79009 18.1482C5.35417 17.4517 4.14336 16.3649 3.29623 15.0123C2.44911 13.6597 1.99989 12.096 2 10.5ZM9.5 7.00001C9.5 6.73479 9.60536 6.48044 9.79289 6.2929C9.98043 6.10537 10.2348 6.00001 10.5 6.00001C11.6935 6.00001 12.8381 6.47412 13.682 7.31803C14.5259 8.16194 15 9.30654 15 10.5C15 10.7652 14.8946 11.0196 14.7071 11.2071C14.5196 11.3947 14.2652 11.5 14 11.5C13.7348 11.5 13.4804 11.3947 13.2929 11.2071C13.1054 11.0196 13 10.7652 13 10.5C13 9.83697 12.7366 9.20108 12.2678 8.73224C11.7989 8.2634 11.163 8.00001 10.5 8.00001C10.2348 8.00001 9.98043 7.89465 9.79289 7.70712C9.60536 7.51958 9.5 7.26523 9.5 7.00001Z"
 				fill="currentColor"
@@ -617,6 +617,14 @@ export function ArrowRightIcon({ className }: { className?: string }) {
 	return (
 		<svg className={className} width="26" height="24" viewBox="0 0 26 24" fill="none">
 			<path d="M10.6448 17L15.9672 12L10.6448 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+		</svg>
+	)
+}
+
+export function ArrowLeftIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" />
 		</svg>
 	)
 }
@@ -1839,6 +1847,90 @@ export function CheckTwoIcon({ className }: { className?: string }) {
 	return (
 		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
 			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 12l5 5L20 7" />
+		</svg>
+	)
+}
+
+export function UploadIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="48" height="48" viewBox="0 0 512 512">
+			<path
+				fill="currentColor"
+				d="M470.7 277.2c3-11.2 4.7-22.9 4.7-35c0-75.8-61.4-137.1-137.1-137.1c-19.5 0-38 4.1-54.7 11.4c-16.8-39-55.6-66.3-100.7-66.3c-60.6 0-109.7 49.1-109.7 109.7c0 4.1.8 7.9 1.2 11.9C30.5 192.1 0 236.3 0 287.9c0 70.7 57.3 128 128 128h310.9c40.4 0 73.1-32.7 73.1-73.1c0-29-16.9-53.7-41.3-65.6zm-178.1-25.9v91.4h-73.1v-91.4h-54.9l91.4-91.4l91.4 91.4h-54.8z"
+			/>
+		</svg>
+	)
+}
+
+export function OptionsIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0zm0-6a2 2 0 1 0 4 0a2 2 0 0 0-4 0zm0 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0z" />
+		</svg>
+	)
+}
+
+export function SaveIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z"
+			/>
+		</svg>
+	)
+}
+
+export function CancelIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				d="m8.4 16.308l3.6-3.6l3.6 3.6l.708-.708l-3.6-3.6l3.6-3.6l-.708-.708l-3.6 3.6l-3.6-3.6l-.708.708l3.6 3.6l-3.6 3.6l.708.708ZM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21Z"
+			/>
+		</svg>
+	)
+}
+
+export function AcceptIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 48 48">
+			<defs>
+				<mask id="ipSCheckOne0">
+					<g fill="none" strokeLinejoin="round" strokeWidth="4">
+						<path
+							fill="#fff"
+							stroke="#fff"
+							d="M24 44a19.937 19.937 0 0 0 14.142-5.858A19.937 19.937 0 0 0 44 24a19.938 19.938 0 0 0-5.858-14.142A19.937 19.937 0 0 0 24 4A19.938 19.938 0 0 0 9.858 9.858A19.938 19.938 0 0 0 4 24a19.937 19.937 0 0 0 5.858 14.142A19.938 19.938 0 0 0 24 44Z"
+						/>
+						<path stroke="#000" strokeLinecap="round" d="m16 24l6 6l12-12" />
+					</g>
+				</mask>
+			</defs>
+			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSCheckOne0)" />
+		</svg>
+	)
+}
+
+export function HelpIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="48" height="48" viewBox="0 0 48 48">
+			<defs>
+				<mask id="ipTHelp0">
+					<g fill="none">
+						<path
+							fill="#555"
+							stroke="#fff"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M24 44a19.937 19.937 0 0 0 14.142-5.858A19.937 19.937 0 0 0 44 24a19.938 19.938 0 0 0-5.858-14.142A19.937 19.937 0 0 0 24 4A19.938 19.938 0 0 0 9.858 9.858A19.938 19.938 0 0 0 4 24a19.937 19.937 0 0 0 5.858 14.142A19.938 19.938 0 0 0 24 44Z"
+						/>
+						<path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M24 28.625v-4a6 6 0 1 0-6-6" />
+						<path fill="#fff" fillRule="evenodd" d="M24 37.625a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5Z" clipRule="evenodd" />
+					</g>
+				</mask>
+			</defs>
+			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTHelp0)" />
 		</svg>
 	)
 }

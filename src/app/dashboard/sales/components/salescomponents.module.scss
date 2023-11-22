@@ -1,0 +1,135 @@
+.header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0.5em;
+    row-gap: 0.5em;
+    width: 100%;
+    max-width: 30em;
+
+    &_buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: row;
+        column-gap: 2em;
+    }
+
+    &_button {
+        max-width: 4em;
+    }
+
+    &_field {
+        max-width: 100%;
+
+        &>input {
+            text-align: center;
+
+        }
+
+        &Amount {
+
+            &>input {
+                color: var(--newBorderColor);
+            }
+        }
+
+        &Sales {
+
+            &>input {
+                color: var(--freeBorderColor);
+            }
+        }
+    }
+}
+
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 0.5em;
+    padding: 0 0.5em 0.5em 0.5em;
+
+    @media (width < 920px) {
+        grid-column: 1 / span 2; //grid-template-columns: repeat(auto-fit, minmax(22em, 1fr));
+    }
+}
+
+.totals {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    width: 100%;
+    padding: 1em 0 0.5em 0;
+}
+
+.article {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    column-gap: 1em;
+    padding: 0.5em;
+    width: 100%;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--borderCardColor);
+    background: var(--backgroundGradient);
+
+    &_graphic {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        max-width: 53.5em;
+    }
+}
+
+.description {
+    width: 100%;
+    max-width: 27em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 2em 0.5em;
+    row-gap: 2em;
+
+    &_title {
+        color: var(--fontColor);
+    }
+
+    &_inputs {
+        display: flex;
+        flex-direction: row;
+        column-gap: 1em;
+
+        &Title {
+            color: var(--fontSecondColor);
+        }
+
+        &Group {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 2em;
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid var(--borderCardColor);
+        }
+    }
+}
+
+.loadingGraph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondaryColor);
+    width: 100%;
+
+    &_icon {
+        width: 7em;
+        height: 7em;
+        color: var(--freeColor);
+    }
+}

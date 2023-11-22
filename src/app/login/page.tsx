@@ -8,10 +8,10 @@ import { signIn, useSession } from "next-auth/react"
 import axios from "axios"
 import styles from "./login.module.scss"
 import { LoadingIcon, LogInIcon } from "../SVG/componentsSVG"
-import FormTextField from "../dashboard/components/FormTextField/FormTextField"
 import { Button } from "../dashboard/components/Button/Button"
 import { TextFieldType } from "../Types/types"
 import HeaderHome from "../components/HeaderHome/HeaderHome"
+import { TextField } from "../dashboard/components/TextField/TextField"
 
 function FormLogin() {
 	const router = useRouter()
@@ -66,7 +66,7 @@ function FormLogin() {
 				<form className={styles.login__form} onSubmit={handleSubmit}>
 					<h2 className={styles.login__title}>Login to your account</h2>
 					<LogInIcon className={styles.login__icon} />
-					<FormTextField
+					<TextField
 						textFieldProps={{
 							name: "email",
 							label: "E-mail",
@@ -77,7 +77,7 @@ function FormLogin() {
 							isRequired: true,
 						}}
 					/>
-					<FormTextField
+					<TextField
 						textFieldProps={{
 							name: "password",
 							label: "Password",

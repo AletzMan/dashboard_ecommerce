@@ -14,48 +14,57 @@ import { MenuOptionsTypes, OptionsType } from "../Types/types"
 
 export const MenuOptions: OptionsType[] = [
 	{
-		section: MenuOptionsTypes.dashboard,
+		section: MenuOptionsTypes.overview,
 		subSections: [],
+		links: "",
 		icon: <OverviewIcon />,
 	},
 	{
 		section: MenuOptionsTypes.sales,
-		subSections: ["Sales by period", "Best selling products", "Revenues by category"],
+		subSections: [],
+		links: "?period=Month&year=",
 		icon: <SalesIcon />,
 	},
 	{
 		section: MenuOptionsTypes.inventory,
 		subSections: ["Stock control", "Recording entries and exits", "Low inventory notifications"],
+		links: "",
 		icon: <InventoryIcon />,
 	},
 	{
 		section: MenuOptionsTypes.products,
-		subSections: ["Top products", "Product catalog", "Creating and editing products"],
+		subSections: ["Product catalog", "Creating and editing products", "Brands"],
+		links: "",
 		icon: <ProductsIcon />,
 	},
 	{
 		section: MenuOptionsTypes.customers,
 		subSections: ["List customers", "Account management", "Reset password"],
+		links: "",
 		icon: <CustomersIcon />,
 	},
 	{
 		section: MenuOptionsTypes.orders,
 		subSections: ["Order list", "Shipment status and tracking", "Invoice generation"],
+		links: "",
 		icon: <OrdersIcon />,
 	},
 	{
 		section: MenuOptionsTypes.marketing,
 		subSections: ["Marketing campaigns", "Promotions and discounts", "Coupon management", "Social media integration"],
+		links: "",
 		icon: <MarketingIcon />,
 	},
 	{
 		section: MenuOptionsTypes.security,
 		subSections: ["User and permission management", "Registro de actividades", "Data backup and recovery"],
+		links: "",
 		icon: <SecurityIcon />,
 	},
 	{
 		section: MenuOptionsTypes.settings,
 		subSections: ["General store settings", "Payment and shipping methods", "Privacy policies and terms"],
+		links: "",
 		icon: <SettingsIcon />,
 	},
 ]

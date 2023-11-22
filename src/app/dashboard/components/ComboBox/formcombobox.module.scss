@@ -14,6 +14,12 @@
         z-index: 20;
     }
 
+    &_label {
+        color: var(--clearanceBorderColor);
+        font-size: 0.8em;
+        padding: 0 0 0.5em 0.25em;
+    }
+
     &__input {
         width: 100%;
         padding: 0.5em 1.5rem 0.5em 0.5em;
@@ -24,9 +30,9 @@
         font-size: 0.9em;
         text-align: left;
         color: var(--fontColor);
-        background-color: #101010AA;
+        background-color: var(--fourthColor);
         border: none;
-        border-bottom: 2px solid var(--borderColor);
+        border-bottom: 2px solid var(--fontSecondColor);
         outline: none;
         transition: 0.25s ease-in-out all;
 
@@ -42,7 +48,7 @@
     &__arrow {
         position: absolute;
         right: 0;
-        top: 0;
+        top: 1em;
         height: 100%;
         width: 100%;
         max-height: 2.2em;
@@ -106,22 +112,24 @@
         max-height: 0;
         width: 100%;
         background-color: var(--secondaryColor);
-        border: 1px solid var(--hover-link);
+        border: 1px solid var(--fourthColor);
         opacity: 0;
         transition: all 0.3s ease-in-out;
         transform: scaleY(0);
         transform-origin: top center;
         z-index: 10;
+        box-sizing: border-box;
+        overflow-y: auto;
 
         &Active {
-            max-height: 9em;
+            max-height: 11em;
             opacity: 1;
             transform: scaleY(1);
         }
 
         &Above {
             transform: translateY(var(--height-combo));
-            max-height: 9em;
+            max-height: 11em;
             opacity: 1;
             z-index: 20;
         }
@@ -134,6 +142,7 @@
             width: 100%;
             background-color: transparent;
             border: none;
+            box-sizing: border-box;
             cursor: pointer;
             text-align: left;
             color: var(--fontSecondColor);
