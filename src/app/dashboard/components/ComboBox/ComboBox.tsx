@@ -5,6 +5,7 @@ import styles from "./formcombobox.module.scss"
 
 interface props {
 	options: string[]
+	label?: string
 	name?: string
 	error?: boolean
 	selectOption: string
@@ -15,34 +16,33 @@ interface props {
 }
 
 export function ComboBox(props: props) {
-	const { options, name, error, selectOption, setSelectOption, loading, plaaceholder } = props
+	const { options, name, error, selectOption, setSelectOption, loading, plaaceholder, label } = props
 	const [viewOptions, setViewOptions] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const HandleChangeCheckbox = (e: MouseEvent<HTMLButtonElement>) => {
-		console.log("CHANGE CHECKBOX")
-
-		if (viewOptions) {
-			setViewOptions(false)
-		} else {
-			setViewOptions(true)
-		}
+		setTimeout(() => {
+			if (viewOptions) {
+				setViewOptions(false)
+			} else {
+				setViewOptions(true)
+			}
+		}, 50)
 	}
-	console.log(viewOptions)
+
 	const HandleClickOption = (e: MouseEvent<HTMLButtonElement>) => {
 		const option = e.currentTarget
-		console.log("CLICK OPTION")
+
 		setSelectOption(option.value)
 		setTimeout(() => {
 			setViewOptions(false)
-		}, 150)
+		}, 50)
 	}
 
 	const HandleOnBlur = () => {
-		console.log("ON BLUR")
 		setTimeout(() => {
 			setViewOptions(false)
-		}, 150)
+		}, 50)
 	}
 
 	const calculateDropdownClass = () => {
@@ -54,13 +54,16 @@ export function ComboBox(props: props) {
 			if (inputElement) {
 				const inputRect = inputElement.getBoundingClientRect()
 				const spaceBelow = window.innerHeight - (inputRect.top + 300)
-				const height = 29.585 * options.length + 33.4
+				const height = 29.585 * 6 + 31.58
+				const heightFixed = 29.585 * options.length + 31.58
 				if (spaceBelow < 0) {
-					if (options.length < 5) {
+					console.log(spaceBelow)
+					if (options.length > 5) {
 						inputElement.style.cssText = `--height-combo: -${height}px;`
 					} else {
-						inputElement.style.cssText = `--height-combo: -11.15em;`
+						inputElement.style.cssText = `--height-combo: -${heightFixed}px;`
 					}
+					//inputElement.style.cssText = `--height-combo: -${height}px;`
 
 					return `${styles.combobox__optionsAbove}`
 				}
@@ -72,6 +75,7 @@ export function ComboBox(props: props) {
 
 	return (
 		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled} ${viewOptions && styles.combobox_active}`} onBlur={HandleOnBlur}>
+			{label && <label className={styles.combobox_label}>{label}</label>}
 			<input
 				type="text"
 				className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
@@ -93,7 +97,7 @@ export function ComboBox(props: props) {
 					<LoadingIcon className="" />
 				</div>
 			}
-			<div className={`${styles.combobox__options} ${viewOptions && calculateDropdownClass()} scrollbar`} ref={inputRef}>
+			<div className={`${styles.combobox__options} ${viewOptions && calculateDropdownClass()} scrollBarStyle`} ref={inputRef}>
 				<div className={`${styles.combobox_container} ${viewOptions && styles.combobox__containerActive}`}>
 					{options?.map((option) => (
 						<button

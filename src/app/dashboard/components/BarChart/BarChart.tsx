@@ -26,11 +26,9 @@ export interface IYAxis {
 }
 
 export interface IOptionsChart {
-	series: ISeries[]
-	xaxis: IXAxis
-	yaxis: IYAxis
 	chart: {
 		height: number
+		width: number
 	}
 	stroke: {
 		show: boolean
@@ -91,10 +89,13 @@ const HEIGHT_CHART = 65
 
 interface Props {
 	options: IOptionsChart
+	series: ISeries[]
+	xaxis: IXAxis
+	yaxis: IYAxis
 }
 
 export function BarChart(props: Props) {
-	const { options } = props
+	const { series, xaxis, yaxis, options } = props
 	const refSVG = useRef<SVGSVGElement>(null)
 	const containerSVG = useRef<HTMLDivElement>(null)
 	const refCHart = useRef<HTMLDivElement>(null)
@@ -103,7 +104,7 @@ export function BarChart(props: Props) {
 	const [updateResize, setUpdateResize] = useState(0)
 	const [viewMenu, seViewMenu] = useState(false)
 	const [selectSeries, setSelectSeries] = useState<null | number>(null)
-	const [seriesVisibles, setSeriesVisibles] = useState<number[]>(Array.from({ length: options.series.length }, (_, index) => index))
+	const [seriesVisibles, setSeriesVisibles] = useState<number[]>(Array.from({ length: series.length }, (_, index) => index))
 	const [barWidthAnsPosition, setBarWidthAndPosition] = useState({ positionX: [0], widthSection: 0 })
 	const [positionPopUp, setPositionPopUp] = useState({ x: 0, y: 0, active: false, data: {} as IBarRect, positionShadow: 0, widthShadow: 0 })
 	const [valueMax, setValueMax] = useState(1)
@@ -150,8 +151,8 @@ export function BarChart(props: Props) {
 		if (svg) {
 			const width = svg.clientWidth
 			const height = svg.clientHeight
-			const groupNumbers = options.series.length
-			const itemsNumbers = options.series[0].data.length
+			const groupNumbers = series.length
+			const itemsNumbers = series[0].data.length
 
 			let LinesAxisX: ILine[] = []
 			let LinesAxisY: ILine[] = []
@@ -197,7 +198,7 @@ export function BarChart(props: Props) {
 			for (let indexOne = 0; indexOne < groupNumbers; indexOne++) {
 				let arrayRects: IBarRect[] = []
 				for (let index = 0; index < itemsNumbers; index++) {
-					const heightBar_One = (height / 100) * ((options.series[indexOne].data[index] * 100) / valueMax)
+					const heightBar_One = (height / 100) * ((series[indexOne].data[index] * 100) / valueMax)
 					const posY_One = height - heightBar_One
 
 					arrayRects.push({
@@ -207,9 +208,9 @@ export function BarChart(props: Props) {
 						height: heightBar_One,
 						id: crypto.randomUUID(),
 						color: options.fill.colors[indexOne],
-						value: options.series[indexOne].data[index],
-						name: options.series[indexOne].name,
-						category: options.xaxis.categories[index],
+						value: series[indexOne].data[index],
+						name: series[indexOne].name,
+						category: xaxis.categories[index],
 					})
 				}
 				arrayTotalRects.push(arrayRects)
@@ -222,9 +223,9 @@ export function BarChart(props: Props) {
 	const FindMaxInMatrix = (): number => {
 		let numberArray: number[] = []
 
-		for (let index = 0; index < options.series.length; index++) {
+		for (let index = 0; index < series.length; index++) {
 			if (seriesVisibles.includes(index)) {
-				const number = Math.max(...options.series[index].data)
+				const number = Math.max(...series[index].data)
 				numberArray.push(number)
 			}
 		}
@@ -285,9 +286,9 @@ export function BarChart(props: Props) {
 		let widthSection = 0
 		if (axisLines) {
 			widthSection = axisLines.axisY[0].x1 + axisLines.axisY[1].x1 - padding
-			const numVisibleSeries = seriesVis.filter((index) => options.series[index])
+			const numVisibleSeries = seriesVis.filter((index) => series[index])
 
-			for (let i = 0; i < options.series.length; i++) {
+			for (let i = 0; i < series.length; i++) {
 				if (seriesVis.includes(i)) {
 					const visibleIndex = numVisibleSeries.indexOf(i)
 					const position = (visibleIndex * widthSection) / numVisibleSeries.length
@@ -312,8 +313,8 @@ export function BarChart(props: Props) {
 		if (containerSVG.current) {
 			const widthChart = containerSVG.current.clientWidth
 			const heightChart = containerSVG.current.clientHeight
-			const positionShadow = (containerSVG.current.clientWidth / options.series[0].data.length) * group
-			const widthShadow = containerSVG.current.clientWidth / options.series[0].data.length
+			const positionShadow = (containerSVG.current.clientWidth / series[0].data.length) * group
+			const widthShadow = containerSVG.current.clientWidth / series[0].data.length
 			let posX = positionX
 			let posY = positionY
 			if (positionX + WIDTH_CHART > widthChart) {
@@ -350,7 +351,7 @@ export function BarChart(props: Props) {
 	}
 
 	return (
-		<div className={styles.chart} ref={refCHart}>
+		<div className={styles.chart} ref={refCHart} style={{ maxWidth: options.chart.width }}>
 			<div className={styles.chart_download}>
 				<button className={styles.chart_downloadIcon} onClick={() => seViewMenu((prev) => !prev)} onBlur={() => seViewMenu(false)}>
 					<MenuIcon />
@@ -375,7 +376,7 @@ export function BarChart(props: Props) {
 						</g>
 					))}
 				</svg>
-				<span className={styles.chart_axisXText}>{options.yaxis.title.text}</span>
+				<span className={styles.chart_axisXText}>{yaxis.title.text}</span>
 			</div>
 			<div className={styles.chart_axisY}>
 				<svg className={styles.chart_axisYSVG}>
@@ -390,13 +391,13 @@ export function BarChart(props: Props) {
 								textAnchor="middle"
 								fontSize={12}
 							>
-								{options.xaxis.categories[index]}
+								{xaxis.categories[index]}
 							</text>
 						</g>
 					))}
 				</svg>
 				<ul className={styles.chart_axisYSeries}>
-					{options.series.map((serie, index) => (
+					{series.map((serie, index) => (
 						<li key={serie.name} className={`${styles.chart_axisYName}`}>
 							<button
 								className={`${styles.chart_axisYButton} ${!seriesVisibles.includes(index) && styles.chart_axisYButtonDisabled}`}

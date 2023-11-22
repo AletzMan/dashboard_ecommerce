@@ -1,0 +1,22 @@
+.area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &_label {
+        font-size: 0.8em;
+        color: var(--clearanceBorderColor);
+    }
+
+    &_text {
+        background-color: var(--fourthColor);
+        border-bottom: 2px solid var(--fontSecondColor);
+        min-width: 100%;
+        max-width: 100%;
+        padding: 0.5em;
+        color: var(--fontColor);
+        font-family: var(--font-montserrat);
+        min-height: 8em;
+        resize: none;
+    }
+}

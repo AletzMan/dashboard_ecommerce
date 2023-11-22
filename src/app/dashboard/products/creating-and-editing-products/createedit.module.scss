@@ -1,0 +1,187 @@
+.section {
+    padding: 0.5em;
+    grid-column: 2 / 3;
+
+    @media (width < 920px) {
+        grid-column: 1 / span 2;
+    }
+
+    &_title {
+        color: var(--fontSecondColor);
+        padding: 0 0 1em 0;
+    }
+}
+
+.article {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+    gap: 1em;
+    margin: 0 0 2em 0;
+
+    &_section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.5em;
+        padding: 2em 0.5em 0.5em 0.5em;
+        width: 100%;
+        //background: var(--backgroundGradient);
+        background-color: var(--secondaryColor);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--borderCardHoverColor);
+
+        &:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        &Title {
+            position: absolute;
+            top: -0.8em;
+            left: 0.5em;
+            padding: 0.25em;
+            color: var(--fontSecondColor);
+            background-color: transparent;
+            backdrop-filter: blur(5px);
+        }
+    }
+
+    &_cover {
+        position: relative;
+        height: 15em;
+        width: 15em;
+
+        &Image {
+            position: absolute;
+            top: 0;
+            width: 15em;
+            height: 15em;
+            pointer-events: none;
+        }
+    }
+
+
+    &_price {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 1.5em;
+        min-width: max-content;
+        height: 100%;
+        padding: 2.5em 0.5em 0.5em 0.5em;
+        border: 1px solid var(--borderCardHoverColor);
+    }
+
+    &_delivery {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        row-gap: 1.5em;
+        height: 100%;
+        min-width: max-content;
+        padding: 2.5em 0.5em 0.5em 0.5em;
+        border: 1px solid var(--borderCardHoverColor);
+
+        &Title {
+            position: absolute;
+            top: -0.85em;
+            padding: 0.25em;
+            font-weight: 500;
+            background-color: var(--secondaryColor);
+            color: var(--highLightColor);
+        }
+    }
+}
+
+.salesInformation {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11em, 1fr));
+    column-gap: 0.5em;
+}
+
+.details {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    padding: 2.5em 0.5em 0.5em 0.5em;
+    border: 1px solid var(--borderCardHoverColor);
+
+    &_title {
+        position: absolute;
+        top: -0.85em;
+        padding: 0.25em;
+        font-weight: 500;
+        background-color: var(--secondaryColor);
+        color: var(--newBorderColor);
+    }
+
+    &_characteristics {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.5em;
+        padding: 2.5em 0.5em 0.5em 0.5em;
+        border: 1px solid var(--newColor);
+    }
+
+    &_characteristic {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.5em;
+        padding: 0.5em 0.5em 1em 0.5em;
+        border-bottom: 1px solid var(--newBorderColor);
+    }
+
+    &_addFeature {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5em;
+        width: max-content;
+        height: 2em;
+    }
+
+    &_attributes {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        column-gap: 1em;
+        row-gap: 0.5em;
+        padding: 1em 0.5em 0.5em 0.5em;
+        border: 1px solid var(--borderCardHoverColor);
+
+
+        &Title {
+            position: absolute;
+            top: -0.85em;
+            padding: 0.25em;
+            font-weight: 500;
+            background-color: var(--secondaryColor);
+            color: var(--fontSecondColor);
+        }
+    }
+
+    &_attribute {
+        position: relative;
+        display: flex;
+        column-gap: 1em;
+        padding: 0.5em;
+        width: 100%;
+    }
+
+    &_addAttribute {
+        margin: 0 0.5em 0 0;
+        display: flex;
+        align-self: flex-end;
+        column-gap: 0.5em;
+        width: max-content;
+        height: 2em;
+    }
+
+
+}
