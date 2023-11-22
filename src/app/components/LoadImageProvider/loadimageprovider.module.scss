@@ -1,0 +1,26 @@
+.slider {
+    position: relative;
+    width: max-content;
+    //max-width: 100%;
+    height: max-content;
+
+    &Input {
+        position: absolute;
+    }
+
+    &Images {
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 0.5em;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    &Image {
+        pointer-events: none;
+        opacity: 0.3;
+    }
+}
