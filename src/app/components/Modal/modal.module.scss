@@ -1,0 +1,39 @@
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--backCategoryColor);
+    backdrop-filter: blur(4px);
+    z-index: 3;
+
+    &_section {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0.5em;
+        row-gap: 0.5em;
+        width: 100%;
+        width: max-content;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--borderCardHoverColor);
+        background-color: var(--primaryColor);
+        //height: 100%;
+    }
+
+    &_title {
+        width: 100%;
+        padding: 0.2em 0.5em;
+        border-bottom: 1px solid var(--borderCardHoverColor);
+        text-align: center;
+        color: var(--fontColor);
+        background-color: var(--borderCardColor);
+    }
+}
