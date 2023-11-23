@@ -1,4 +1,4 @@
-import React, { LegacyRef } from "react"
+import React, { LegacyRef, useEffect, useRef, useState } from "react"
 import styles from "./loadimageprovider.module.scss"
 import { IImage } from "@/app/Types/types"
 import Image from "next/image"
@@ -13,13 +13,29 @@ interface Props {
 
 export function LoadImageProvider(props: Props) {
 	const { images, children, width, height, ref } = props
+	const refContainer = useRef<HTMLDivElement | null>(null)
+	const [heightImages, setHeightImages] = useState(height)
+
+	useEffect(() => {
+		const div = refContainer.current
+		if (div) {
+			const heightDiv = div.clientHeight
+			console.log(heightDiv)
+
+			setHeightImages(heightDiv)
+		}
+	}, [images, refContainer, children])
+	//console.log(refContainer)
 	return (
-		<div className={styles.slider} style={{ width: `${images.length * width + (images.length - 1) * 8}px`, minWidth: width, minHeight: height }} ref={ref}>
-			{children}
-			<div className={styles.sliderImages}>
+		<div className={styles.slider} style={{ minWidth: width, minHeight: height, height: heightImages }}>
+			<div className={styles.sliderImages} ref={refContainer}>
 				{images[0]?.url &&
-					images.map((image) => <Image className={styles.sliderImage} key={image.url} src={image.url} alt="Product Image" width={width} height={width} />)}
+					images.length > 0 &&
+					images.map((image) => (
+						<Image className={styles.sliderImage} key={image.url} src={image.url} alt="Product Image" width={width} height={height} />
+					))}
 			</div>
+			{children}
 		</div>
 	)
 }

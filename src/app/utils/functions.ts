@@ -152,17 +152,46 @@ export const GetHeightAndWidthFromImageURL = (imageURL: string) =>
 
 
 
-const formatWithLeadingZero = (value: number) => (value < 10 ? `0${value}` : value);
+const formatWithLeadingZero = (value: number) => (value < 10 ? `0${value}` : value)
 
 export const GetFormattedDate = (date: Date): string => {
   console.log("DATE", date)
-  const year = date.getFullYear();
-  const month = formatWithLeadingZero(date.getMonth() + 1);
-  const day = formatWithLeadingZero(date.getDate());
-  const hour = formatWithLeadingZero(date.getHours() % 12 || 12);
-  const minute = formatWithLeadingZero(date.getMinutes());
-  const second = formatWithLeadingZero(date.getSeconds());
-  const period = date.getHours() < 12 ? 'AM' : 'PM';
+  const year = date.getFullYear()
+  const month = formatWithLeadingZero(date.getMonth() + 1)
+  const day = formatWithLeadingZero(date.getDate())
+  const hour = formatWithLeadingZero(date.getHours() % 12 || 12)
+  const minute = formatWithLeadingZero(date.getMinutes())
+  const second = formatWithLeadingZero(date.getSeconds())
+  const period = date.getHours() < 12 ? 'AM' : 'PM'
 
-  return `${year}-${month}-${day} ${hour}:${minute}:${second} ${period}`;
-};
+  return `${year}-${month}-${day} ${hour}:${minute}:${second} ${period}`
+}
+
+
+export const GetNameImage = (type: string) => {
+  const fechaActual = new Date();
+  const anio = fechaActual.getFullYear();
+  const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+  const dia = String(fechaActual.getDate()).padStart(2, '0');
+  const hora = String(fechaActual.getHours()).padStart(2, '0');
+  const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
+  const segundos = String(fechaActual.getSeconds()).padStart(2, '0');
+  const milisegundos = fechaActual.getMilliseconds();
+
+  return `${type}${anio}-${mes}-${dia}-${hora}-${minutos}-${segundos}-${milisegundos}`;
+
+}
+
+export const CreateIDProduct = (sku: string) => {
+  const fechaActual = new Date();
+  const anio = fechaActual.getFullYear();
+  const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+  const dia = String(fechaActual.getDate()).padStart(2, '0');
+  const hora = String(fechaActual.getHours()).padStart(2, '0');
+  const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
+  const segundos = String(fechaActual.getSeconds()).padStart(2, '0');
+  const milisegundos = fechaActual.getMilliseconds();
+
+  return `${sku}-${anio}${mes}${dia}${hora}${minutos}${segundos}${milisegundos}`;
+
+}
