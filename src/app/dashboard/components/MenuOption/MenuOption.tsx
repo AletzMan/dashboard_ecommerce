@@ -6,21 +6,21 @@ import { OptionsType } from "@/app/Types/types"
 import { usePathname } from "next/navigation"
 
 interface props {
-	currentSection: boolean
 	options: OptionsType
 	handleActiveSections: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 export function MenuOption(props: props) {
 	const pathname = usePathname()
-	const sectionName = pathname.split("/")[3]
-	//console.log(sectionName)
-	const { currentSection, options, handleActiveSections } = props
+	const sectionName = pathname.split("/")[2]
+	const subSectionName = pathname.split("/")[3]
+
+	const { options, handleActiveSections } = props
 
 	return (
 		<>
 			<button
-				className={`${styles.aside__link} ${currentSection && styles.aside__linkActive}`}
+				className={`${styles.aside__link} ${options.section === sectionName && styles.aside__linkActive}`}
 				title={`go to section ${options.section}`}
 				name={options.section}
 				onClick={(e) => handleActiveSections(e)}
@@ -29,12 +29,12 @@ export function MenuOption(props: props) {
 				{options.section}
 				{options.subSections.length > 0 && <ArrowRightIcon />}
 			</button>
-			<div className={`${styles.aside__linkOption} ${currentSection && styles.aside__linkOptionActive}`}>
-				{options.subSections?.map((subSection) => (
+			<div className={`${styles.aside__linkOption} ${options.section === sectionName && styles.aside__linkOptionActive}`}>
+				{options.subSections?.map((subSection, index) => (
 					<Link
 						key={subSection}
-						className={`${styles.aside__sublink} ${sectionName === subSection.replaceAll(" ", "-").toLowerCase() && styles.aside__sublinkActive}`}
-						href={`/dashboard/${options.section}/${subSection}`.replaceAll(" ", "-").toLowerCase()}
+						className={`${styles.aside__sublink} ${subSectionName === subSection.replaceAll(" ", "-").toLowerCase() && styles.aside__sublinkActive}`}
+						href={`/dashboard/${options.section.toLowerCase()}/${subSection.toLowerCase()}`.replaceAll(" ", "-")}
 						title={`Go to section ${subSection}`}
 					>
 						<PointIcon />

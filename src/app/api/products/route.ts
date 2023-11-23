@@ -1,6 +1,9 @@
 
-import { IOrder, IOrderByState, IProductData } from "@/app/Types/types";
+import { IOrder, IOrderByState, IProductData, ProductType } from "@/app/Types/types";
+import { pool } from "@/app/utils/database";
+import { CreateIDProduct } from "@/app/utils/functions";
 import { generateRandomOrders, productsData, stateOrdersData } from "@/app/utils/mockdata";
+import { ResultSetHeader } from "mysql2/promise";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, context: any) {
@@ -22,9 +25,42 @@ export async function GET(request: NextRequest, context: any) {
             }).filter((product, index) => index < parseInt(paramQuantity))
             return NextResponse.json({ response }, { status: 200 })
 
+        } else {
+            const response = await pool.query("SELECT * FROM products")
+            const products = response[0]
+            return NextResponse.json({ products }, { status: 200 })
         }
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 })
     }
+
+}
+
+
+export async function POST(request: NextRequest) {
+    const values = await request.json()
+    const product: ProductType = values.productValue
+    console.log(product)
+
+    try {
+        const currentDate = new Date().toISOString()
+        const skuProduct = CreateIDProduct(product.sku)
+        const response = await pool.query(
+            `INSERT INTO products (title, description, specs, image, slideImages, brand, brandLogo, category, subcategory, sameDayDelivery, storePickUp, price, isDiscounted, discount, isNew, isSale, isFreeShipping, isClearance, createdDate, lastModified, inventoryQuantity, soldQuantity, sku)
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [product.title, product.description, JSON.stringify(product.specs), product.image, JSON.stringify(product.slideImages), product.brand, product.brandLogo, product.category, product.subcategory, product.sameDayDelivery, product.storePickUp, product.price, product.isDiscounted, product.discount, product.isNew, product.isSale, product.isFreeShipping, product.isClearance, currentDate, currentDate, product.inventoryQuantity, 0, skuProduct],
+        )
+        const products: ResultSetHeader[] = response as ResultSetHeader[]
+
+        if (products[0].affectedRows === 1) {
+            return NextResponse.json({}, { status: 201 })
+        }
+
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({ error }, { status: 500 })
+
+    }
+    return NextResponse.json({ error: "A server error occurred. Please try again later." }, { status: 500 })
 
 }

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         /* TODO */
         //Agregar aqui la consulta a la base de datos
 
-        const response: ITotalSales = totalSalesData
+        const response: ITotalSales = totalSalesData()
 
 
 

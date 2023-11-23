@@ -1,6 +1,6 @@
 import { IOrder, IOrderByState, IProductData } from "../Types/types";
 
-export const monthlySalesData = [
+export const monthlyProfiData = [
     { month: 'Enero', profit: 12000, revenue: 50000, loss: 38000 },
     { month: 'Febrero', profit: 15000, revenue: 60000, loss: 45000 },
     { month: 'Marzo', profit: 18000, revenue: 70000, loss: 52000 },
@@ -14,6 +14,106 @@ export const monthlySalesData = [
     { month: 'Noviembre', profit: 38000, revenue: 150000, loss: 95000 },
     { month: 'Diciembre', profit: 40000, revenue: 160000, loss: 100000 },
 ]
+
+export interface IMonthlySales {
+    month: string;
+    sales: number;
+    salesAmount: number;
+}
+
+export interface IYearlySales {
+    year: number,
+    data: IMonthlySales[];
+}
+
+export const YearlySalesData: IYearlySales[] = [
+    {
+        year: 2019,
+        data: [
+            { month: 'January', sales: 200, salesAmount: 85000 },
+            { month: 'February', sales: 210, salesAmount: 91250 },
+            { month: 'March', sales: 450, salesAmount: 187500 },
+            { month: 'April', sales: 500, salesAmount: 212500 },
+            { month: 'May', sales: 380, salesAmount: 145500 },
+            { month: 'June', sales: 330, salesAmount: 129000 },
+            { month: 'July', sales: 550, salesAmount: 227500 },
+            { month: 'August', sales: 480, salesAmount: 178500 },
+            { month: 'September', sales: 330, salesAmount: 129000 },
+            { month: 'October', sales: 280, salesAmount: 112500 },
+            { month: 'November', sales: 230, salesAmount: 95000 },
+            { month: 'December', sales: 650, salesAmount: 262500 },
+        ],
+    },
+    {
+        year: 2020,
+        data: [
+            { month: 'January', sales: 220, salesAmount: 90000 },
+            { month: 'February', sales: 230, salesAmount: 95000 },
+            { month: 'March', sales: 460, salesAmount: 186000 },
+            { month: 'April', sales: 510, salesAmount: 207500 },
+            { month: 'May', sales: 390, salesAmount: 147500 },
+            { month: 'June', sales: 340, salesAmount: 131000 },
+            { month: 'July', sales: 560, salesAmount: 224000 },
+            { month: 'August', sales: 490, salesAmount: 197000 },
+            { month: 'September', sales: 340, salesAmount: 131000 },
+            { month: 'October', sales: 290, salesAmount: 114500 },
+            { month: 'November', sales: 240, salesAmount: 98000 },
+            { month: 'December', sales: 660, salesAmount: 265000 },
+        ],
+    },
+    {
+        year: 2021,
+        data: [
+            { month: 'January', sales: 230, salesAmount: 95000 },
+            { month: 'February', sales: 240, salesAmount: 98000 },
+            { month: 'March', sales: 470, salesAmount: 190500 },
+            { month: 'April', sales: 520, salesAmount: 210000 },
+            { month: 'May', sales: 400, salesAmount: 150000 },
+            { month: 'June', sales: 350, salesAmount: 137500 },
+            { month: 'July', sales: 570, salesAmount: 229500 },
+            { month: 'August', sales: 500, salesAmount: 200000 },
+            { month: 'September', sales: 350, salesAmount: 137500 },
+            { month: 'October', sales: 290, salesAmount: 114500 },
+            { month: 'November', sales: 240, salesAmount: 98000 },
+            { month: 'December', sales: 660, salesAmount: 268000 },
+        ],
+    },
+    {
+        year: 2022,
+        data: [
+            { month: 'January', sales: 230, salesAmount: 95000 },
+            { month: 'February', sales: 280, salesAmount: 112500 },
+            { month: 'March', sales: 450, salesAmount: 187500 },
+            { month: 'April', sales: 500, salesAmount: 212500 },
+            { month: 'May', sales: 380, salesAmount: 145500 },
+            { month: 'June', sales: 330, salesAmount: 129000 },
+            { month: 'July', sales: 550, salesAmount: 227500 },
+            { month: 'August', sales: 480, salesAmount: 178500 },
+            { month: 'September', sales: 330, salesAmount: 129000 },
+            { month: 'October', sales: 280, salesAmount: 112500 },
+            { month: 'November', sales: 230, salesAmount: 95000 },
+            { month: 'December', sales: 650, salesAmount: 262500 },
+        ],
+    },
+    {
+        year: 2023,
+        data: [
+            { month: 'January', sales: 240, salesAmount: 98000 },
+            { month: 'February', sales: 290, salesAmount: 114500 },
+            { month: 'March', sales: 460, salesAmount: 186000 },
+            { month: 'April', sales: 510, salesAmount: 207500 },
+            { month: 'May', sales: 390, salesAmount: 147500 },
+            { month: 'June', sales: 340, salesAmount: 131000 },
+            { month: 'July', sales: 560, salesAmount: 224000 },
+            { month: 'August', sales: 490, salesAmount: 197000 },
+            { month: 'September', sales: 340, salesAmount: 131000 },
+            { month: 'October', sales: 290, salesAmount: 114500 },
+            { month: 'November', sales: 240, salesAmount: 98000 },
+            { month: 'December', sales: 0, salesAmount: 0 },
+        ],
+    },
+]
+
 
 export const stateOrdersData: IOrderByState[] = [
     { id: 'MEX2706', state: 'Baja California', orders: 90, amount: 60000 },
@@ -93,9 +193,19 @@ export interface ITotalSales {
     amount: number
 }
 
-export const totalSalesData: ITotalSales = {
-    quantity: monthlySalesData.reduce((total, month) => total + month.revenue, 0),
-    amount: monthlySalesData.reduce((total, month) => total + month.profit, 0),
+export const totalSalesData = (): ITotalSales => {
+    let quantity: number = 0
+    let amount: number = 0
+    for (let year = 0; year < YearlySalesData.length; year++) {
+        for (let month = 0; month < YearlySalesData[year].data.length; month++) {
+            quantity += YearlySalesData[year].data[month].sales
+            amount += YearlySalesData[year].data[month].salesAmount
+        }
+    }
+    return {
+        quantity,
+        amount
+    }
 }
 
 

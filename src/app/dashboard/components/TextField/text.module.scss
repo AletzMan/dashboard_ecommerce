@@ -5,16 +5,21 @@
     gap: 0em;
     width: 100%;
 
+
     &__disabled {
         opacity: 0.6;
         pointer-events: none;
 
     }
 
+
+
     &__label {
         position: absolute;
-        font-size: 0.8em;
+        top: 0em;
+        left: 0;
         opacity: 0.8;
+        font-size: 0.8em;
         transform: translateX(1em) translateY(0.55em);
         user-select: none;
         transition: 0.25s ease-in-out all;
@@ -30,7 +35,7 @@
             transform: translateX(-1.2em) translateY(-1.25em);
         }
 
-        &:is(.textfield__labelError) {
+        /* &:is(.textfield__labelError) {
             &::before {
                 position: absolute;
                 left: 0em;
@@ -39,9 +44,9 @@
                 font-size: 1.3em;
                 margin: 0 0.35em 0 0;
             }
-        }
+        }*/
 
-        &:has(.textfield__labelError) {
+        /* &:has(.textfield__labelError) {
             &::before {
                 position: absolute;
                 left: 0em;
@@ -54,12 +59,13 @@
 
             }
 
-        }
+        }*/
     }
 
     &__input {
         width: 100%;
-        padding: 0.5em 0.2rem 0.5em 1em;
+        height: 100%;
+        padding: 0.5em 0.5rem 0.5em 0.5em;
         border: 1px solid transparent;
         font-family: var(--fontFamily);
         font-weight: 500;
@@ -112,6 +118,112 @@
 
         &:hover {
             color: var(--clearanceBorderColor);
+        }
+    }
+}
+
+.textfield_isFile {
+    //position: absolute;
+    //top: 0;
+    width: 100%;
+    height: 100%;
+    //max-height: max-content;
+    //min-height: 15em;
+    border: 1px dashed var(--fourthColor);
+    background-color: var(--backCategoryColor);
+
+    &Input {
+        border: none;
+        height: 100%;
+        width: 100%;
+        //max-height: max-content;
+        //min-height: 15em;
+        opacity: 0;
+        cursor: pointer;
+
+        &::file-selector-button {
+            background-color: transreparent;
+            border: none;
+            color: transparent;
+        }
+    }
+
+    &Error {
+        border: 2px dashed var(--errorColor);
+    }
+
+
+}
+
+.content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 0.5em;
+    width: 100%;
+    height: 100%;
+    color: var(--fontSecondColor);
+    z-index: 0;
+    opacity: 0.5;
+
+    &_icon {
+        width: 3em;
+        height: 3em;
+    }
+
+    &_text {
+        border-radius: 0.3em;
+        background-color: var(--borderCardColor);
+        padding: 0.25em 0.6em;
+
+        &Two {
+            font-size: 0.85em;
+        }
+    }
+}
+
+.help {
+    position: absolute;
+    right: 0em;
+    top: -1.5em;
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    border: none;
+    width: 1.3em;
+    height: 1.3em;
+    cursor: help;
+    font-size: 0.9em;
+    font-family: var(--font-montserrat);
+
+    &_icon {
+
+        width: 1.3em;
+        height: 1.3em;
+        color: var(--clearanceBorderColor);
+        pointer-events: none;
+    }
+
+
+
+
+    &_label {
+        position: absolute;
+        left: 0em;
+        width: max-content;
+        max-width: 20em;
+        padding: 0.5em;
+        color: var(--primaryColor);
+        background-color: var(--toolTipColor);
+        opacity: 0;
+        max-height: 0;
+        z-index: 3;
+
+        &Active {
+            opacity: 1;
+            max-height: 25em;
         }
     }
 }
