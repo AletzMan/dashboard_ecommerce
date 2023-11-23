@@ -39,7 +39,6 @@ export async function POST(request: NextRequest, context: any) {
     }*/
 
     const brand = await request.json()
-    console.log(brand.logo === "", brand.nameBrand === "")
 
     try {
         const date = new Date().toISOString()

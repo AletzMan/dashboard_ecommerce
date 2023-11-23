@@ -37,10 +37,17 @@ export async function UploadFile(file: Blob | Uint8Array | ArrayBuffer, typeImag
         const storageRef = ref(storage, `${typeImage}/${nameImage}`)
         await uploadBytes(storageRef, file)
         url = await getDownloadURL(storageRef)
+        return url
     } catch (error) {
         console.log(error)
         return ""
     }
+
+}
+
+export async function GetURLFile(typeImage: string, nameImage: string) {
+    const storageRef = ref(storage, `${typeImage}/${nameImage}`)
+    const url = await getDownloadURL(storageRef)
     return url
 
 }

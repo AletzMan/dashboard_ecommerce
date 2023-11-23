@@ -107,7 +107,6 @@ export function AddBrands() {
 	}
 
 	const HandleUploadSlideImage = async (e: ChangeEvent<HTMLInputElement>) => {
-		let ArrayImages: IImage[] = []
 		if (e?.target?.files) {
 			const file = e.target.files[0]
 

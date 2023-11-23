@@ -1,14 +1,28 @@
 .section {
-    padding: 0.5em;
+    position: relative;
+    padding: 0 0.5em 0.5em 0.5em;
     grid-column: 2 / 3;
 
     @media (width < 920px) {
         grid-column: 1 / span 2;
     }
 
+    &_header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 0.5em 0;
+        padding: 0.5em;
+        z-index: 2;
+        background-color: var(--primaryColor);
+        border-bottom: 1px solid var(--borderCardColor);
+    }
+
     &_title {
         color: var(--fontSecondColor);
-        padding: 0 0 1em 0;
+        font-weight: 400;
     }
 }
 
@@ -16,7 +30,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
     gap: 1em;
-    margin: 0 0 2em 0;
+    margin: 0.5 0 2em 0;
+    padding: 0.5em 0 0 0;
 
     &_section {
         position: relative;
@@ -29,6 +44,10 @@
         background-color: var(--secondaryColor);
         border-radius: var(--border-radius);
         border: 1px solid var(--borderCardHoverColor);
+
+        &Basic {
+            align-content: start;
+        }
 
         &:nth-child(2) {
             display: flex;
@@ -97,6 +116,13 @@
     }
 }
 
+.fields {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5em;
+}
+
 .salesInformation {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(11em, 1fr));
@@ -134,7 +160,46 @@
         flex-direction: column;
         row-gap: 1.5em;
         padding: 0.5em 0.5em 1em 0.5em;
-        border-bottom: 1px solid var(--newBorderColor);
+        border-radius: var(--border-radius);
+        background-color: var(--terciaryColor);
+        border: 1px solid var(--newBackgroundColor);
+
+
+        &None {
+            animation: animateUnload 0.5s forwards;
+
+            @keyframes animateUnload {
+                from {
+                    display: flex;
+                    opacity: 1;
+                }
+
+                to {
+                    display: none;
+                    opacity: 0;
+                }
+            }
+        }
+
+        &Remove {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+            width: 2em;
+            height: 2em;
+            color: var(--saleBorderColor);
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--borderCardColor);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--saleColor);
+                background-color: var(--borderCardHoverColor);
+            }
+        }
     }
 
     &_addFeature {
@@ -142,7 +207,7 @@
         align-items: center;
         justify-content: center;
         column-gap: 0.5em;
-        width: max-content;
+        max-width: 10em;
         height: 2em;
     }
 
@@ -161,17 +226,35 @@
             top: -0.85em;
             padding: 0.25em;
             font-weight: 500;
-            background-color: var(--secondaryColor);
+            background-color: var(--terciaryColor);
             color: var(--fontSecondColor);
         }
     }
 
     &_attribute {
         position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr 2em;
         column-gap: 1em;
         padding: 0.5em;
         width: 100%;
+
+        &Remove {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fontSecondColor);
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--borderCardColor);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--saleBorderColor);
+                background-color: var(--borderCardHoverColor);
+            }
+        }
     }
 
     &_addAttribute {
@@ -179,7 +262,7 @@
         display: flex;
         align-self: flex-end;
         column-gap: 0.5em;
-        width: max-content;
+        max-width: 6em;
         height: 2em;
     }
 

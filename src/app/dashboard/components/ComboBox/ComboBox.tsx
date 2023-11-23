@@ -1,22 +1,20 @@
 "use client"
 import { ArrowDownLineIcon, ArrowIcon, ArrowUpIcon, CheckTwoIcon, LoadingIcon } from "@/app/SVG/componentsSVG"
-import { useState, ChangeEvent, MouseEvent, Dispatch, SetStateAction, useRef } from "react"
+import { useState, ChangeEvent, MouseEvent, Dispatch, SetStateAction, useRef, useEffect, FC } from "react"
 import styles from "./formcombobox.module.scss"
 
-interface props {
+interface Props {
 	options: string[]
 	label?: string
 	name?: string
 	error?: boolean
-	selectOption: string
-	setSelectOption: Dispatch<SetStateAction<string>>
 	loading?: boolean
 	plaaceholder?: string
-	onChange?: () => void
+	onValueChange: (valor: string) => void
 }
 
-export function ComboBox(props: props) {
-	const { options, name, error, selectOption, setSelectOption, loading, plaaceholder, label } = props
+export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholder, label, onValueChange }) => {
+	const [selectOption, setSelectOption] = useState("")
 	const [viewOptions, setViewOptions] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -32,7 +30,6 @@ export function ComboBox(props: props) {
 
 	const HandleClickOption = (e: MouseEvent<HTMLButtonElement>) => {
 		const option = e.currentTarget
-
 		setSelectOption(option.value)
 		setTimeout(() => {
 			setViewOptions(false)
@@ -43,6 +40,17 @@ export function ComboBox(props: props) {
 		setTimeout(() => {
 			setViewOptions(false)
 		}, 50)
+	}
+
+	useEffect(() => {
+		console.log("CAMBIO")
+		onValueChange(selectOption)
+	}, [selectOption])
+
+	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+		const newValue = e.currentTarget.value
+		setSelectOption(newValue)
+		onValueChange(newValue)
 	}
 
 	const calculateDropdownClass = () => {
@@ -82,7 +90,7 @@ export function ComboBox(props: props) {
 				name={name}
 				placeholder={plaaceholder}
 				value={selectOption}
-				onChange={(e) => setSelectOption(selectOption)}
+				onChange={(e) => HandleChangeValue(e)}
 				//onFocus={() => setViewOptions(true)}
 			/>
 			<div className={styles.combobox__arrow}>

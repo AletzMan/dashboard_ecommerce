@@ -45,10 +45,11 @@ export enum TextFieldType {
     Number = "number"
 }
 
+
 export type ProductType = {
     sku: string,
     title: string,
-    specs: {},
+    specs: ICharacteristicProduct[],
     image: string,
     slideImages: string[],
     brand: string,
@@ -162,11 +163,13 @@ export interface IBrand {
 }
 
 export interface IAttribute {
+    id: string
     name: string
     value: string
 }
 
 export interface ICharacteristicProduct {
+    id: string
     name: string
     attributes: IAttribute[]
 }

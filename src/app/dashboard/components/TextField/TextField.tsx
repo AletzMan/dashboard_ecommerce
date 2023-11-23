@@ -50,7 +50,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 				</div>
 			)}
 			<input
-				className={`${styles.textfield__input} ${isRequired && error && styles.textfield__inputError} ${type === "file" && styles.textfield_isFileInput}`}
+				className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput}`}
 				type={inputType}
 				value={value}
 				onChange={onChange}
