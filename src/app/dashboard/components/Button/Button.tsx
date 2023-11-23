@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import styles from "./button.module.scss"
 import { ButtonProps, ButtonType } from "@/app/Types/types"

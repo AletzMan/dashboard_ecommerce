@@ -1,7 +1,16 @@
-export default function SalesPage() {
+import { TotalOrders } from "../overview/components/TotalsView/TotalOrders"
+import { TotalSales } from "../overview/components/TotalsView/TotalSales"
+import styles from "./components/salescomponents.module.scss"
+import { Stats } from "./components/Stats"
+
+export default async function SalesPage({ searchParams }: { searchParams: { [key: string]: string } }) {
 	return (
-		<section style={{ margin: "3.75em 0 0 10em", backgroundColor: "var(--secondaryColor)" }}>
-			<h2>SALES</h2>
+		<section className={styles.section}>
+			<div className={styles.totals}>
+				<TotalSales />
+				<TotalOrders title="Total Sales" />
+			</div>
+			<Stats />
 		</section>
 	)
 }

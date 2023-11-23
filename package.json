@@ -22,7 +22,8 @@
     "react-dom": "latest",
     "react-google-charts": "^4.0.1",
     "react-zoom-pan-pinch": "^3.3.0",
-    "sass": "^1.68.0"
+    "sass": "^1.68.0",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/node": "latest",

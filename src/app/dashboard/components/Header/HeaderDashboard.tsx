@@ -6,9 +6,8 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { MenuOptions } from "@/app/Constants/constants"
-import FormTextField from "../FormTextField/FormTextField"
-import { TextFieldType } from "@/app/Types/types"
 import { FloatingMenu } from "../FloatingMenu/FloatingMenu"
+import { SnackbarProvider } from "notistack"
 
 export function HeaderDashboard() {
 	const { data: session, update } = useSession()
@@ -42,44 +41,47 @@ export function HeaderDashboard() {
 	}
 
 	return (
-		<header className={styles.header}>
-			<h1 className={styles.header__title}>
-				{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
-				{currentPage}
-			</h1>
-			<nav className={styles.header_nav}>
-				<div className={styles.notifications} onBlur={() => setViewNotifications(false)}>
-					<button className={styles.notifications_button} onClick={HandleViewNotifications}>
-						<NotificationIcon className={styles.notifications_icon} />
-					</button>
-					<FloatingMenu isActive={viewNotifications}>
-						<span className={styles.notifications_title}>Notifications</span>
-						<span className={styles.notifications_option}>You don't have notifications</span>
-					</FloatingMenu>
-				</div>
-				<div className={styles.header_profile} onBlur={() => setViewMenu(false)}>
-					<button className={styles.header_profileButton} onClick={HandleViewMenu}>
-						<div className={styles.header_profileUser}>
-							<span className={styles.header_profileName}>{session?.user?.name}</span>
-							<span className={styles.header_profileEmail}>{"Administrador"}</span>
-						</div>
-						<picture className={styles.header_profilePicture}>
-							<img className={styles.header_profileImage} src={session?.user?.image || ""} alt={`Profile photo`} />
-						</picture>
-						<ArrowDownIcon />
-					</button>
-					<FloatingMenu isActive={viewMenu}>
-						<Link className={styles.header_profileMenuLink} href={`/myaccount`} title="Go to my account settings">
-							<UserIcon />
-							My Account
-						</Link>
-						<button className={styles.header_profileMenuLink} onClick={() => signOut()} title="Logout account">
-							<LogoutIcon />
-							LogOut
+		<>
+			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "left", vertical: "top" }} />
+			<header className={styles.header}>
+				<h1 className={styles.header__title}>
+					{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
+					{currentPage}
+				</h1>
+				<nav className={styles.header_nav}>
+					<div className={styles.notifications} onBlur={() => setViewNotifications(false)}>
+						<button className={styles.notifications_button} onClick={HandleViewNotifications}>
+							<NotificationIcon className={styles.notifications_icon} />
 						</button>
-					</FloatingMenu>
-				</div>
-			</nav>
-		</header>
+						<FloatingMenu isActive={viewNotifications}>
+							<span className={styles.notifications_title}>Notifications</span>
+							<span className={styles.notifications_option}>You don't have notifications</span>
+						</FloatingMenu>
+					</div>
+					<div className={styles.header_profile} onBlur={() => setViewMenu(false)}>
+						<button className={styles.header_profileButton} onClick={HandleViewMenu}>
+							<div className={styles.header_profileUser}>
+								<span className={styles.header_profileName}>{session?.user?.name}</span>
+								<span className={styles.header_profileEmail}>{"Administrador"}</span>
+							</div>
+							<picture className={styles.header_profilePicture}>
+								<img className={styles.header_profileImage} src={session?.user?.image || ""} alt={`Profile photo`} />
+							</picture>
+							<ArrowDownIcon />
+						</button>
+						<FloatingMenu isActive={viewMenu}>
+							<Link className={styles.header_profileMenuLink} href={`/myaccount`} title="Go to my account settings">
+								<UserIcon />
+								My Account
+							</Link>
+							<button className={styles.header_profileMenuLink} onClick={() => signOut()} title="Logout account">
+								<LogoutIcon />
+								LogOut
+							</button>
+						</FloatingMenu>
+					</div>
+				</nav>
+			</header>
+		</>
 	)
 }

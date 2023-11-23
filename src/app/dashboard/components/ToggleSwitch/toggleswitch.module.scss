@@ -1,0 +1,70 @@
+.switch {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    box-sizing: border-box;
+    row-gap: 0.25em;
+    width: max-content;
+    height: max-content;
+    min-width: 3em;
+    min-height: 1.5em;
+
+
+    &_label {
+        font-size: 0.8em;
+        color: var(--clearanceBorderColor);
+        width: max-content;
+    }
+
+    &_container {
+        position: relative;
+        width: 3em;
+        height: 1.5em;
+    }
+
+    &_input {
+        position: absolute;
+        width: 3em;
+        height: 1.5em;
+        cursor: pointer;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    &_base {
+        position: absolute;
+        top: 0;
+        width: 3em;
+        height: 1.5em;
+        border-radius: 1em;
+        transition: all 0.3s ease-in-out;
+        background-color: var(--fourthColor);
+        border: 1px solid var(--shadowColor);
+
+        &Active {
+            background-color: var(--highLightColor);
+        }
+    }
+
+    &_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0px;
+        width: 1.4em;
+        height: 1.4em;
+        border-radius: 1em;
+        color: var(--fontSecondColor);
+        transition: all 0.3s ease-in-out;
+        transform: translateX(0);
+        background: radial-gradient(circle, var(--fourthColor) 30%, var(--primaryColor) 80%);
+
+        &Active {
+            transform: translateX(1.5em);
+        }
+    }
+
+}

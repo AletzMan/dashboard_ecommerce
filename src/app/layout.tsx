@@ -14,7 +14,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<Providers>
-				<body className={montserrat.className}>{children}</body>
+				<body className={montserrat.className}>
+					{children}
+					<div id="modal_root"></div>
+				</body>
 			</Providers>
 		</html>
 	)
