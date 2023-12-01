@@ -54,7 +54,7 @@ export const FieldIsValid = (fields: string[]) => {
 export const FieldsInvalid = (fields: string[]) => {
   let array: number[] = []
   fields.forEach((element, index) => {
-    if (element !== undefined && element.toString() === "" || element.toString() === "0") {
+    if ((element !== undefined && element.toString() === "") || element.toString() === "0") {
       //console.log(element)
       array.push(index)
     }
@@ -69,7 +69,6 @@ export const GetPriceWithDiscount = (price: number, discount: number): string =>
   const formatPrice = gasPrice.format(totalPrice)
   return formatPrice
 }
-
 
 export const FormattedString = (value: number) => {
   const formatted = value?.toLocaleString("en-US", {
@@ -101,14 +100,12 @@ export interface ISalesRank {
 }
 
 export const GetSalesRank = (orders: IOrderByState[]) => {
-
   let totalAmount: number[] = []
   for (let index = 0; index < orders.length; index++) {
     totalAmount.push(orders[index].amount)
   }
 
   let ranges: number[] = []
-
 
   const maxValue = Math.max(...totalAmount)
 
@@ -130,14 +127,13 @@ export const GetSalesRank = (orders: IOrderByState[]) => {
     } else if (orders[index].amount < ranges[0]) {
       salesRank.push({ color: colorsRange[3], name: orders[index].state })
     }
-
   }
 
   return salesRank
 }
 
 export const GetHeightAndWidthFromImageURL = (imageURL: string) =>
-  new Promise<{ width: number, height: number }>((resolve) => {
+  new Promise<{ width: number; height: number }>((resolve) => {
     const img = new Image()
     img.onload = () => {
       resolve({
@@ -147,10 +143,6 @@ export const GetHeightAndWidthFromImageURL = (imageURL: string) =>
     }
     img.src = imageURL
   })
-
-
-
-
 
 const formatWithLeadingZero = (value: number) => (value < 10 ? `0${value}` : value)
 
@@ -162,36 +154,27 @@ export const GetFormattedDate = (date: Date): string => {
   const hour = formatWithLeadingZero(date.getHours() % 12 || 12)
   const minute = formatWithLeadingZero(date.getMinutes())
   const second = formatWithLeadingZero(date.getSeconds())
-  const period = date.getHours() < 12 ? 'AM' : 'PM'
+  const period = date.getHours() < 12 ? "AM" : "PM"
 
   return `${year}-${month}-${day} ${hour}:${minute}:${second} ${period}`
 }
 
-
 export const GetNameImage = (type: string) => {
-  const fechaActual = new Date();
-  const anio = fechaActual.getFullYear();
-  const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-  const dia = String(fechaActual.getDate()).padStart(2, '0');
-  const hora = String(fechaActual.getHours()).padStart(2, '0');
-  const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
-  const segundos = String(fechaActual.getSeconds()).padStart(2, '0');
-  const milisegundos = fechaActual.getMilliseconds();
+  const fechaActual = new Date()
+  const anio = fechaActual.getFullYear()
+  const mes = String(fechaActual.getMonth() + 1).padStart(2, "0")
+  const dia = String(fechaActual.getDate()).padStart(2, "0")
+  const hora = String(fechaActual.getHours()).padStart(2, "0")
+  const minutos = String(fechaActual.getMinutes()).padStart(2, "0")
+  const segundos = String(fechaActual.getSeconds()).padStart(2, "0")
+  const milisegundos = fechaActual.getMilliseconds()
 
-  return `${type}${anio}-${mes}-${dia}-${hora}-${minutos}-${segundos}-${milisegundos}`;
-
+  return `${type}${anio}-${mes}-${dia}-${hora}-${minutos}-${segundos}-${milisegundos}`
 }
 
 export const CreateIDProduct = (sku: string) => {
-  const fechaActual = new Date();
-  const anio = fechaActual.getFullYear();
-  const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-  const dia = String(fechaActual.getDate()).padStart(2, '0');
-  const hora = String(fechaActual.getHours()).padStart(2, '0');
-  const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
-  const segundos = String(fechaActual.getSeconds()).padStart(2, '0');
-  const milisegundos = fechaActual.getMilliseconds();
+  const fechaActual = new Date()
+  const milisegundos = fechaActual.getTime()
 
-  return `${sku}-${anio}${mes}${dia}${hora}${minutos}${segundos}${milisegundos}`;
-
+  return `${sku}-${milisegundos}`
 }

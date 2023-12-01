@@ -38,6 +38,10 @@ export function OptionsSales(props: Props) {
 		}
 	}
 
+	const HandleChangePerdiod = (e: string) => {
+		setSalesPeriod(e)
+	}
+
 	//console.log(year)
 
 	return (
@@ -54,7 +58,7 @@ export function OptionsSales(props: Props) {
 						disabled: !(parseInt(year) > firstYear),
 					}}
 				/>
-				<ComboBox options={OptionsPeriod} selectOption={salesPeriod} setSelectOption={setSalesPeriod} />
+				<ComboBox options={OptionsPeriod} value={salesPeriod} onValueChange={HandleChangePerdiod} />
 				<Button
 					className={styles.header_button}
 					title={`See next ${salesPeriod}`}
@@ -76,7 +80,7 @@ export function OptionsSales(props: Props) {
 					placeholder: "",
 					type: TextFieldType.Text,
 					value: text,
-					onChange() {},
+					onChange() { },
 					disabled: true,
 				}}
 			/>

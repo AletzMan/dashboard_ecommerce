@@ -9,6 +9,18 @@ import { MenuOptions } from "@/app/Constants/constants"
 import { FloatingMenu } from "../FloatingMenu/FloatingMenu"
 import { SnackbarProvider } from "notistack"
 
+const OptionsDate: Intl.DateTimeFormatOptions = {
+	timeZone: "America/Mexico_City",
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+	weekday: "long"
+	//hour: "2-digit",
+	//minute: "2-digit",
+	//second: "2-digit",
+	//hour12: true, // Para usar el formato de 12 horas (AM/PM)
+}
+
 export function HeaderDashboard() {
 	const { data: session, update } = useSession()
 	const [viewMenu, setViewMenu] = useState<boolean>(false)
@@ -18,9 +30,6 @@ export function HeaderDashboard() {
 
 	// Polling the session every 1 hour
 	useEffect(() => {
-		// TIP: You can also use `navigator.onLine` and some extra event handlers
-		// to check if the user is online and only update the session if they are.
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine
 		const interval = setInterval(() => document.visibilityState === "visible" && update({ name: session?.user?.name }), 1000 * 60 * 50)
 		return () => clearInterval(interval)
 	}, [update])
@@ -40,14 +49,17 @@ export function HeaderDashboard() {
 		setViewNotifications((prev) => !prev)
 	}
 
+	const date = new Date().toLocaleString("es-MX", OptionsDate)
+
 	return (
 		<>
 			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "left", vertical: "top" }} />
 			<header className={styles.header}>
 				<h1 className={styles.header__title}>
 					{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
-					{currentPage}
+					{`${currentPage}`}
 				</h1>
+				<p className={styles.header_date}>{date}</p>
 				<nav className={styles.header_nav}>
 					<div className={styles.notifications} onBlur={() => setViewNotifications(false)}>
 						<button className={styles.notifications_button} onClick={HandleViewNotifications}>
@@ -65,7 +77,7 @@ export function HeaderDashboard() {
 								<span className={styles.header_profileEmail}>{"Administrador"}</span>
 							</div>
 							<picture className={styles.header_profilePicture}>
-								<img className={styles.header_profileImage} src={session?.user?.image || ""} alt={`Profile photo`} />
+								<img className={styles.header_profileImage} src={session?.user?.image || "/user_icon.png"} alt={`Profile photo`} />
 							</picture>
 							<ArrowDownIcon />
 						</button>

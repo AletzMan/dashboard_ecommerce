@@ -7,7 +7,9 @@ export default async function SalesPage({ searchParams }: { searchParams: { [key
 	return (
 		<section className={styles.section}>
 			<div className={styles.totals}>
+				{/* @ts-expect-error Server Component */}
 				<TotalSales />
+				{/* @ts-expect-error Server Component */}
 				<TotalOrders title="Total Sales" />
 			</div>
 			<Stats />

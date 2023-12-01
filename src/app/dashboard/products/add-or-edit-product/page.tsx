@@ -8,7 +8,6 @@ export default function ProductsPage() {
 	return (
 		<section className={`${styles.section} scrollBarStyle`}>
 			<header className={styles.section_header}>
-				<h2 className={styles.section_title}>ADD PRODUCT</h2>
 				<SaveProductsButton />
 			</header>
 			<article className={styles.article}>

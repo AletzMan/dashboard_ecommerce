@@ -15,13 +15,13 @@ import { MenuOptionsTypes, OptionsType } from "../Types/types"
 export const MenuOptions: OptionsType[] = [
 	{
 		section: MenuOptionsTypes.overview,
-		subSections: [],
+		subSections: undefined,
 		links: "",
 		icon: <OverviewIcon />,
 	},
 	{
 		section: MenuOptionsTypes.sales,
-		subSections: [],
+		subSections: undefined,
 		links: "?period=Month&year=",
 		icon: <SalesIcon />,
 	},
@@ -33,19 +33,19 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.products,
-		subSections: ["Product catalog", "Creating and editing products", "Brands"],
+		subSections: ["Add or Edit product", "Brands"],
 		links: "",
 		icon: <ProductsIcon />,
 	},
 	{
 		section: MenuOptionsTypes.customers,
-		subSections: ["List customers", "Account management", "Reset password"],
+		subSections: ["Account management", "Reset password"],
 		links: "",
 		icon: <CustomersIcon />,
 	},
 	{
 		section: MenuOptionsTypes.orders,
-		subSections: ["Order list", "Shipment status and tracking", "Invoice generation"],
+		subSections: ["Shipment status and tracking", "Invoice generation"],
 		links: "",
 		icon: <OrdersIcon />,
 	},

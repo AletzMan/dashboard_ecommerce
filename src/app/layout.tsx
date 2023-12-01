@@ -1,9 +1,9 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import { Raleway } from "next/font/google"
+import { Montserrat } from "next/font/google"
 import Providers from "./components/Providers"
 
-const montserrat = Raleway({ subsets: ["latin"] })
+const montserrat = Montserrat({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "Dashboard",

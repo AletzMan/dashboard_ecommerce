@@ -1,0 +1,281 @@
+.section {
+    position: relative;
+    padding: 0 0.5em 0.5em 0.5em;
+    grid-column: 2 / 3;
+
+    @media (width < 920px) {
+        grid-column: 1 / span 2;
+    }
+
+    &_header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 0.5em 0;
+        padding: 0.5em;
+        z-index: 4;
+        background-color: var(--primaryColor);
+        border-bottom: 1px solid var(--borderCardColor);
+    }
+
+    &_title {
+        color: var(--fontSecondColor);
+        font-weight: 400;
+    }
+}
+
+.header {
+    //display: grid;
+    //grid-template-columns: 1fr minmax(20em, 24em);
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    column-gap: 0.5em;
+    padding: 0.5em 0;
+
+    @media (width < 700px) {
+        grid-template-columns: 1fr;
+        column-gap: 0em;
+    }
+
+    &_top {
+        display: flex;
+        flex-direction: row;
+        column-gap: 0.5em;
+    }
+
+
+    &_search {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5em;
+        width: 100%;
+
+        @media (width < 700px) {
+            grid-column: span 2;
+            grid-row: 2 / 3;
+        }
+
+        &Fields {
+            display: grid;
+            grid-template-columns: 1fr 4em;
+            place-items: end center;
+            max-width: 28em;
+
+        }
+    }
+
+    &_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        &>:last-child {
+            width: 9em;
+            height: 2.5em;
+        }
+    }
+
+    &_results {
+        display: flex;
+        align-items: flex-end;
+        column-gap: 0.25em;
+        height: 100%;
+        font-size: 0.8em;
+        padding: 0.5em 0 0 0;
+        color: var(--fontSecondColor);
+
+        &Find {
+            color: var(--clearanceBorderColor);
+            font-weight: 600;
+        }
+
+        &Search {
+            color: var(--highLightHoverColor);
+            font-weight: 600;
+        }
+    }
+
+
+}
+
+.articles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+
+    &_products {
+        width: 100%;
+        grid-column: span 3;
+    }
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    width: 100%;
+
+    background-color: var(--primaryColor);
+
+
+    &_header {
+        display: grid;
+        //grid-template-columns: 12em 6em 10em 1fr 7em 7em 4em;
+        grid-template-columns: repeat(7, 1fr);
+        align-items: center;
+        width: 100%;
+        min-width: 51em;
+
+        justify-content: center;
+        background-color: var(--fourthColor);
+    }
+
+    &_column {
+        width: 100%;
+        text-align: center;
+        color: var(--fontColor);
+        padding: 0.4em;
+        font-size: 0.8em;
+        font-weight: 600;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+
+            &:nth-child(2),
+            &:last-child {
+                background-color: var(--terciaryColor);
+                cursor: default;
+            }
+
+            cursor: pointer;
+            background-color: var(--fourthColor);
+        }
+    }
+}
+
+.graph {
+    min-width: 20em;
+    width: 100%;
+    background-color: var(--primaryColor);
+
+    @media (width < 700px) {
+        min-width: 100%;
+    }
+}
+
+
+.card {
+    display: grid;
+    //grid-template-columns: 12em 6em 10em 1fr 7em 7em 4em;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 51em;
+    height: 100%;
+    padding: 0.25em 0;
+    border-radius: 0.15em;
+    color: var(--fontSecondColor);
+    background-color: var(--backCategoryColor);
+    transition: transform 0.25s ease-in-out;
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.005);
+        background-color: var(--terciaryColor);
+    }
+
+    &_sku {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+
+    &_image {
+        align-self: center;
+        justify-self: center;
+        border-radius: 5em;
+    }
+
+    &_title {
+        width: 100%;
+        text-align: center;
+        font-size: 0.85em;
+        padding: 0 1em;
+    }
+
+    &_brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9em;
+    }
+
+
+    &_price {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85em;
+        font-weight: 500;
+        width: 80%;
+        padding: 0.15em;
+        color: var(--clearanceBorderColor);
+    }
+
+
+
+    &_status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8em;
+        padding: 0.25em 0.5em;
+        border-radius: 0.5em;
+        color: var(--newBorderColor);
+        text-transform: capitalize;
+        background-color: var(--borderCardColor);
+
+        &Inactive {
+            color: var(--saleBorderColor);
+            //background-color: var(--saleBackgroundColor);
+        }
+
+        &Out {
+            color: var(--freeBorderColor);
+            //background-color: var(--freeBackgroundColor);
+        }
+    }
+
+    &_view {
+        align-self: center;
+        justify-self: center;
+        border: none;
+        width: 2em;
+        height: 2em;
+        color: var(--shadowColor);
+        background-color: var(--backCategoryColor);
+        cursor: pointer;
+        transition: color 0.25s ease-in-out;
+
+        &:hover {
+            color: var(--highLightHoverColor);
+        }
+
+        &Icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+    }
+
+}

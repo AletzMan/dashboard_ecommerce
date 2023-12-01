@@ -1,7 +1,11 @@
+import { TotalCustomers } from "../overview/components/TotalsView/TotalCustomers"
+import styles from "./customers.module.scss"
+
 export default function CustomersPage() {
 	return (
-		<section style={{ margin: "3.75em 0 0 10em", backgroundColor: "var(--secondaryColor)" }}>
-			<h2>CUSTOMERS</h2>
+		<section className={styles.section}>
+			{/* @ts-expect-error Server Component */}
+			<TotalCustomers />
 		</section>
 	)
 }
