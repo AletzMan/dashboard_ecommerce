@@ -30,10 +30,13 @@
         font-size: 0.9em;
         text-align: left;
         color: var(--fontColor);
-        background-color: var(--fourthColor);
+        background-color: var(--secondaryColor);
         border: none;
-        border-bottom: 2px solid var(--fontSecondColor);
+        border: 1px solid var(--borderCardColor);
+        border: 1px solid var(--borderCardColor);
+        border-bottom: 1px solid var(--fontSecondColor);
         outline: none;
+        border-radius: 0.15em;
         transition: 0.25s ease-in-out all;
 
         @media (width < 400px) {
@@ -48,13 +51,18 @@
     &__arrow {
         position: absolute;
         right: 0;
-        top: 1em;
+        top: 0em;
         height: 100%;
         width: 100%;
         max-height: 2.2em;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        &WithLabel {
+            top: 1em;
+        }
+
 
         &Checkbox {
             position: absolute;
@@ -116,7 +124,7 @@
         opacity: 0;
         transition: all 0.3s ease-in-out;
         transform: scaleY(0);
-        transform-origin: top center;
+        transform-origin: 0 0;
         z-index: 10;
         box-sizing: border-box;
         overflow-y: auto;
@@ -128,6 +136,7 @@
         }
 
         &Above {
+            transform-origin: 200% 200%;
             transform: translateY(var(--height-combo));
             max-height: 11em;
             opacity: 1;
