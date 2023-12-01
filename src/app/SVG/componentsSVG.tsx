@@ -1912,6 +1912,42 @@ export function AcceptIcon({ className }: { className?: string }) {
 	)
 }
 
+export function ArrowDownSolidtIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M7 9a1 1 0 0 0-.707 1.707l5 5a1 1 0 0 0 1.414 0l5-5A1 1 0 0 0 17 9z" clipRule="evenodd" /></svg>
+	)
+}
+
+export function TopIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m8.587 8.236l2.598-5.232a.911.911 0 0 1 1.63 0l2.598 5.232l5.808.844a.902.902 0 0 1 .503 1.542l-4.202 4.07l.992 5.75c.127.738-.653 1.3-1.32.952L12 18.678l-5.195 2.716c-.666.349-1.446-.214-1.319-.953l.992-5.75l-4.202-4.07a.902.902 0 0 1 .503-1.54l5.808-.845Z" /></svg>
+	)
+}
+
+export function LastPageIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.29 8.11L10.18 12l-3.89 3.89A.996.996 0 1 0 7.7 17.3l4.59-4.59a.996.996 0 0 0 0-1.41L7.7 6.7a.996.996 0 0 0-1.41 0c-.38.39-.38 1.03 0 1.41M17 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1" /></svg>
+	)
+}
+
+export function FirstPageIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 18q-.425 0-.712-.288T6 17V7q0-.425.288-.712T7 6q.425 0 .713.288T8 7v10q0 .425-.288.713T7 18m6.8-6l3.9 3.9q.275.275.275.7t-.275.7q-.275.275-.7.275t-.7-.275l-4.6-4.6q-.15-.15-.212-.325T11.425 12q0-.2.063-.375t.212-.325l4.6-4.6q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7z" /></svg>
+	)
+}
+
+export function PrevPageIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" /></svg>
+	)
+}
+
+export function NextPageIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m10 17l5-5l-5-5" /></svg>
+	)
+}
+
 export function HelpIcon({ className }: { className?: string }) {
 	return (
 		<svg className={className} width="48" height="48" viewBox="0 0 48 48">

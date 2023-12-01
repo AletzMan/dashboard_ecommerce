@@ -36,9 +36,8 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 
 	return (
 		<div
-			className={`${styles.textfield} ${disabled && styles.textfield__disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile} ${
-				type === TextFieldType.File && isRequired && error && styles.textfield_isFileError
-			}`}
+			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError
+				}`}
 			onBlur={() => setViewHelp(false)}
 			ref={ref}
 		>

@@ -1,36 +1,39 @@
 "use client"
-import { AcceptIcon, CancelIcon, DeleteIcon, EditIcon } from "@/app/SVG/componentsSVG"
-import styles from "./brands.module.scss"
+import { AcceptIcon, CancelIcon, DeleteIcon, EditIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
+import styles from "./datagrid.module.scss"
 import { IBrand } from "@/app/Types/types"
 import { DeleteFile } from "@/Firebase/firebase"
 import axios from "axios"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { enqueueSnackbar } from "notistack"
 import { useViewModal } from "@/app/utils/store"
 import { Modal } from "@/app/components/Modal/Modal"
-import { useState } from "react"
-import { Button } from "../../components/Button/Button"
+import { useCallback, useState } from "react"
+import { Button } from "../Button/Button"
+import { ICell } from "./DataGrid"
 
 interface Props {
-	brand: IBrand
+	brand: ICell[]
 }
 
-export function OptionsBrand(props: Props) {
+export function OptionsRow(props: Props) {
 	const router = useRouter()
 	const [open, setOpen] = useState(false)
-	const { setViewModal, setBrandSelect, setTypeModal } = useViewModal()
+	const pathname = usePathname()
+	const section = pathname.split("/")[3] || pathname.split("/")[2]
+	//const { setViewModal, setBrandSelect, setTypeModal } = useViewModal()
 	const { brand } = props
 
 	const HandleEditBrand = async () => {
-		setTypeModal("Edit")
-		setBrandSelect(brand)
-		setViewModal(true)
+		//setTypeModal("Edit")
+		//setBrandSelect(brand)
+		//setViewModal(true)
 	}
 
 	const HandleDeletetBrand = async () => {
 		try {
-			await DeleteFile("logosBrands", brand.name)
-			const response = await axios.delete(`/api/brands/${brand.id}`)
+			await DeleteFile("logosBrands", brand[0].value)
+			const response = await axios.delete(`/api/${section}/${brand[0].value}`)
 
 			if (response.status === 200) {
 				enqueueSnackbar("Record successfully deleted", { variant: "success" })
@@ -41,10 +44,14 @@ export function OptionsBrand(props: Props) {
 		}
 	}
 
+
 	return (
 		<>
 			<div className={styles.options}>
-				<button className={styles.options_button} onClick={HandleEditBrand}>
+				<button className={`${styles.options_button} ${styles.options_buttonView}`} onClick={() => HandleEditBrand()}>
+					<ViewOnIcon className={styles.options_buttonIcon} />
+				</button>
+				<button className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
 					<EditIcon className={styles.options_buttonIcon} />
 				</button>
 				<button className={`${styles.options_button} ${styles.options_buttonDelete}`} onClick={() => setOpen(true)}>
@@ -52,10 +59,10 @@ export function OptionsBrand(props: Props) {
 				</button>
 			</div>
 			{open && (
-				<Modal title="Delete brand">
+				<Modal title={"Delete"}>
 					<div className={styles.options_message}>
-						Are you sure you want to delete the brand<span className={styles.options_messageMark}>{` ${brand.name} `}</span> with ID{" "}
-						<span className={styles.options_messageMark}>{` ${brand.id} `}</span>?
+						Are you sure you want to delete the item with ID<br />
+						<span className={styles.options_messageMark}>{` ${brand[0].value} `}</span>?
 					</div>
 					<div className={styles.options_buttons}>
 						<Button

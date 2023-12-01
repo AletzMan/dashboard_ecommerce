@@ -5,8 +5,11 @@ import styles from "./brands.module.scss"
 import { ChangeEvent, useState } from "react"
 import { Button } from "../../components/Button/Button"
 import { SearchIcon } from "@/app/SVG/componentsSVG"
+import { useSearchParams } from "next/navigation"
 export function SearchBrands() {
-	const [search, setSearch] = useState("")
+	const searchParams = useSearchParams()
+	const paramSearch = searchParams.get("search") || ""
+	const [search, setSearch] = useState(paramSearch)
 
 	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
 		const textSearch = e.currentTarget.value
@@ -29,7 +32,7 @@ export function SearchBrands() {
 			<Button
 				title="Search"
 				buttonProps={{
-					onClick() {},
+					onClick() { },
 					text: "",
 					typeButton: ButtonType.OnlyIcon,
 					type: "button",

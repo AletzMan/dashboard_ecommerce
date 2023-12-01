@@ -7,7 +7,7 @@ import { ChangeEvent } from "react"
 import { TextFieldType } from "@/app/Types/types"
 
 export function Information() {
-	const { productValue, setProductValue, errorEmpty, setErrorEmpty } = useProductInformation()
+	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
 		setProductValue({ ...productValue, [e.target.name]: e.target.value })
 		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
@@ -66,6 +66,17 @@ export function Information() {
 						value: productValue.inventoryQuantity.toString(),
 						isRequired: true,
 						error: errorEmpty.inventoryQuantity,
+						onChange: (e) => HandleChangeValue(e),
+						type: TextFieldType.Number,
+					}}
+				/>
+				<TextField
+					textFieldProps={{
+						name: "minimuninventoryQuantity",
+						label: "Minimum Quantity:",
+						value: productValue.minimuninventoryQuantity.toString(),
+						isRequired: true,
+						error: errorEmpty.minimuninventoryQuantity,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 					}}

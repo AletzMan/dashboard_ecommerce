@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { TextField } from "../../components/TextField/TextField"
 import styles from "./createedit.module.scss"
 import { ButtonType, IAttribute, ICharacteristicProduct, TextFieldType } from "@/app/Types/types"
@@ -8,14 +8,21 @@ import { Button } from "../../components/Button/Button"
 import { useProductInformation } from "@/app/utils/store"
 
 export function Details() {
-	const { setProductValue, productValue } = useProductInformation()
+	const { setProductValue, productValue, loadInformation } = useProductInformation()
 	const [detailsProduct, setDetailsProduct] = useState<ICharacteristicProduct[]>([
-		{ id: crypto.randomUUID(), name: "New characteristic", attributes: [{ id: crypto.randomUUID(), name: "New attribute", value: "0" }] },
+		{ id: crypto.randomUUID(), name: "", attributes: [{ id: crypto.randomUUID(), name: "", value: "" }] }
 	])
 	const [remove, setRemove] = useState({ remove: false, index: NaN })
+	const detailsRef = useRef<HTMLDivElement | null>(null)
+
+	useEffect(() => {
+		setDetailsProduct([
+			{ id: crypto.randomUUID(), name: "", attributes: [{ id: crypto.randomUUID(), name: "", value: "" }] }
+		])
+	}, [loadInformation])
 
 	const HandleAddAttribute = (index: number) => {
-		const newAttribute: IAttribute = { id: crypto.randomUUID(), name: "New attributte", value: "0" }
+		const newAttribute: IAttribute = { id: crypto.randomUUID(), name: "", value: "" }
 		const prevCharacteristics = [...detailsProduct]
 		prevCharacteristics[index].attributes.push(newAttribute)
 		setDetailsProduct(prevCharacteristics)
@@ -30,12 +37,16 @@ export function Details() {
 	const HandleAddCharacteristic = () => {
 		const newCharacteristic: ICharacteristicProduct = {
 			id: crypto.randomUUID(),
-			name: "New characteristic",
-			attributes: [{ id: crypto.randomUUID(), name: "New attribute", value: "0" }],
+			name: "",
+			attributes: [{ id: crypto.randomUUID(), name: "", value: "" }],
 		}
 		const prevCharacteristics = [...detailsProduct]
 		prevCharacteristics.push(newCharacteristic)
 		setDetailsProduct(prevCharacteristics)
+		const divDetails = detailsRef.current
+		if (divDetails) {
+			divDetails.scrollTo({ top: 1000 })
+		}
 	}
 
 	const HandleRemoveCharacteristic = (indexCharacteristic: number) => {
@@ -71,9 +82,9 @@ export function Details() {
 	}
 
 	return (
-		<div className={styles.details}>
+		<div className={styles.details} ref={detailsRef}>
 			<h3 className={styles.article_sectionTitle}>Details product</h3>
-			<div className={styles.details_characteristics}>
+			<div className={`${styles.details_characteristics}  `}>
 				<h3 className={styles.details_title}>Characteristics</h3>
 				{detailsProduct.map((characteristic, indexCharacteristic) => (
 					<div
@@ -101,18 +112,7 @@ export function Details() {
 						/>
 						<div className={styles.details_attributes}>
 							<h4 className={styles.details_attributesTitle}>Attributes</h4>
-							<Button
-								className={styles.details_addAttribute}
-								buttonProps={{
-									onClick: () => HandleAddAttribute(indexCharacteristic),
-									text: "Attribute",
-									type: "button",
-									typeButton: ButtonType.WhitIcon,
-									iconButton: <AddIcon />,
-									isSecondary: true,
-								}}
-								title="Add characteristic"
-							/>
+
 
 							{characteristic.attributes.map((attribute, indexAttribute) => (
 								<div key={attribute.id} className={styles.details_attribute}>
@@ -146,7 +146,18 @@ export function Details() {
 										</button>
 									)}
 								</div>
-							))}
+							))}	<Button
+								className={styles.details_addAttribute}
+								buttonProps={{
+									onClick: () => HandleAddAttribute(indexCharacteristic),
+									text: "Attribute",
+									type: "button",
+									typeButton: ButtonType.WhitIcon,
+									iconButton: <AddIcon />,
+									isSecondary: true,
+								}}
+								title="Add attribute"
+							/>
 						</div>
 					</div>
 				))}
@@ -155,7 +166,7 @@ export function Details() {
 				className={styles.details_addFeature}
 				buttonProps={{
 					onClick: HandleAddCharacteristic,
-					text: "Add Characteristic",
+					text: "Characteristic",
 					type: "button",
 					typeButton: ButtonType.WhitIcon,
 					iconButton: <AddIcon />,
