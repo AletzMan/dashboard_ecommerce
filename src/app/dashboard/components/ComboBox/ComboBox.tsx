@@ -4,6 +4,7 @@ import { useState, ChangeEvent, MouseEvent, Dispatch, SetStateAction, useRef, us
 import styles from "./formcombobox.module.scss"
 
 interface Props {
+	value: string
 	options: string[]
 	label?: string
 	name?: string
@@ -13,7 +14,7 @@ interface Props {
 	onValueChange: (valor: string) => void
 }
 
-export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholder, label, onValueChange }) => {
+export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholder, label, onValueChange, value }) => {
 	const [selectOption, setSelectOption] = useState("")
 	const [viewOptions, setViewOptions] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
@@ -33,17 +34,22 @@ export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholde
 		setSelectOption(option.value)
 		setTimeout(() => {
 			setViewOptions(false)
-		}, 50)
+		}, 250)
 	}
 
 	const HandleOnBlur = () => {
 		setTimeout(() => {
 			setViewOptions(false)
-		}, 50)
+		}, 250)
 	}
 
 	useEffect(() => {
-		console.log("CAMBIO")
+		if (value === "") {
+			setSelectOption("")
+		}
+	}, [value])
+
+	useEffect(() => {
 		onValueChange(selectOption)
 	}, [selectOption])
 
@@ -89,11 +95,11 @@ export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholde
 				className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
 				name={name}
 				placeholder={plaaceholder}
-				value={selectOption}
+				value={value}
 				onChange={(e) => HandleChangeValue(e)}
-				//onFocus={() => setViewOptions(true)}
+			//onFocus={() => setViewOptions(true)}
 			/>
-			<div className={styles.combobox__arrow}>
+			<div className={`${styles.combobox__arrow} ${label && styles.combobox__arrowWithLabel}`}>
 				<button
 					className={`${styles.combobox__arrowCheckbox} ${viewOptions && styles.combobox__arrowCheckboxView}`}
 					onClick={(e) => HandleChangeCheckbox(e)}
@@ -111,7 +117,7 @@ export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholde
 						<button
 							key={option}
 							className={`${styles.combobox__optionsOption} ${selectOption === option && styles.combobox__optionsOptionSelect}`}
-							onClick={(e) => HandleClickOption(e)}
+							onMouseUp={(e) => HandleClickOption(e)}
 							value={option}
 						>
 							{option}
