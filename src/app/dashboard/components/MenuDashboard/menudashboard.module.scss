@@ -1,5 +1,4 @@
 .aside {
-    //position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,9 +20,9 @@
     }
 
     &__nav {
-        //max-height: calc(100vh - 12em);
         padding: 0 0.25em;
         margin: 0.75em 0 0 0;
+        width: 100%;
     }
 
     &__title {
@@ -34,8 +33,7 @@
         font-weight: 600;
         color: var(--fontColor);
         border-radius: 0.25em;
-        //border: 1px solid var(--fontSecondColor);
-        background-color: var(--primaryColor);
+        background-color: var(--terciaryColor);
     }
 
     &__link {
@@ -51,11 +49,11 @@
         font-size: 0.85em;
         font-weight: 600;
         border: none;
-        border-radius: 0.5em;
+        border-left: 3px solid transparent;
+        border-radius: 0 0.5em 0.5em 0;
         margin: 0.5em 0 0 0;
-        border: 1px solid var(--borderCardHoverColor);
-        background-color: var(--secondaryColor);
-        color: var(--fontColor);
+        background-color: var(--borderCardColor);
+        color: var(--fontSecondColor);
         font-family: var(--font-montserrat);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
@@ -78,8 +76,10 @@
 
         &Active {
             color: var(--highLightHoverColor);
-            background-color: var(--fourthColor);
-            border-radius: 1.5em 1em 0 1.5em;
+            background-color: var(--backgroundMenu);
+            border-radius: 0em 0.5em 0 0;
+            border-left: 3px solid var(--highLightHoverColor);
+            //pointer-events: none;
 
 
             &>svg {
@@ -91,28 +91,27 @@
 
         }
 
-        &:hover {
-            color: var(--highLightColor);
-            background-color: var(--terciaryColor);
+        &:hover:not(.aside__linkActive) {
+            color: var(--fontColor);
+            background-color: var(--borderCardHoverColor);
         }
 
 
         &Option {
+            display: flex;
+            flex-direction: column;
             align-self: flex-end;
             width: 100%;
             max-height: 0;
             overflow: hidden;
-            padding: 0 0 0 1em;
+            padding: 0.15em 0 0 1em;
+            row-gap: 0.15em;
             transition: all 0.5s ease-in-out;
-            background-color: transparent;
-            border-bottom: 1px solid transparent;
-            border-left: 1px solid transparent;
-            border-right: 1px solid transparent;
+            background-color: var(--terciaryColor);
 
 
             &Active {
                 max-height: 15em;
-                border-right: 1px solid #FFFFFF35;
                 background-color: var(--secondaryColor);
             }
         }
@@ -127,23 +126,21 @@
         width: 100%;
         min-height: 3.5em;
         font-size: 0.85em;
-        font-weight: 400;
+        font-weight: 500;
         border: none;
         color: var(--fontSecondColor);
         border: none;
-        border-bottom: 1px solid #FFFFFF35;
-        border-left: 1px solid #FFFFFF35;
         transition: all 0.3s ease-in-out;
-        background-color: var(--secondaryColor);
+        background-color: var(--terciaryColor);
 
         &:hover:not(.aside__sublinkActive) {
-            color: var(--highLightColor);
-            background-color: var(--terciaryColor);
+            color: var(--highLightHoverColor);
+            background-color: var(--fourthColor);
         }
 
         &Active {
             color: var(--highLightHoverColor);
-            background-color: var(--terciaryColor);
+            background-color: var(--fourthColor);
         }
 
     }
