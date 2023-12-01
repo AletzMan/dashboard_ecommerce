@@ -71,7 +71,7 @@ export function AddBrands() {
 			}
 		}
 	}
-	console.log(logo)
+
 	const EditBrand = async () => {
 		try {
 			let result: string = brandSelect.logo

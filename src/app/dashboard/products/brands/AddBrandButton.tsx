@@ -15,13 +15,13 @@ export function AddBrandButton() {
 	return (
 		<div className={styles.buttonAddBrand}>
 			<Button
-				title="Add brands"
+				title="New brands"
 				buttonProps={{
 					onClick: () => HandleOpenDialog(),
-					text: "Add brand",
+					text: "New brand",
 					type: "button",
 					iconButton: <AddIcon />,
-					isSecondary: true,
+					isSecondary: false,
 				}}
 			/>
 		</div>
