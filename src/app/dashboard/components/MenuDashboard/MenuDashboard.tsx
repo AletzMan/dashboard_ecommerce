@@ -1,10 +1,9 @@
 "use client"
 
 import styles from "./menudashboard.module.scss"
-import { usePathname, useRouter } from "next/navigation"
-import { MouseEvent, useState } from "react"
+import { useRouter } from "next/navigation"
+import { MouseEvent } from "react"
 import { MenuOption } from "../MenuOption/MenuOption"
-import { IActiveSections } from "@/app/Types/types"
 import { MenuOptions } from "@/app/Constants/constants"
 import { Logo } from "@/app/SVG/componentsSVG"
 
