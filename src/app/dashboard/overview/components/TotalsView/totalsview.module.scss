@@ -11,7 +11,7 @@
     justify-content: center;
     width: 100%;
     row-gap: 0.5em;
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 0.25em;
     border: 1px solid var(--borderCardColor);
     background: var(--backgroundGradient);
@@ -33,12 +33,17 @@
         color: var(--fontSecondColor);
         font-size: 1.1em;
         font-weight: 800;
+
+        &Top {
+            font-size: 0.85em;
+        }
     }
 
     &_balance {
         display: flex;
         align-items: center;
         column-gap: 0.25em;
+        grid-column: span 2;
         font-weight: 700;
         color: var(--fontSecondColor);
         font-size: 0.9em;
@@ -53,6 +58,8 @@
                 transform: rotate(0);
                 color: var(--newColor);
             }
+
+
         }
 
         &Text {
@@ -67,6 +74,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        justify-self: flex-end;
         border-radius: 2em;
         padding: 0.25em;
     }
@@ -99,6 +107,29 @@
         border: 1px solid #F7B746;
         color: #F7B746;
         background-color: #F7B74620;
+    }
+
+    &_best {
+        position: relative;
+        //border: 1px solid #f7ee46;
+        color: #f7ee46;
+        //background-color: #f7ee4620;
+
+        &Top {
+            position: absolute;
+            width: 3em;
+            height: 3em;
+            stroke-width: 1;
+            fill: #f7ee4620;
+
+        }
+
+        &Icon {
+            width: 1.5em;
+            height: 1.5em;
+
+
+        }
     }
 
     &_customers {

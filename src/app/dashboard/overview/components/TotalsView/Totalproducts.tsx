@@ -1,3 +1,4 @@
+
 import axios from "axios"
 import styles from "./totalsview.module.scss"
 import { ArrowIcon, ProductsIcon } from "@/app/SVG/componentsSVG"
