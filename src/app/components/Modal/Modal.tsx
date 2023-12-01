@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import styles from "./modal.module.scss"
-import ReactDOM from "react-dom"
+import { createPortal } from "react-dom"
 interface Props {
 	children: React.ReactNode
 	title: string
@@ -17,15 +17,17 @@ export function Modal(props: Props) {
 	const modalRoot = document.getElementById("modal_root") as HTMLDivElement
 
 	return (
-		domReady &&
-		ReactDOM.createPortal(
-			<dialog className={styles.dialog}>
-				<section className={styles.dialog_section}>
-					<h2 className={styles.dialog_title}>{title}</h2>
-					{children}
-				</section>
-			</dialog>,
-			modalRoot
-		)
+		domReady ?
+			createPortal(
+				<dialog className={styles.dialog}>
+					<section className={styles.dialog_section}>
+						{title && <h2 className={styles.dialog_title}>{title}</h2>}
+						<div className={styles.dialog_content}>
+							{children}
+						</div>
+					</section>
+				</dialog>,
+				modalRoot
+			) : null
 	)
 }
