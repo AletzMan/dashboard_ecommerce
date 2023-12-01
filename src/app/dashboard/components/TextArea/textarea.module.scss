@@ -9,8 +9,8 @@
     }
 
     &_text {
-        background-color: var(--fourthColor);
-        border-bottom: 2px solid var(--fontSecondColor);
+        background-color: var(--secondaryColor);
+        border-bottom: 1px solid var(--fontSecondColor);
         min-width: 100%;
         max-width: 100%;
         padding: 0.5em;
@@ -19,9 +19,10 @@
         min-height: 8em;
         resize: none;
         outline: none;
+        border-radius: 0.15em;
 
         &:focus {
-            border-bottom: 2px solid var(--highLightHoverColor);
+            border-bottom: 1px solid var(--highLightHoverColor);
         }
 
         &Error {
