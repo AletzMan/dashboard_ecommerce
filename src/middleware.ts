@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
   const KEY_SECRET = process.env.NEXT_PUBLIC_KEY_SECRET_LOGIN as string
   const { pathname } = req.nextUrl
 
-
   /*
   
     // AL INGRESAR DIRECTAMENTE AL DASHBOARD SI NO ESTA LOGEADO REDIRIGIR AL LOGIN
@@ -54,8 +53,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(req.nextUrl)
   }
 
+  //SI SE INGRESA A LA RUTA REDIRIGIR A HOME
+  if (pathname.endsWith("/")) {
+    req.nextUrl.pathname = "/dashboard/overview"
+    return NextResponse.redirect(req.nextUrl)
+  }
 }
-
-
 
 //export const config = { matcher: ["/technolife/dashboard"] }
