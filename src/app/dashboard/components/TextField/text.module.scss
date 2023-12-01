@@ -5,6 +5,10 @@
     gap: 0em;
     width: 100%;
 
+    &HasLabel {
+        margin: 0.5em 0 0 0;
+    }
+
 
     &__disabled {
         opacity: 0.6;
@@ -20,7 +24,7 @@
         left: 0;
         opacity: 0.8;
         font-size: 0.8em;
-        transform: translateX(1em) translateY(0.55em);
+        transform: translateX(1em) translateY(0.75em);
         user-select: none;
         transition: 0.25s ease-in-out all;
         pointer-events: none;
@@ -68,18 +72,19 @@
         padding: 0.5em 0.5rem 0.5em 0.5em;
         border: 1px solid transparent;
         font-family: var(--fontFamily);
-        font-weight: 500;
+        font-weight: 300;
         font-size: 0.9em;
         color: var(--fontColor);
-        background-color: var(--fourthColor);
-        border: none;
-        border-bottom: 2px solid var(--backgroundColor);
+        background-color: var(--secondaryColor);
+        border: 1px solid transparent;
+        border: 1px solid var(--borderCardColor);
+        border-radius: 0.15em;
         outline: none;
         transition: 0.25s ease-in-out all;
 
 
         &Error {
-            border-bottom: 2px solid var(--errorColor);
+            border: 1px solid var(--errorColor);
 
         }
 
@@ -87,7 +92,7 @@
 
 
         &:focus {
-            border-bottom: 2px solid var(--highLightHoverColor);
+            border-bottom: 1px solid var(--highLightColor);
 
             &~.textfield__label {
                 transform: translateX(-1.2em) translateY(-1.25em);
@@ -132,6 +137,7 @@
     border: 1px dashed var(--fourthColor);
     background-color: var(--backCategoryColor);
 
+
     &Input {
         border: none;
         height: 100%;
@@ -149,7 +155,7 @@
     }
 
     &Error {
-        border: 2px dashed var(--errorColor);
+        border: 1px dashed var(--errorColor);
     }
 
 
