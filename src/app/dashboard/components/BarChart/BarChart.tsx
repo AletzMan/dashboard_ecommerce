@@ -281,7 +281,7 @@ export function BarChart(props: Props) {
 
 	const calcularPosicionX = (seriesVis: number[]) => {
 		const positionX = []
-		const gap = 5
+		const gap = 10
 		const padding = 20
 		let widthSection = 0
 		if (axisLines) {
@@ -460,7 +460,7 @@ export function BarChart(props: Props) {
 												className={`${styles.graphic_bar} ${classBar[index]}`}
 												x={barWidthAnsPosition?.positionX[index] + barWidthAnsPosition?.widthSection * indexTwo + 20 * indexTwo + 20}
 												y={bar.y}
-												width={barWidthAnsPosition?.widthSection / seriesVisibles.length - 4 || 0}
+												width={barWidthAnsPosition?.widthSection / seriesVisibles.length - 0 || 0}
 												height={bar.height}
 												fill={bar.color}
 												rx={1}
