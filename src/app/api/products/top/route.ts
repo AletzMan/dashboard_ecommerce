@@ -9,11 +9,13 @@ interface IQuantity {
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
-  const paramSort = params.get("sort")
+  const paramQuantity = params.get("quantity") || 1
   try {
-    const response = await pool.query("SELECT COUNT (*) AS quantity FROM products")
-    const quantity: IQuantity[] = response[0] as IQuantity[]
-    return NextResponse.json({ response: quantity[0].quantity }, { status: 200 })
+    const [products] = await pool.query(
+      `SELECT * FROM products ORDER BY soldQuantity DESC LIMIT ?`,
+      [paramQuantity]
+    )
+    return NextResponse.json({ products }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 })
   }
