@@ -8,8 +8,9 @@
     row-gap: 0.25em;
     width: max-content;
     height: max-content;
-    min-width: 3em;
+    min-width: 2.7em;
     min-height: 1.5em;
+
 
 
     &_label {
@@ -20,28 +21,43 @@
 
     &_container {
         position: relative;
-        width: 3em;
+        width: 2.7em;
         height: 1.5em;
+        border-radius: 2em;
+        overflow: hidden;
     }
 
     &_input {
         position: absolute;
-        width: 3em;
-        height: 1.5em;
+        width: 3.3em;
+        height: 3.3em;
         cursor: pointer;
         z-index: 2;
         opacity: 0;
+
+        &:active {
+            &~div>div {
+                width: 1.6em;
+            }
+
+            &:checked {
+                &~div>div {
+                    width: 1.6em;
+                    left: -3px;
+                }
+            }
+        }
     }
 
     &_base {
         position: absolute;
         top: 0;
-        width: 3em;
+        width: 2.7em;
         height: 1.5em;
         border-radius: 1em;
         transition: all 0.3s ease-in-out;
-        background-color: var(--fourthColor);
-        border: 1px solid var(--shadowColor);
+        background-color: var(--backgroundColor);
+        //border: 1px solid var(--shadowColor);
 
         &Active {
             background-color: var(--highLightColor);
@@ -53,17 +69,20 @@
         align-items: center;
         justify-content: center;
         position: absolute;
-        top: 0px;
-        width: 1.4em;
-        height: 1.4em;
+        top: 2px;
+        left: 3px;
+        width: 1.2em;
+        height: 1.2em;
         border-radius: 1em;
         color: var(--fontSecondColor);
-        transition: all 0.3s ease-in-out;
+        transition: all 0.25s ease-in-out;
         transform: translateX(0);
-        background: radial-gradient(circle, var(--fourthColor) 30%, var(--primaryColor) 80%);
+        background-color: var(--fontColor);
+
+
 
         &Active {
-            transform: translateX(1.5em);
+            transform: translateX(1.1em);
         }
     }
 
