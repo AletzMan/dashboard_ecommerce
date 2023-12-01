@@ -20,14 +20,13 @@ export function LoadImageProvider(props: Props) {
 		const div = refContainer.current
 		if (div) {
 			const heightDiv = div.clientHeight
-			console.log(heightDiv)
-
 			setHeightImages(heightDiv)
 		}
-	}, [images, refContainer, children])
-	//console.log(refContainer)
+	}, [images, refContainer.current?.clientHeight])
+	console.log(refContainer.current?.clientHeight)
 	return (
-		<div className={styles.slider} style={{ minWidth: width, minHeight: height, height: heightImages }}>
+		<div className={styles.slider} style={{ minWidth: width, minHeight: height }}>
+			{children}
 			<div className={styles.sliderImages} ref={refContainer}>
 				{images[0]?.url &&
 					images.length > 0 &&
@@ -35,7 +34,6 @@ export function LoadImageProvider(props: Props) {
 						<Image className={styles.sliderImage} key={image.url} src={image.url} alt="Product Image" width={width} height={height} />
 					))}
 			</div>
-			{children}
 		</div>
 	)
 }
