@@ -165,7 +165,7 @@
     background-color: var(--backCategoryColor);
     border: 0px solid var(--borderCardColor);
     transform: scale(1) translateX(0);
-    min-height: 1em;
+    min-height: 2em;
 
     &:hover {
         background-color: var(--terciaryColor);
@@ -222,6 +222,28 @@
     &_dateCreated {
         padding: 0 2em;
         text-align: center;
+    }
+
+    &_status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: capitalize;
+        font-size: 0.75em;
+        border-radius: 2em;
+        padding: 0.25em 1em;
+        background-color: var(--freeBackgroundColor);
+        color: var(--freeBorderColor);
+
+        &Active {
+            background-color: var(--newBackgroundColor);
+            color: var(--newBorderColor);
+        }
+
+        &Inactive {
+            background-color: var(--saleBackgroundColor);
+            color: var(--saleBorderColor);
+        }
     }
 
     &_delete {

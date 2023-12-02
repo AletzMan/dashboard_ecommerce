@@ -43,10 +43,11 @@ interface Props {
     rows: {}[]
     columns: IColumn[]
     paginacion: IPagination
+    linkEdit?: string
 }
 
 export function DataGrid(props: Props) {
-    const { rows, columns, paginacion } = props
+    const { rows, columns, paginacion, linkEdit } = props
     const [valuesRows, setValuesRows] = useState<IRow[]>()
     const [valuesHeaderColumns, setValuesHeaderColumns] = useState<IColumnHeader[]>([{ id: "", name: "", headerName: "", role: "text" }])
 
@@ -117,10 +118,11 @@ export function DataGrid(props: Props) {
                                             <span className={`${styles.brand_item} ${index === 0 && styles.brand_id}`}>{(cell.value)}</span>
                                         }
                                         {columns[index]?.role === "date" &&
-                                            <span className={`${styles.brand_item} ${index === 0 && styles.brand_id}`}>{new Date((cell.value)).toLocaleString()}</span>
+                                            <span className={`${styles.brand_item}`}>{new Date((cell.value)).toLocaleString()}</span>
                                         }
                                         {columns[index]?.role === "image" && <Image src={cell.value} width={40} height={40} alt={`Image`} />}
-                                        {columns[index]?.role === "actions" && <OptionsRow brand={row.cell} />}
+                                        {columns[index]?.role === "actions" && <OptionsRow brand={row.cell} linkEdit={linkEdit} />}
+                                        {columns[index]?.role === "status" && <span className={`${styles.brand_item} ${styles.brand_status} ${cell.value === "active" && styles.brand_statusActive}  ${cell.value === "inactive" && styles.brand_statusInactive}`}>{(cell.value)}</span>}
 
                                     </div>
                                 ))}
