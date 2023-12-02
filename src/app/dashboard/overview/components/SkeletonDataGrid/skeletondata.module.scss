@@ -1,0 +1,70 @@
+$base-color: rgb(180, 180, 180);
+$shine-color: #e6e6e6;
+$animation-duration: 1.6s;
+$avatar-offset: 52 + 16;
+
+@mixin background-gradient {
+    background: linear-gradient(110deg, #b6b6b6 8%, #d6d6d6 18%, #b6b6b6 33%);
+    background-size: 200% 100%;
+}
+
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    row-gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid var(--borderCardColor);
+    background: var(--backgroundGradient);
+
+
+
+    &_title {
+        height: 2em;
+        width: 100%;
+        border-radius: 0.25em;
+        @include background-gradient;
+        animation: animation $animation-duration infinite linear;
+    }
+
+    &_row {
+        height: 2.51em;
+        width: 100%;
+        border-radius: 0.25em;
+        @include background-gradient;
+        animation: animation $animation-duration infinite linear;
+    }
+
+    &_description {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        column-gap: 0.25em;
+        height: 2.5em;
+        width: 100%;
+        border-radius: 0.25em;
+
+    }
+
+    &_page {
+        height: 2em;
+        width: 2em;
+        border-radius: 0.25em;
+        @include background-gradient;
+        animation: animation $animation-duration infinite linear;
+    }
+
+
+}
+
+
+
+@keyframes animation {
+    to {
+        background-position-x: -200%;
+    }
+}

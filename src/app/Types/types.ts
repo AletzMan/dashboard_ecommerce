@@ -45,7 +45,22 @@ export enum TextFieldType {
 
 export type ProductStatus = ["active, inactive", "out-of-stock"]
 
+export interface ICustomer {
+  id: number
+  name: string
+  lasname: string
+  email: string
+  password: string
+  privileges: number
+  databirth: string
+  phonenumber: string
+  oldpasswords: string[]
+  token_reset_password: string
+  image: string
+}
+
 export type ProductType = {
+  id: number
   sku: string
   title: string
   specs: ICharacteristicProduct[]

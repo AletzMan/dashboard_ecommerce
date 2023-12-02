@@ -1,7 +1,10 @@
 .section {
     position: relative;
+    display: flex;
+    flex-direction: column;
     padding: 0.5em;
     grid-column: 2 / 3;
+    row-gap: 0.5em;
 
     @media (width < 920px) {
         grid-column: 1 / span 2;

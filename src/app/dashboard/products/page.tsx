@@ -4,6 +4,7 @@ import axios from "axios"
 import { Suspense } from "react"
 import { DataGrid } from "../components/DataGrid/DataGrid"
 import { PieChartG } from "../components/PieChart/PieChart"
+import { SkeletonDataGrid } from "../overview/components/SkeletonDataGrid/SkeletonDataGrid"
 import { SkeletonTotalViews } from "../overview/components/SkeletonTotalViews/SkeletonTotalViews"
 import { BestProduct } from "../overview/components/TotalsView/BestProduct"
 import { TotalProducts } from "../overview/components/TotalsView/Totalproducts"
@@ -46,39 +47,44 @@ export default async function Products({ searchParams }: { searchParams: string 
 	//const products: ProductType[] = []
 
 	return (
-		<section className={`${styles.section} scrollBarStyle`}>
-			<header className={styles.header}>
-				<div className={styles.header_top}>
-					<Suspense fallback={<SkeletonTotalViews />}>
-						{/* @ts-expect-error Server Component */}
-						<TotalProducts />
-					</Suspense>
-					<Suspense fallback={<SkeletonTotalViews />}>
-						{/* @ts-expect-error Server Component */}
-						<BestProduct />
-					</Suspense>
-				</div>
-				<ProductHeader products={data.products} totalResults={data?.totalProducts || 0} searchText={search ? search[1] : ""} />
-			</header>
+		<Suspense fallback={<SkeletonDataGrid />}>
+			<section className={`${styles.section} scrollBarStyle`}>
+				<header className={styles.header}>
+					<div className={styles.header_top}>
+						<Suspense fallback={<SkeletonTotalViews />}>
+							{/* @ts-expect-error Server Component */}
+							<TotalProducts />
+						</Suspense>
+						<Suspense fallback={<SkeletonTotalViews />}>
+							{/* @ts-expect-error Server Component */}
+							<BestProduct />
+						</Suspense>
+					</div>
+					<ProductHeader products={data.products} totalResults={data?.totalProducts || 0} searchText={search ? search[1] : ""} />
+				</header>
 
-			<div className={styles.articles}>
-				<DataGrid
-					rows={data.products}
-					columns={[
-						{ field: "sku", headerName: "SKU", role: "text", width: "1fr" },
-						{ field: "image", headerName: "Image", role: "image", width: 70 },
-						{ field: "brand", headerName: "Brand", role: "text", width: 130 },
-						{ field: "subcategory", headerName: "Subcategory", role: "text", width: "1fr" },
-						{ field: "price", headerName: "Price", role: "text", width: 110 },
-						{ field: "status", headerName: "Status", role: "text", width: "1fr" },
-						{ field: "", headerName: "", role: "actions", width: "1fr" },
-					]}
-					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
-				/>
-				<article className={styles.graph}>
-					<PieChartG />
-				</article>
-			</div>
-		</section>
+				<div className={styles.articles}>
+					<DataGrid
+						rows={data.products}
+						columns={[
+							{ field: "id", headerName: "ID", role: "text", width: 60 },
+							{ field: "sku", headerName: "SKU", role: "text", width: "1fr" },
+							{ field: "image", headerName: "Image", role: "image", width: 70 },
+							{ field: "brand", headerName: "Brand", role: "text", width: 130 },
+							{ field: "subcategory", headerName: "Subcategory", role: "text", width: "1fr" },
+							{ field: "price", headerName: "Price", role: "text", width: 110 },
+							{ field: "status", headerName: "Status", role: "status", width: "1fr" },
+							{ field: "", headerName: "", role: "actions", width: "1fr" },
+						]}
+						paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+						linkEdit={"/dashboard/products/add-or-edit-product"}
+					/>
+
+					<article className={styles.graph}>
+						<PieChartG />
+					</article>
+				</div>
+			</section>
+		</Suspense>
 	)
 }

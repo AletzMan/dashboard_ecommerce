@@ -11,18 +11,20 @@ import { Modal } from "@/app/components/Modal/Modal"
 import { useCallback, useState } from "react"
 import { Button } from "../Button/Button"
 import { ICell } from "./DataGrid"
+import Link from "next/link"
 
 interface Props {
 	brand: ICell[]
+	linkEdit?: string
 }
 
 export function OptionsRow(props: Props) {
+	const { brand, linkEdit } = props
 	const router = useRouter()
 	const [open, setOpen] = useState(false)
 	const pathname = usePathname()
 	const section = pathname.split("/")[3] || pathname.split("/")[2]
 	//const { setViewModal, setBrandSelect, setTypeModal } = useViewModal()
-	const { brand } = props
 
 	const HandleEditBrand = async () => {
 		//setTypeModal("Edit")
@@ -51,9 +53,9 @@ export function OptionsRow(props: Props) {
 				<button className={`${styles.options_button} ${styles.options_buttonView}`} onClick={() => HandleEditBrand()}>
 					<ViewOnIcon className={styles.options_buttonIcon} />
 				</button>
-				<button className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
+				<Link href={`${linkEdit}?id=${brand[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
 					<EditIcon className={styles.options_buttonIcon} />
-				</button>
+				</Link>
 				<button className={`${styles.options_button} ${styles.options_buttonDelete}`} onClick={() => setOpen(true)}>
 					<DeleteIcon className={styles.options_buttonIcon} />
 				</button>

@@ -2,12 +2,17 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { TextField } from "../../components/TextField/TextField"
 import styles from "./createedit.module.scss"
-import { ButtonType, IAttribute, ICharacteristicProduct, TextFieldType } from "@/app/Types/types"
+import { ButtonType, IAttribute, ICharacteristicProduct, ProductType, TextFieldType } from "@/app/Types/types"
 import { AddIcon, DeleteIcon, RemoveIcon } from "@/app/SVG/componentsSVG"
 import { Button } from "../../components/Button/Button"
 import { useProductInformation } from "@/app/utils/store"
 
-export function Details() {
+interface Props {
+	productSelect?: ProductType
+}
+
+export function Details(props: Props) {
+	const { productSelect } = props
 	const { setProductValue, productValue, loadInformation } = useProductInformation()
 	const [detailsProduct, setDetailsProduct] = useState<ICharacteristicProduct[]>([
 		{ id: crypto.randomUUID(), name: "", attributes: [{ id: crypto.randomUUID(), name: "", value: "" }] }
@@ -19,6 +24,10 @@ export function Details() {
 		setDetailsProduct([
 			{ id: crypto.randomUUID(), name: "", attributes: [{ id: crypto.randomUUID(), name: "", value: "" }] }
 		])
+		if (productSelect) {
+			setProductValue(productSelect)
+			setDetailsProduct(productSelect.specs)
+		}
 	}, [loadInformation])
 
 	const HandleAddAttribute = (index: number) => {

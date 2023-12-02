@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, context: any) {
         /* TODO */
         //Agregar aqui el fetch a la base de datos
         let query = "SELECT * FROM users"
-        const pageSize = 3
+        const pageSize = 10
         const offset = (page - 1) * pageSize
 
         if (search) {

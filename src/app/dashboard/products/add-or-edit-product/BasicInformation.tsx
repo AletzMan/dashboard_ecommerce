@@ -2,7 +2,7 @@
 import { LoadImageProvider } from "@/app/components/LoadImageProvider/LoadImageProvider"
 import styles from "./createedit.module.scss"
 import { TextField } from "../../components/TextField/TextField"
-import { IBrand, ICategory, IImage, TextFieldType } from "@/app/Types/types"
+import { IBrand, ICategory, IImage, ProductType, TextFieldType } from "@/app/Types/types"
 import { TextArea } from "../../components/TextArea/TextArea"
 import { ComboBox } from "../../components/ComboBox/ComboBox"
 import { ChangeEvent, useCallback, useEffect, useState } from "react"
@@ -12,6 +12,10 @@ import { enqueueSnackbar } from "notistack"
 import { GetHeightAndWidthFromImageURL } from "@/app/utils/functions"
 import { Modal } from "@/app/components/Modal/Modal"
 import { LoadingIcon } from "@/app/SVG/componentsSVG"
+
+interface Props {
+	productSelect?: ProductType
+}
 
 export function BasicInformation() {
 	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()

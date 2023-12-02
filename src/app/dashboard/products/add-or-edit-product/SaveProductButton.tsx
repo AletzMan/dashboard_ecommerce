@@ -139,7 +139,7 @@ export function SaveProductsButton() {
 				className={styles.details_addFeature}
 				buttonProps={{
 					onClick: HandleSaveProduct,
-					text: "Save Product",
+					text: "Save",
 					type: "button",
 					typeButton: ButtonType.WhitIcon,
 					iconButton: <SaveIcon />,
