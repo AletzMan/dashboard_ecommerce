@@ -12,6 +12,7 @@ export async function GET(request: NextRequest, context: any) {
   const search = params.get("search") || ""
   const sort = params.get("sort") || "asc"
   const order = params.get("order") || ""
+  const user_id = params.get("user_id") || ""
   const page: number = Number(params.get("page")) || 1
   try {
     /* TODO */
@@ -20,12 +21,17 @@ export async function GET(request: NextRequest, context: any) {
       const response: IOrderByState[] = stateOrdersData
       return NextResponse.json({ response }, { status: 200 })
     } else {
-      let query = "SELECT * FROM orders"
+      let query =
+        "SELECT orders.*, users.name, users.lastname FROM orders JOIN users ON orders.user_id = users.id "
       const pageSize = 5
       const offset = (page - 1) * pageSize
 
-      if (search) {
+      if (search && user_id) {
+        query += " WHERE user_id=? AND LIKE ? OR order_id LIKE ?"
+      } else if (search) {
         query += " WHERE id LIKE ? OR order_id LIKE ?"
+      } else if (user_id) {
+        query += " WHERE user_id=?"
       }
 
       if (order) {
@@ -35,8 +41,16 @@ export async function GET(request: NextRequest, context: any) {
       query += ` LIMIT ${pageSize} OFFSET ${offset}`
 
       // Crear un array de valores para la declaración preparada
-      const likePattern = `%${search}%`
-      const values = search ? [likePattern, likePattern] : []
+      const likePatternSearch = `%${search}%`
+      const likePatternUser = `${user_id}`
+      let values: string[] = []
+      if (search && user_id) {
+        values = [likePatternUser, likePatternSearch, likePatternSearch]
+      } else if (search) {
+        values = [likePatternSearch, likePatternSearch]
+      } else if (user_id) {
+        values = [likePatternUser]
+      }
 
       const [orders] = await pool.query(query, values)
 
