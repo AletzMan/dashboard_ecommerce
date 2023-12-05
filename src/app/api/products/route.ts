@@ -92,7 +92,6 @@ export async function GET(request: NextRequest, context: any) {
 export async function POST(request: NextRequest) {
   const values = await request.json()
   const product: ProductType = values.productValue
-  console.log(product)
 
   try {
     const currentDate = new Date().toISOString()
@@ -133,7 +132,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({}, { status: 201 })
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return NextResponse.json({ error }, { status: 500 })
   }
   return NextResponse.json(
