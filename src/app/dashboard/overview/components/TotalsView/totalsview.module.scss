@@ -13,7 +13,7 @@
     row-gap: 0.5em;
     padding: 0.5em;
     border-radius: 0.25em;
-    border: 1px solid var(--borderCardColor);
+    //border: 1px solid var(--borderCardColor);
     background: var(--backgroundGradient);
 
     &_header {
@@ -95,6 +95,18 @@
         border: 1px solid #46F7A1;
         color: #46F7A1;
         background-color: #46F7A120;
+
+        &Cancelled {
+            color: #F7464A;
+            border: 1px solid #F7464A;
+            background-color: #F7464A20;
+        }
+
+        &Completed {
+            color: #0ede11;
+            border: 1px solid #17c41a;
+            background-color: #17c41a20;
+        }
     }
 
     &_spending {
