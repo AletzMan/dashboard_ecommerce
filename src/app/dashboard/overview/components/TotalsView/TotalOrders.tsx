@@ -9,6 +9,7 @@ interface Props {
 export async function TotalOrders(props: Props) {
 	const { title } = props
 	const responseOrders = await axios.get("http://localhost:3000/api/orders/count")
+
 	const orders: number = responseOrders.data.response
 	return (
 		<article className={styles.article}>
