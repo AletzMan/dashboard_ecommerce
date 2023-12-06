@@ -80,7 +80,9 @@ export function OptionsRow(props: Props) {
 		<>
 			<div className={styles.options}>
 				{ButtonsOptions().map(button => (
-					button
+					<div key={button?.toString()}>
+						{button}
+					</div>
 				))}
 			</div>
 			{open && (

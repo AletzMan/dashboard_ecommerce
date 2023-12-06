@@ -77,6 +77,7 @@
     &_header {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         column-gap: 1em;
         padding: 0.5em;
     }
@@ -142,26 +143,11 @@
 
         &Text {
             font-size: 0.95em;
+            font-weight: 500;
             border-radius: 2em;
             width: max-content;
 
-            &Delivered {
-                color: var(--newBorderColor);
-            }
 
-            &Pending {
-                color: var(--freeBorderColor);
-            }
-
-            &Way {
-                color: var(--clearanceBorderColor);
-            }
-
-            &Cancelled {
-                //padding: 0.25em 0.75em;
-                color: var(--saleBorderColor);
-                //background-color: var(--saleBackgroundColor);
-            }
 
             &Amount {
                 padding: 0.15em 0.75em;
@@ -170,5 +156,47 @@
                 font-weight: 600;
             }
         }
+
+        &Status {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}
+
+.update {
+    display: flex;
+    justify-content: space-between;
+
+    &_select {
+        background-color: transparent;
+        border: none;
+        font-size: 0.9em;
+
+        &Delivered {
+            color: var(--newBorderColor);
+        }
+
+        &Pending {
+            color: var(--freeBorderColor);
+        }
+
+        &Way {
+            color: var(--clearanceBorderColor);
+        }
+
+        &Cancelled {
+            //padding: 0.25em 0.75em;
+            color: var(--saleBorderColor);
+            //background-color: var(--saleBackgroundColor);
+        }
+    }
+
+    &_option {
+        background-color: transparent;
+    }
+
+    &_button {
+        max-width: 8em;
     }
 }
