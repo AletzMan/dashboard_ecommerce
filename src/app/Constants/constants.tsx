@@ -39,7 +39,7 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.customers,
-		subSections: ["Account management", "Reset password"],
+		subSections: undefined,
 		links: "",
 		icon: <CustomersIcon />,
 	},
@@ -231,3 +231,16 @@ export const States = [
 		name: "Yucatán",
 	},
 ]
+
+
+export const OptionsDateLocal: Intl.DateTimeFormatOptions = {
+	timeZone: "America/Mexico_City",
+	year: "numeric",
+	month: "short",
+	day: "2-digit",
+	//weekday: "long"
+	//hour: "2-digit",
+	//minute: "2-digit",
+	//second: "2-digit",
+	//hour12: true, // Para usar el formato de 12 horas (AM/PM)
+}

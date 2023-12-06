@@ -33,7 +33,7 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 	const params = Object.entries(searchParams)
 	const search = params.filter(param => param[0] === "search")[0]
 	const data = await GetCustomers(params)
-	console.log(data)
+
 	return (
 		<section className={styles.section}>
 			{/* @ts-expect-error Server Component */}
@@ -46,8 +46,11 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 					{ field: "lastname", headerName: "Last Name", role: "text", width: 150 },
 					{ field: "email", headerName: "E-mail", role: "text", width: "1fr" },
 					{ field: "phonenumber", headerName: "Phone Number", role: "text", width: "1fr" },
+					{ field: "", headerName: "", role: "actions", width: "1fr" },
 				]}
 				paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+				linkEdit={"/dashboard/customers"}
+				actions={["view"]}
 			/>}
 		</section>
 	)

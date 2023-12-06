@@ -8,18 +8,19 @@ import { usePathname, useRouter } from "next/navigation"
 import { enqueueSnackbar } from "notistack"
 import { useViewModal } from "@/app/utils/store"
 import { Modal } from "@/app/components/Modal/Modal"
-import { useCallback, useState } from "react"
+import { ReactNode, useCallback, useState } from "react"
 import { Button } from "../Button/Button"
 import { ICell } from "./DataGrid"
 import Link from "next/link"
 
 interface Props {
-	brand: ICell[]
+	row: ICell[]
 	linkEdit?: string
+	actions?: ["view"] | ["edit"] | ["delete"] | ["view", "edit"] | ["view", "delete"] | ["edit", "delete"] | ["view", "edit", "delete"]
 }
 
 export function OptionsRow(props: Props) {
-	const { brand, linkEdit } = props
+	const { row, linkEdit, actions } = props
 	const router = useRouter()
 	const [open, setOpen] = useState(false)
 	const pathname = usePathname()
@@ -34,8 +35,8 @@ export function OptionsRow(props: Props) {
 
 	const HandleDeletetBrand = async () => {
 		try {
-			await DeleteFile("logosBrands", brand[0].value)
-			const response = await axios.delete(`/api/${section}/${brand[0].value}`)
+			await DeleteFile("logosBrands", row[0].value)
+			const response = await axios.delete(`/api/${section}/${row[0].value}`)
 
 			if (response.status === 200) {
 				enqueueSnackbar("Record successfully deleted", { variant: "success" })
@@ -46,25 +47,47 @@ export function OptionsRow(props: Props) {
 		}
 	}
 
+	const ButtonsOptions = useCallback(() => {
+		let buttons: ReactNode[] = []
+
+		actions?.forEach(action => {
+			if (action === "view") {
+				buttons.push(
+					<Link href={`${linkEdit}/${row[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonView}`} onClick={() => HandleEditBrand()}>
+						<ViewOnIcon className={styles.options_buttonIcon} />
+					</Link>)
+			}
+			if (action === "edit") {
+				buttons.push(
+					<Link href={`${linkEdit}?id=${row[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
+						<EditIcon className={styles.options_buttonIcon} />
+					</Link>
+				)
+			}
+			if (action === "delete") {
+				buttons.push(
+					<button className={`${styles.options_button} ${styles.options_buttonDelete}`} onClick={() => setOpen(true)}>
+						<DeleteIcon className={styles.options_buttonIcon} />
+					</button>
+				)
+			}
+		})
+
+		return buttons
+	}, [])
 
 	return (
 		<>
 			<div className={styles.options}>
-				<button className={`${styles.options_button} ${styles.options_buttonView}`} onClick={() => HandleEditBrand()}>
-					<ViewOnIcon className={styles.options_buttonIcon} />
-				</button>
-				<Link href={`${linkEdit}?id=${brand[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
-					<EditIcon className={styles.options_buttonIcon} />
-				</Link>
-				<button className={`${styles.options_button} ${styles.options_buttonDelete}`} onClick={() => setOpen(true)}>
-					<DeleteIcon className={styles.options_buttonIcon} />
-				</button>
+				{ButtonsOptions().map(button => (
+					button
+				))}
 			</div>
 			{open && (
 				<Modal title={"Delete"}>
 					<div className={styles.options_message}>
 						Are you sure you want to delete the item with ID<br />
-						<span className={styles.options_messageMark}>{` ${brand[0].value} `}</span>?
+						<span className={styles.options_messageMark}>{` ${row[0].value} `}</span>?
 					</div>
 					<div className={styles.options_buttons}>
 						<Button

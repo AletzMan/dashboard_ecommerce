@@ -10,6 +10,8 @@ import { IOrderByState } from "@/app/Types/types"
 import { ArrowRightIcon } from "@/app/SVG/componentsSVG"
 import { LatestOrders } from "./components/LatestOrders/LatestOrders"
 import { PieChartG } from "../components/PieChart/PieChart"
+import { Suspense } from "react"
+import { SkeletonTotalViews } from "./components/SkeletonTotalViews/SkeletonTotalViews"
 
 const options: IOptionsChart = {
 	chart: {
@@ -64,7 +66,10 @@ export default async function OverviewPage() {
 	return (
 		<main className={`${styles.main_container} scrollBarStyle`}>
 			<section className={` ${styles.totals}`}>
-				<TotalsView />
+				<Suspense fallback={<SkeletonTotalViews />}>
+					{/* @ts-expect-error Server Component */}
+					<TotalsView />
+				</Suspense>
 			</section>
 			<div className={styles.container}>
 				<section className={`${styles.container_profit} ${styles.container_section}`}>
@@ -85,7 +90,10 @@ export default async function OverviewPage() {
 							<ArrowRightIcon />
 						</Link>
 					</header>
-					<LatestOrders />
+					<Suspense fallback={<SkeletonTotalViews />}>
+						{/* @ts-expect-error Server Component */}
+						<LatestOrders />
+					</Suspense>
 				</section>
 				<section className={`${styles.container_products} ${styles.container_section}`}>
 					<h2 className={styles.container_title}>Best sellers</h2>
@@ -93,7 +101,10 @@ export default async function OverviewPage() {
 						Show all
 						<ArrowRightIcon />
 					</Link>
-					{<TopProducts />}
+					<Suspense fallback={<SkeletonTotalViews />}>
+						{/* @ts-expect-error Server Component */}
+						{<TopProducts />}
+					</Suspense>
 				</section>
 				<section className={`${styles.container_section} ${styles.container_traffic}`}>
 					<h2 className={styles.container_title}>Traffic Web</h2>

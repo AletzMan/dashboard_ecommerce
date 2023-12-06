@@ -154,7 +154,7 @@
     }
 }
 
-.brand {
+.row {
     display: grid;
     //grid-template-columns: 5em 1fr 8em 9em 9em 6em;
     grid-template-columns: var(--dataGridColumns);
@@ -233,17 +233,10 @@
         border-radius: 2em;
         padding: 0.25em 1em;
         background-color: var(--freeBackgroundColor);
-        color: var(--freeBorderColor);
+    }
 
-        &Active {
-            background-color: var(--newBackgroundColor);
-            color: var(--newBorderColor);
-        }
-
-        &Inactive {
-            background-color: var(--saleBackgroundColor);
-            color: var(--saleBorderColor);
-        }
+    &_price {
+        color: var(--clearanceBorderColor);
     }
 
     &_delete {
@@ -293,7 +286,7 @@
         &View {
 
             &>.options_buttonIcon {
-                color: var(--clearanceColor);
+                color: var(--shadowColor);
 
                 &:hover {
                     color: var(--clearanceBorderColor);
@@ -306,7 +299,7 @@
         &Edit {
 
             &>.options_buttonIcon {
-                color: var(--freeColor);
+                color: var(--shadowColor);
 
                 &:hover {
                     color: var(--freeBorderColor);
@@ -318,7 +311,7 @@
 
         &Delete {
             &>.options_buttonIcon {
-                color: var(--saleColor);
+                color: var(--shadowColor);
 
                 &:hover {
                     color: var(--saleBorderColor);

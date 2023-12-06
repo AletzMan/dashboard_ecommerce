@@ -2,12 +2,128 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0.5em;
     grid-column: 2 / 3;
-    row-gap: 0.5em;
+    gap: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+
+    &_id {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0.5em;
+        padding: 0em 0 0 0;
+        grid-column: 2 / 3;
+        //overflow-x: hidden;
+
+
+        @media (width < 920px) {
+            grid-column: 1 / span 2;
+        }
+
+    }
 
     @media (width < 920px) {
         grid-column: 1 / span 2;
     }
 
+}
+
+.totals {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.5em;
+    width: 100%;
+
+    &>article {
+        width: 32.5%;
+        min-width: 14em;
+
+        @media (width < 500px) {
+            width: 100%;
+        }
+
+    }
+}
+
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 2;
+    color: var(--fontSecondColor);
+    background-color: var(--primaryColor);
+    border-radius: var(--border-radius);
+    //border: 1px solid var(--borderCardColor);
+    width: 100%;
+    min-width: 22em;
+    max-width: 23em;
+    padding: 0.5em;
+    row-gap: 1.5em;
+
+    @media (width < 1474px) {
+        max-width: 100%;
+    }
+
+}
+
+.customer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1em;
+
+    &_name {
+        font-size: 1.2em;
+    }
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75em;
+
+    &_field {
+        display: flex;
+        flex-direction: column;
+        padding: 0.25em;
+        //background-color: var(--backCategoryColor);
+        border-bottom: 1px solid var(--backCategoryColor);
+        max-width: 15em;
+    }
+
+    &_label {
+        color: var(--shadowColor);
+        font-size: 0.8em;
+    }
+
+    &_text {
+        color: var(--fontColor);
+    }
+}
+
+.orders {
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--fontSecondColor);
+    background-color: var(--primaryColor);
+    min-width: 24em;
+    padding: 0.5em 1em 0.5em 0.5em;
+    row-gap: 1.5em;
+    border-radius: var(--border-radius);
+    //border: 1px solid var(--borderCardColor);
+    overflow: hidden;
+
+    @media (width < 450px) {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    &_title {
+        font-size: 1.3em;
+    }
 }
