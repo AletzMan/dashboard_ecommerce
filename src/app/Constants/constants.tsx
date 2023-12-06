@@ -45,7 +45,7 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.orders,
-		subSections: ["Shipment status and tracking", "Invoice generation"],
+		subSections: ["Invoice generation"],
 		links: "",
 		icon: <OrdersIcon />,
 	},

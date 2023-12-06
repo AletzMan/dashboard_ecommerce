@@ -88,6 +88,34 @@ export type ProductType = {
   status: string
 }
 
+export interface IProductOrder {
+  id: number
+  sku: string
+  quantity: number
+  title: string
+  specs: ICharacteristicProduct[]
+  image: string
+  slideImages: string[]
+  brand: string
+  brandLogo: string
+  category: string
+  subcategory: string
+  description: string
+  sameDayDelivery: boolean
+  storePickUp: boolean
+  price: number
+  isDiscounted: boolean
+  discount: number
+  isNew: boolean
+  isSale: boolean
+  isFreeShipping: boolean
+  isClearance: boolean
+  inventoryQuantity: number
+  minimuninventoryQuantity: number
+  soldQuantity: number
+  status: string
+}
+
 export interface IOrder {
   id: number
   order_id: string
@@ -98,6 +126,13 @@ export interface IOrder {
   state: string
   address_id: number
   total_price: number
+}
+
+export interface IOrderDetails {
+  id: number
+  order_id: string
+  item_id: number
+  quantity: number
 }
 
 export enum ButtonType {

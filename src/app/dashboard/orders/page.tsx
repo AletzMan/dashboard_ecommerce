@@ -40,7 +40,6 @@ export default async function PageOrders() {
 	//if (pathname) {
 	//customer = await GetCustomer(id)
 	orders = await GetOrders(id)
-	console.log(orders)
 
 	//}
 	return (
