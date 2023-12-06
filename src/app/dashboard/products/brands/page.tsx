@@ -73,6 +73,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 					]}
 					rows={data.brands}
 					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+					actions={["view", "edit", "delete"]}
 				/>
 			</div>
 			<AddBrands />

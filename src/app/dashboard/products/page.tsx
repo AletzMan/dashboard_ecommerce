@@ -72,11 +72,16 @@ export default async function Products({ searchParams }: { searchParams: string 
 							{ field: "image", headerName: "Image", role: "image", width: 70 },
 							{ field: "brand", headerName: "Brand", role: "text", width: 130 },
 							{ field: "subcategory", headerName: "Subcategory", role: "text", width: "1fr" },
-							{ field: "price", headerName: "Price", role: "text", width: 110 },
+							{ field: "price", headerName: "Price", role: "price", width: 110 },
 							{ field: "status", headerName: "Status", role: "status", width: "1fr" },
 							{ field: "", headerName: "", role: "actions", width: "1fr" },
 						]}
 						paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+						actions={["view", "edit", "delete"]}
+						statusOptions={{
+							statusArray: ["active", "out-of-stock", "inactive"],
+							colors: ["#0cd315", "#cebc19", "#FF5722"]
+						}}
 						linkEdit={"/dashboard/products/add-or-edit-product"}
 					/>
 

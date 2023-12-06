@@ -26,10 +26,8 @@ export function Pagination(props: Props) {
 
     if (params.includes("page")) {
         routeUrl = `${pathname}?${params}`
-        console.log(`${pathname}?${params}`)
     } else {
         routeUrl = (`${pathname}?${params}&page=1`)
-        console.log(`${pathname}?${params}&page=1`)
     }
 
     useEffect(() => {

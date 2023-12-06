@@ -48,12 +48,14 @@ export type ProductStatus = ["active, inactive", "out-of-stock"]
 export interface ICustomer {
   id: number
   name: string
-  lasname: string
+  lastname: string
   email: string
+  genrer: string
   password: string
   privileges: number
-  databirth: string
+  datebirth: string
   phonenumber: string
+  registration_date: string
   oldpasswords: string[]
   token_reset_password: string
   image: string
@@ -84,6 +86,18 @@ export type ProductType = {
   minimuninventoryQuantity: number
   soldQuantity: number
   status: string
+}
+
+export interface IOrder {
+  id: number
+  order_id: string
+  user_id: number
+  name: string
+  lastname: string
+  creation_date: string
+  state: string
+  address_id: number
+  total_price: number
 }
 
 export enum ButtonType {
@@ -120,18 +134,6 @@ export interface IOrderByState {
   state: string
   orders: number
   amount: number
-}
-
-export interface IOrder {
-  orderId: number
-  products: {
-    id: number
-    quantity: number
-  }[]
-  state: string
-  status: string
-  amount: number
-  date: string
 }
 
 export interface IImage {
@@ -185,4 +187,18 @@ export interface ICharacteristicProduct {
 
 export interface IQuantity {
   quantity: number
+}
+
+export interface IAddress {
+  id: number
+  user_id: number
+  name: string
+  last_name: string
+  phone_number: number
+  street_name: string
+  street_number: number
+  postal_code: number
+  colonia: string
+  city: string
+  state: string
 }

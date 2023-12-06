@@ -12,10 +12,19 @@ const classStatus = [
 	{ status: "cancelled", class: styles.order_statusCancelled },
 ]
 
+interface IPagination {
+	orders: IOrder[]
+	totalOrders: number
+	totalPages: number
+	currentPage: number
+	pageSize: number
+}
+
+
 export async function LatestOrders() {
 	const response = await axios.get("http://localhost:3000/api/orders")
 
-	const orders: IOrder[] = response.data.response
+	const orders: IPagination = response.data.data
 
 	return (
 		<div className={`${styles.section} scrollBarStyle`}>
@@ -30,18 +39,18 @@ export async function LatestOrders() {
 					<li className={styles.header_title}>Details</li>
 				</ul>
 				<div className={styles.table_orders}>
-					{orders.map((order) => (
+					{orders.orders.map((order) => (
 						<ul className={styles.order}>
-							<li className={`${styles.order_item} ${styles.order_id}`}>{order.orderId}</li>
-							<li className={`${styles.order_item} ${styles.order_products}`}>{order.products.length}</li>
+							<li className={`${styles.order_item} ${styles.order_id}`}>{order.id}</li>
+							<li className={`${styles.order_item} ${styles.order_products}`}>{order.address_id}</li>
 							<li className={`${styles.order_item} ${styles.order_state}`}>{order.state}</li>
-							<li className={`${styles.order_item} ${styles.order_status} ${classStatus.find((status) => status.status === order.status)?.class}`}>
-								{order.status}
+							<li className={`${styles.order_item} ${styles.order_status} ${classStatus.find((status) => status.status === order.state)?.class}`}>
+								{order.state}
 							</li>
-							<li className={`${styles.order_item} ${styles.order_date}`}>{order.date}</li>
-							<li className={`${styles.order_item} ${styles.order_amount}`}>{FormattedString(order.amount)}</li>
+							<li className={`${styles.order_item} ${styles.order_date}`}>{order.creation_date}</li>
+							<li className={`${styles.order_item} ${styles.order_amount}`}>{FormattedString(order.total_price)}</li>
 							<li className={`${styles.order_item}`}>
-								<Link className={`${styles.order_details}`} href={`dashboard/orders/order-list/${order.orderId}`} title="View order details">
+								<Link className={`${styles.order_details}`} href={`dashboard/orders/order-list/${order.order_id}`} title="View order details">
 									<ViewOnIcon className={styles.order_detailsIcon} />
 								</Link>
 							</li>
