@@ -1,7 +1,7 @@
 .section {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
     grid-column: 2 / 3;
     gap: 0.5em;
     width: 100%;
@@ -16,7 +16,9 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
-    width: 100%;
+    width: max-content;
+    flex-grow: 2;
+    min-width: 15em;
     background-color: var(--primaryColor);
     padding: 0.5em;
     border-radius: var(--border-radius);
@@ -164,6 +166,63 @@
             justify-content: right;
             font-weight: 600;
             color: var(--fontSecondColor);
+        }
+    }
+
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    flex-grow: 2;
+    border-radius: var(--border-radius);
+    padding: 0.75em;
+    background-color: var(--primaryColor);
+
+    &_title {
+        color: var(--fontColor);
+        margin: 0 0 0.6em 0;
+    }
+
+    &_label {
+        font-size: 0.8em;
+        color: var(--clearanceBorderColor);
+    }
+
+    &_dates {
+        display: flex;
+        grid-gap: 0.5em;
+        width: 100%;
+        margin: 0 0 2em 0;
+
+        &Group {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &_date {
+        background-color: var(--secondaryColor);
+        color: var(--fontColor);
+        padding: 0.35em 0.5em;
+        border: 1px solid var(--terciaryColor);
+        border-radius: 0.15em;
+        font-family: var(--font-montserrat);
+
+        &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    }
+
+    &_save {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        width: 100%;
+
+        &>div {
+            width: 6em;
         }
     }
 
