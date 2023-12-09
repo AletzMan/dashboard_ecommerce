@@ -25,6 +25,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@/mainComponents/*": [
+        "./src/app/dashboard/components/*"
       ]
     }
   },

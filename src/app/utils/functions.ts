@@ -178,3 +178,11 @@ export const CreateIDProduct = (sku: string) => {
 
   return `${sku}-${milisegundos}`
 }
+
+export const FormattedDate = (date: Date) => {
+  const year = date.getFullYear()
+  const month = date.getMonth().toString().padStart(2, "0")
+  const day = date.getDate().toString().padStart(2, "0")
+  const fulldDate = `${year}-${month}-${day}`
+  return fulldDate
+}

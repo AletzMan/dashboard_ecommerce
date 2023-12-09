@@ -1,11 +1,12 @@
 "use client"
-import { AddIcon, DeleteIcon } from "@/app/SVG/componentsSVG"
+import { AddIcon, DeleteIcon, SaveIcon } from "@/app/SVG/componentsSVG"
 import { TextFieldType } from "@/app/Types/types"
-import { FormattedString } from "@/app/utils/functions"
+import { FormattedDate, FormattedString } from "@/app/utils/functions"
+import { enqueueSnackbar } from "notistack"
 import { ChangeEvent, useState } from "react"
-import { Button } from "../../components/Button/Button"
-import { ComboBox } from "../../components/ComboBox/ComboBox"
-import { TextField } from "../../components/TextField/TextField"
+import { Button } from "@/mainComponents/Button/Button"
+import { ComboBox } from "@/mainComponents/ComboBox/ComboBox"
+import { TextField } from "@/mainComponents/TextField/TextField"
 import styles from "./invoice.module.scss"
 
 interface IProductInvoice {
@@ -16,8 +17,16 @@ interface IProductInvoice {
     amount: number
 }
 
+interface IDates {
+    issueDate: string
+    dueDate: string
+}
+
 export default function () {
     const [subtotal, setSubtotal] = useState<number>(0)
+    const [customer, setCustomer] = useState<string>("")
+    const [payment, setPayment] = useState<string>("")
+    const [dates, setDates] = useState<IDates>({ issueDate: FormattedDate(new Date()), dueDate: "" })
     const [products, setProducts] = useState<IProductInvoice[]>([{ id: crypto.randomUUID(), item: "", quantity: 0, cost: 0, amount: 0 }])
 
     const HandleChageProducts = (e: ChangeEvent<HTMLInputElement>, index: number) => {
@@ -41,8 +50,28 @@ export default function () {
 
     const HandleChageFields = (e: ChangeEvent<HTMLInputElement>) => {
 
+
     }
 
+    const HandleChageDates = (e: ChangeEvent<HTMLInputElement>) => {
+        const name = e.currentTarget.name
+        const value = e.currentTarget.value
+        setDates({ ...dates, [name]: value })
+    }
+
+    const HandleChageBillTo = (value: string) => {
+        setCustomer(value)
+    }
+
+    const HandleChagePayment = (value: string) => {
+        setPayment(value)
+    }
+
+    const HandleSave = () => {
+        enqueueSnackbar("Invoice successfully created", { variant: "success", anchorOrigin: { horizontal: "center", vertical: "top" } })
+    }
+
+    console.log(dates)
 
     const HandleAddProduct = () => {
         const newProduct: IProductInvoice = { id: crypto.randomUUID(), item: "", quantity: 0, cost: 0, amount: 0 }
@@ -57,12 +86,8 @@ export default function () {
         setProducts(prevProducts)
     }
 
-    console.log(products)
-
     return (
         <section className={styles.section}>
-            <header>
-            </header>
             <section className={styles.invoice}>
                 <h3 className={styles.invoice_title}>Invoice</h3>
                 <div className={styles.invoice_group}>
@@ -72,7 +97,8 @@ export default function () {
                             error: false,
                             name: "invoice_number",
                             onChange: HandleChageFields,
-                            type: TextFieldType.Search
+                            type: TextFieldType.Search,
+                            placeholder: "#0000"
                         }}
                     />
                     <TextField
@@ -81,7 +107,8 @@ export default function () {
                             error: false,
                             name: "order_number",
                             onChange: HandleChageFields,
-                            type: TextFieldType.Text
+                            type: TextFieldType.Text,
+                            placeholder: "#0000"
                         }}
                     />
                 </div>
@@ -91,7 +118,8 @@ export default function () {
                         error: false,
                         name: "description",
                         onChange: HandleChageFields,
-                        type: TextFieldType.Text
+                        type: TextFieldType.Text,
+                        placeholder: "Optional description"
                     }}
                 />
                 <article className={styles.items}>
@@ -169,6 +197,54 @@ export default function () {
 
                     </div>
                 </article>
+            </section>
+            <section className={styles.information}>
+                <h3 className={styles.information_title}>Information and Payment</h3>
+                <ComboBox
+                    options={["Javier Hernandez", "Hugo Sanches", "Cristiano Ronaldo"]}
+                    value={customer}
+                    onValueChange={HandleChageBillTo}
+                    label="Bill to"
+                    name="bill_to"
+                />
+                <ComboBox
+                    options={["Paypal", "Debit Card"]}
+                    value={payment}
+                    onValueChange={HandleChagePayment}
+                    label="Payment"
+                    name="payment"
+                />
+                <article className={styles.information_dates}>
+                    <div className={styles.information_datesGroup}>
+                        <label className={styles.information_label}>Issued Date</label>
+                        <input disabled className={`${styles.information_date} ${styles.information_dateIssued}`}
+                            type={"date"}
+                            name="issueDate"
+                            value={dates.issueDate}
+                            onChange={HandleChageDates}
+                        />
+                    </div>
+                    <div className={styles.information_datesGroup}>
+                        <label className={styles.information_label}>Due Date</label>
+                        <input className={`${styles.information_date}`}
+                            name="dueDate"
+                            type={"date"}
+                            value={dates.dueDate}
+                            onChange={HandleChageDates}
+                        />
+                    </div>
+                </article>
+                <div className={styles.information_save}>
+                    <Button className={styles.items_add}
+                        title="Save"
+                        buttonProps={{
+                            text: "Save",
+                            type: "button",
+                            onClick: HandleSave,
+                            iconButton: <SaveIcon />
+                        }}
+                    />
+                </div>
             </section>
         </section>
     )
