@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "axios": "^1.6.0",
     "cryptr": "^6.3.0",
     "firebase": "^10.4.0",
@@ -21,8 +22,10 @@
     "react": "latest",
     "react-dom": "latest",
     "react-google-charts": "^4.0.1",
+    "react-hook-form": "^7.49.0",
     "react-zoom-pan-pinch": "^3.3.0",
     "sass": "^1.68.0",
+    "zod": "^3.22.4",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
