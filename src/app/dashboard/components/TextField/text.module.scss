@@ -4,36 +4,54 @@
     flex-direction: column;
     gap: 0em;
     width: 100%;
+    margin: 0 0 0.25em 0;
 
     &HasLabel {
-        margin: 0.5em 0 0 0;
+        margin: 0.5em 0 0.25em 0;
     }
-
 
     &__disabled {
         opacity: 0.6;
         pointer-events: none;
-
     }
 
 
+    &_error {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: absolute;
+        bottom: -1.4em;
+        left: 0.25em;
+        font-size: 0.7em;
+        font-weight: 400;
+        color: var(--errorColor);
+    }
+
+    &_iconError {
+        position: absolute;
+        bottom: 0.45em;
+        right: 0.5em;
+        width: 1.2em;
+        height: 1.2em;
+        color: var(--errorColor);
+        pointer-events: none;
+    }
 
     &__label {
         position: absolute;
         top: 0em;
         left: 0;
-        opacity: 0.8;
-        font-size: 0.8em;
+        font-size: 0.7em;
         transform: translateX(1em) translateY(0.75em);
         user-select: none;
         transition: 0.25s ease-in-out all;
         pointer-events: none;
         padding: 0 0 0 1em;
-        font-weight: 500;
         color: var(--shadowColor);
 
         &Fill {
-            font-size: 0.8em;
+            font-size: 0.7em;
             padding: 0 0 0 1.5em;
             color: var(--clearanceBorderColor);
             transform: translateX(-1.2em) translateY(-1.25em);
@@ -83,16 +101,17 @@
         transition: 0.25s ease-in-out all;
 
 
+
         &Error {
             border: 1px solid var(--errorColor);
-
         }
 
 
 
-
         &:focus {
-            border-bottom: 1px solid var(--highLightColor);
+            &:not(.textfield__inputError) {
+                border-bottom: 1px solid var(--highLightColor);
+            }
 
             &~.textfield__label {
                 transform: translateX(-1.2em) translateY(-1.25em);
