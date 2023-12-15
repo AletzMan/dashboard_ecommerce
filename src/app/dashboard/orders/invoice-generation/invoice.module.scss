@@ -54,8 +54,7 @@
 
         &List {
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr repeat(3, 0.5fr) 2em;
+            display: flex;
             column-gap: 0.5em;
         }
 
@@ -67,29 +66,69 @@
         }
     }
 
+    &_groupCost {
+        display: flex;
+        flex-direction: row;
+        column-gap: 0.5em;
+        min-width: 14em;
+    }
+
+    &_groupAmount {
+        display: grid;
+        grid-template-columns: 1fr 2em;
+        grid-column: span 1;
+        column-gap: 0.5em;
+    }
+
     &_content {
         display: grid;
-        grid-template-columns: 1fr repeat(3, 0.5fr) 2em;
+        grid-template-columns: repeat(auto-fit, minmax(14.7em, 1fr));
+        grid-auto-flow: row;
         column-gap: 0.5em;
-        padding: 0 0.5em 0.5em 0.5em;
+        row-gap: 1em;
+        padding: 0.5em 0.5em 0.75em 0.5em;
         border-bottom: 1px solid var(--secondaryColor);
+
+        &Label {
+            position: absolute;
+            top: -0.55em;
+            left: 0.25em;
+            color: var(--clearanceBorderColor);
+            font-size: 0.7em;
+        }
 
         &Amount {
             display: flex;
             align-items: center;
             justify-content: right;
             text-align: right;
+            margin: 0.5em 0 0 0;
+            padding: 0.4em;
+            font-weight: 600;
+            border-radius: var(--border-radius);
             color: var(--fontSecondColor);
+            background-color: var(--fourthColor);
         }
+    }
+
+    &_labelAmount {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     &_delete {
         display: flex;
         align-items: center;
         justify-content: center;
+        align-self: flex-end;
         background-color: var(--terciaryColor);
         border-radius: var(--border-radius);
         border: none;
+        padding: 0.25em;
+        height: 100%;
+        max-height: 2.4em;
         color: var(--fontSecondColor);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
@@ -112,7 +151,7 @@
 
     &_totals {
         display: grid;
-        grid-template-columns: 1fr repeat(3, 0.5fr) 2em;
+        grid-template-columns: 1fr repeat(2, 0.5fr) 2em;
         column-gap: 0.5em;
     }
 
@@ -122,7 +161,7 @@
         justify-content: space-between;
         padding: 0 1em 0 0;
         width: 100%;
-        grid-column: 3 / span 2;
+        grid-column: 2 / span 2;
         color: var(--fontColor);
 
         &Text {
@@ -143,7 +182,7 @@
         align-items: center;
         justify-content: space-between;
         grid-row: 2 / 3;
-        grid-column: 3 / span 2;
+        grid-column: 2 / span 2;
         padding: 0 1em 0.5em 0;
         border-bottom: 1px solid var(--terciaryColor);
 
@@ -158,7 +197,7 @@
         width: 100%;
         font-weight: 600;
         grid-row: 3 / 4;
-        grid-column: 3 / span 2;
+        grid-column: 2 / span 2;
         color: var(--fontColor);
 
         &Number {
@@ -188,6 +227,11 @@
     &_label {
         font-size: 0.8em;
         color: var(--clearanceBorderColor);
+
+        &Error {
+            color: var(--errorColor);
+            font-size: 0.7em;
+        }
     }
 
     &_dates {
@@ -212,6 +256,10 @@
 
         &::-webkit-calendar-picker-indicator {
             filter: invert(1);
+        }
+
+        &Error {
+            border-color: var(--errorColor);
         }
     }
 
