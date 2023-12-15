@@ -1,27 +1,30 @@
 import { TextFieldType } from "@/app/Types/types"
 import styles from "./text.module.scss"
-import { ChangeEventHandler, LegacyRef, MouseEvent, MutableRefObject, useState } from "react"
-import { HelpIcon, UploadIcon, ViewOffIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
+import { ChangeEvent, ChangeEventHandler, MouseEvent, useState } from "react"
+import { ErrorIcon, HelpIcon, UploadIcon, ViewOffIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
+import { Control, UseFormRegister } from "react-hook-form/dist/types"
+import { Controller } from "react-hook-form"
 
 type TextFieldProps = {
-	onChange: ChangeEventHandler<HTMLInputElement>
-	value?: string
 	placeholder?: string
 	type?: TextFieldType
-	name?: string
+	name: string
+	control: Control<any>
 	label: string
 	isRequired?: boolean
-	error: boolean
+	error: string | undefined
 	disabled?: boolean
 	multipleFile?: boolean
 	help?: string
-	ref?: LegacyRef<HTMLDivElement> | null
+	step?: string
+	onChange: ChangeEventHandler<HTMLInputElement>
+	//register: UseFormRegister<any>
 }
 
 export function TextField({ textFieldProps, className }: { textFieldProps: TextFieldProps; className?: string }) {
 	const [viewPassword, setViewPassword] = useState(false)
 	const [viewHelp, setViewHelp] = useState(false)
-	const { onChange, value, placeholder, type, name, label, error, isRequired, disabled, multipleFile, help, ref } = textFieldProps
+	const { control, placeholder, type, name, step, label, error, isRequired, disabled, multipleFile, help, onChange } = textFieldProps
 
 	const inputType = type === "password" ? (viewPassword ? "text" : "password") : type
 
@@ -34,12 +37,17 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 		setViewHelp((prev) => !prev)
 	}
 
+	const HandleOnChange = (e: ChangeEvent<HTMLInputElement>, event: (...event: any[]) => void) => {
+		event(e.target.value)
+		onChange(e)
+	}
+
 	return (
 		<div
-			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError
-				}`}
+			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${
+				type === TextFieldType.File && styles.textfield_isFile
+			} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError} ${error && styles.textfield_isError}`}
 			onBlur={() => setViewHelp(false)}
-			ref={ref}
 		>
 			{type === TextFieldType.File && (
 				<div className={styles.content} title="No se ha seleccionado ningún archivo">
@@ -48,21 +56,25 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 					<span className={styles.content_textTwo}>Or drag and frop here</span>
 				</div>
 			)}
-			<input
-				className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput}`}
-				type={inputType}
-				value={value}
-				onChange={onChange}
+			<Controller
 				name={name}
-				placeholder={placeholder}
-				disabled={disabled}
-				multiple={multipleFile}
+				control={control}
+				render={({ field: { value, onChange, name } }) => (
+					<input
+						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${
+							type === "file" && styles.textfield_isFileInput
+						} ${error && styles.textfield__inputError}`}
+						onChange={(e) => HandleOnChange(e, onChange)}
+						type={inputType}
+						placeholder={placeholder}
+						disabled={disabled}
+						multiple={multipleFile}
+						name={name}
+						step={step}
+					/>
+				)}
 			/>
-			<label
-				className={`${styles.textfield__label} ${value !== "" && styles.textfield__labelFill}  ${isRequired && error && styles.textfield__labelError} `}
-			>
-				{label}
-			</label>
+			<label className={`${styles.textfield__label} ${styles.textfield__labelFill}  ${isRequired && error && styles.textfield__labelError} `}>{label}</label>
 			{help && (
 				<>
 					<button className={styles.help} title={help} onClick={HandleViewHelp}>
@@ -71,11 +83,17 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 					{viewHelp && <label className={`${styles.help_label} ${viewHelp && styles.help_labelActive}`}>{help}</label>}
 				</>
 			)}
-			{type === "password" && value !== "" && (
+			{type === "password" && (
 				<button className={styles.textfield__view} onClick={(e) => HandleSwitchPassword(e)}>
 					{!viewPassword && <ViewOffIcon />}
 					{viewPassword && <ViewOnIcon />}
 				</button>
+			)}
+			{error && (
+				<>
+					<p className={styles.textfield_error}>{error}</p>
+					<ErrorIcon className={styles.textfield_iconError} />
+				</>
 			)}
 		</div>
 	)

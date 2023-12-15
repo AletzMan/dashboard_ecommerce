@@ -1,131 +1,72 @@
 "use client"
-import { ArrowDownLineIcon, ArrowIcon, ArrowUpIcon, CheckTwoIcon, LoadingIcon } from "@/app/SVG/componentsSVG"
-import { useState, ChangeEvent, MouseEvent, Dispatch, SetStateAction, useRef, useEffect, FC } from "react"
+import { ArrowDownLineIcon, ArrowIcon, ArrowUpIcon, CheckTwoIcon, ErrorIcon, LoadingIcon } from "@/app/SVG/componentsSVG"
+import { useState, ChangeEvent, MouseEvent, Dispatch, SetStateAction, useRef, useEffect, FC, ChangeEventHandler } from "react"
 import styles from "./formcombobox.module.scss"
+import { Control, Controller } from "react-hook-form"
 
 interface Props {
 	value: string
 	options: string[]
 	label?: string
-	name?: string
-	error?: boolean
+	name: string
+	control: Control<any>
+	error?: string | undefined
 	loading?: boolean
 	plaaceholder?: string
-	onValueChange: (valor: string) => void
+	onValueChange: ChangeEventHandler<HTMLSelectElement>
 }
 
-export const ComboBox: FC<Props> = ({ options, name, error, loading, plaaceholder, label, onValueChange, value }) => {
+export const ComboBox: FC<Props> = ({ options, name, control, error, loading, plaaceholder, label, onValueChange, value }) => {
 	const [selectOption, setSelectOption] = useState("")
-	const [viewOptions, setViewOptions] = useState(false)
-	const inputRef = useRef<HTMLInputElement>(null)
 
-	const HandleChangeCheckbox = (e: MouseEvent<HTMLButtonElement>) => {
-		setTimeout(() => {
-			if (viewOptions) {
-				setViewOptions(false)
-			} else {
-				setViewOptions(true)
-			}
-		}, 50)
-	}
-
-	const HandleClickOption = (e: MouseEvent<HTMLButtonElement>) => {
-		const option = e.currentTarget
-		setSelectOption(option.value)
-		setTimeout(() => {
-			setViewOptions(false)
-		}, 250)
-	}
-
-	const HandleOnBlur = () => {
-		setTimeout(() => {
-			setViewOptions(false)
-		}, 250)
-	}
-
-	useEffect(() => {
-		if (value === "") {
-			setSelectOption("")
-		}
-	}, [value])
-
-	useEffect(() => {
-		onValueChange(selectOption)
-	}, [selectOption])
-
-	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+	const HandleChangeValue = (e: ChangeEvent<HTMLSelectElement>, event: (...event: any[]) => void) => {
 		const newValue = e.currentTarget.value
+		event(newValue)
+		onValueChange(e)
 		setSelectOption(newValue)
-		onValueChange(newValue)
-	}
-
-	const calculateDropdownClass = () => {
-		const dropdownPosition = viewOptions ? styles.combobox__optionsActive : ""
-
-		// Calculate the position based on the available screen space
-		if (viewOptions) {
-			const inputElement = inputRef.current
-			if (inputElement) {
-				const inputRect = inputElement.getBoundingClientRect()
-				const spaceBelow = window.innerHeight - (inputRect.top + 300)
-				const height = 29.585 * 6 + 31.58
-				const heightFixed = 29.585 * options.length + 31.58
-				if (spaceBelow < 0) {
-					console.log(spaceBelow)
-					if (options.length > 5) {
-						inputElement.style.cssText = `--height-combo: -${height}px;`
-					} else {
-						inputElement.style.cssText = `--height-combo: -${heightFixed}px;`
-					}
-					//inputElement.style.cssText = `--height-combo: -${height}px;`
-
-					return `${styles.combobox__optionsAbove}`
-				}
-			}
-		}
-
-		return dropdownPosition
 	}
 
 	return (
-		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled} ${viewOptions && styles.combobox_active}`} onBlur={HandleOnBlur}>
+		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled}`}>
 			{label && <label className={styles.combobox_label}>{label}</label>}
-			<input
-				type="text"
-				className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
+			<Controller
 				name={name}
-				placeholder={plaaceholder}
-				value={value}
-				onChange={(e) => HandleChangeValue(e)}
-			//onFocus={() => setViewOptions(true)}
+				control={control}
+				render={({ field: { value, onChange, name } }) => (
+					<select
+						className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
+						name={name}
+						onChange={(e) => HandleChangeValue(e, onChange)}
+						defaultValue={plaaceholder}
+					>
+						{
+							<option className={styles.combobox_default} value={plaaceholder} disabled>
+								--{plaaceholder}--
+							</option>
+						}
+						{options?.map((option) => (
+							<option
+								key={option}
+								className={`${styles.combobox__optionsOption} ${selectOption === option && styles.combobox__optionsOptionSelected}`}
+								value={option}
+							>
+								{option}
+							</option>
+						))}
+					</select>
+				)}
 			/>
-			<div className={`${styles.combobox__arrow} ${label && styles.combobox__arrowWithLabel}`}>
-				<button
-					className={`${styles.combobox__arrowCheckbox} ${viewOptions && styles.combobox__arrowCheckboxView}`}
-					onClick={(e) => HandleChangeCheckbox(e)}
-				/>
-				<ArrowUpIcon className="" />
-			</div>
+			{error && (
+				<>
+					<span className={styles.combobox_labelError}>{error}</span>
+					<ErrorIcon className={styles.combobox_iconError} />
+				</>
+			)}
 			{
 				<div className={`${styles.combobox__loading} ${!loading && styles.combobox__loadingInactive}`}>
 					<LoadingIcon className="" />
 				</div>
 			}
-			<div className={`${styles.combobox__options} ${viewOptions && calculateDropdownClass()} scrollBarStyle`} ref={inputRef}>
-				<div className={`${styles.combobox_container} ${viewOptions && styles.combobox__containerActive}`}>
-					{options?.map((option) => (
-						<button
-							key={option}
-							className={`${styles.combobox__optionsOption} ${selectOption === option && styles.combobox__optionsOptionSelect}`}
-							onMouseUp={(e) => HandleClickOption(e)}
-							value={option}
-						>
-							{option}
-							{selectOption === option && <CheckTwoIcon className={styles.combobox__optionsOptionIcon} />}
-						</button>
-					))}
-				</div>
-			</div>
 		</div>
 	)
 }
