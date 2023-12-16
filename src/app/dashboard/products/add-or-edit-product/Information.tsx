@@ -3,11 +3,28 @@ import { useProductInformation } from "@/app/utils/store"
 import { TextField } from "../../components/TextField/TextField"
 import { ToggleSwitch } from "../../components/ToggleSwitch/ToggleSwitch"
 import styles from "./createedit.module.scss"
-import { ChangeEvent } from "react"
+import { ChangeEvent, useEffect } from "react"
 import { TextFieldType } from "@/app/Types/types"
+import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
+import { IInputs } from "./FormProdtc"
+import { set } from "zod"
 
-export function Information() {
+interface Props {
+	errors: FieldErrors<IInputs>
+	control: Control<IInputs>
+	setValue: UseFormSetValue<IInputs>
+}
+
+export function Information(props: Props) {
+	const { errors, control, setValue } = props
 	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()
+
+	useEffect(() => {
+		setValue("price", productValue.price.toString())
+		setValue("inventoryQuantity", productValue.inventoryQuantity.toString())
+		setValue("minimuninventoryQuantity", productValue.minimuninventoryQuantity.toString())
+	}, [productValue])
+
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
 		setProductValue({ ...productValue, [e.target.name]: e.target.value })
 		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
@@ -22,7 +39,8 @@ export function Information() {
 						label: "Price:",
 						value: productValue.price.toString(),
 						isRequired: true,
-						error: errorEmpty.price,
+						error: errors.price?.message,
+						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 					}}
@@ -37,7 +55,7 @@ export function Information() {
 						name: "discount",
 						label: "Discount:",
 						value: productValue.discount.toString(),
-						error: false,
+						error: "",
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 						disabled: !productValue.isDiscounted,
@@ -65,7 +83,8 @@ export function Information() {
 						label: "Inventory Quantity:",
 						value: productValue.inventoryQuantity.toString(),
 						isRequired: true,
-						error: errorEmpty.inventoryQuantity,
+						error: errors.inventoryQuantity?.message,
+						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 					}}
@@ -76,7 +95,8 @@ export function Information() {
 						label: "Minimum Quantity:",
 						value: productValue.minimuninventoryQuantity.toString(),
 						isRequired: true,
-						error: errorEmpty.minimuninventoryQuantity,
+						error: errors.minimuninventoryQuantity?.message,
+						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 					}}
