@@ -22,10 +22,12 @@
         justify-content: flex-start;
         position: absolute;
         bottom: -1.4em;
-        left: 0.25em;
         font-size: 0.7em;
         font-weight: 400;
         color: var(--errorColor);
+        background-color: var(--saleBackgroundColor);
+        width: max-content;
+        padding: 0.15em;
     }
 
     &_iconError {
@@ -103,7 +105,7 @@
 
 
         &Error {
-            border: 1px solid var(--errorColor);
+            border: 1px dashed var(--errorColor);
         }
 
 
