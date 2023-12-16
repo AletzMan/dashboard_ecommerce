@@ -12,7 +12,7 @@ export async function GET(request: NextRequest, context: any) {
   const sort = params.get("sort") || "asc"
   const order = params.get("order") || ""
   const page: number = Number(params.get("page")) || 1
-
+  console.log(params.size)
   /*if (session === null) {
     return NextResponse.json({ message: "You do not have the necessary permissions to access this resource." }, { status: 403 })
   }*/
@@ -30,8 +30,8 @@ export async function GET(request: NextRequest, context: any) {
     if (order) {
       query += ` ORDER BY ${order} ${sort}`
     }
-
-    query += ` LIMIT ${pageSize} OFFSET ${offset}`
+    if (params.size > 0)
+      query += ` LIMIT ${pageSize} OFFSET ${offset}`
 
     // Crear un array de valores para la declaración preparada
     const likePattern = `%${search}%`
