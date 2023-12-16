@@ -3,13 +3,13 @@ import styles from "./text.module.scss"
 import { ChangeEvent, ChangeEventHandler, MouseEvent, useState } from "react"
 import { ErrorIcon, HelpIcon, UploadIcon, ViewOffIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
 import { Control, UseFormRegister } from "react-hook-form/dist/types"
-import { Controller } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 
 type TextFieldProps = {
 	placeholder?: string
 	type?: TextFieldType
 	name: string
-	control: Control<any>
+	controlExt?: Control<any>
 	label: string
 	isRequired?: boolean
 	error: string | undefined
@@ -17,6 +17,7 @@ type TextFieldProps = {
 	multipleFile?: boolean
 	help?: string
 	step?: string
+	value?: string
 	onChange: ChangeEventHandler<HTMLInputElement>
 	//register: UseFormRegister<any>
 }
@@ -24,7 +25,8 @@ type TextFieldProps = {
 export function TextField({ textFieldProps, className }: { textFieldProps: TextFieldProps; className?: string }) {
 	const [viewPassword, setViewPassword] = useState(false)
 	const [viewHelp, setViewHelp] = useState(false)
-	const { control, placeholder, type, name, step, label, error, isRequired, disabled, multipleFile, help, onChange } = textFieldProps
+	const { control } = useForm()
+	const { controlExt, placeholder, value, type, name, step, label, error, isRequired, disabled, multipleFile, help, onChange } = textFieldProps
 
 	const inputType = type === "password" ? (viewPassword ? "text" : "password") : type
 
@@ -58,8 +60,8 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 			)}
 			<Controller
 				name={name}
-				control={control}
-				render={({ field: { value, onChange, name } }) => (
+				control={controlExt || control}
+				render={({ field: { onChange, name } }) => (
 					<input
 						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${
 							type === "file" && styles.textfield_isFileInput
@@ -71,6 +73,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 						multiple={multipleFile}
 						name={name}
 						step={step}
+						value={value}
 					/>
 				)}
 			/>
