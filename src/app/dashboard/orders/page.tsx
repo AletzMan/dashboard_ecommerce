@@ -1,4 +1,3 @@
-
 import { OptionsDateLocal } from "@/app/Constants/constants"
 import { ICustomer, IOrder } from "@/app/Types/types"
 import axios from "axios"
@@ -12,15 +11,12 @@ import { TotalOrders } from "../overview/components/TotalsView/TotalOrders"
 import { TotalOrderCompleted } from "../overview/components/TotalsView/TotalOrdersCompleted"
 import { TotalOrderCancelled } from "../overview/components/TotalsView/TotalOrdersCancelled"
 
-
 const GetOrders = async (id: string) => {
 	try {
 		const response = await axios.get(`http://localhost:3000/api/orders`)
 		const orders: IPagination = response.data.data
 		return orders
-	} catch (error) {
-
-	}
+	} catch (error) {}
 }
 
 interface IPagination {
@@ -32,7 +28,7 @@ interface IPagination {
 }
 
 export default async function PageOrders() {
-	const headersList = headers();
+	const headersList = headers()
 	const pathname = headersList.get("next-url")
 	let orders: IPagination | undefined = undefined
 	const id = pathname?.split("/")[3] || ""
@@ -43,18 +39,16 @@ export default async function PageOrders() {
 
 	//}
 	return (
-		<section className={`${styles.section} scrollBarStyle`} >
+		<section className={`${styles.section} scrollBarStyle`}>
 			<article className={styles.totals}>
 				<Suspense fallback={<SkeletonTotalViews />}>
 					{/* @ts-expect-error Server Component */}
 					<TotalOrders id={id} title="Total Orders" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalOrderCompleted id={id} title="Orders Completed" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalOrderCancelled id={id} title="Orders Cancelled" />
 				</Suspense>
 			</article>
@@ -62,7 +56,7 @@ export default async function PageOrders() {
 				<article className={styles.orders}>
 					<h2 className={styles.orders_title}> All Orders</h2>
 					<Suspense fallback={<SkeletonTotalViews />}>
-						{orders && orders?.orders.length > 0 &&
+						{orders && orders?.orders.length > 0 && (
 							<DataGrid
 								rows={orders.orders}
 								columns={[
@@ -78,12 +72,12 @@ export default async function PageOrders() {
 								paginacion={{ currentPage: orders.currentPage, totalPages: orders.totalPages }}
 								statusOptions={{
 									statusArray: ["On the way", "Delivered", "Pending", "Cancelled"],
-									colors: ["#2196F3", "#0cd315", "#cebc19", "#FF5722"]
+									colors: ["#2196F3", "#0cd315", "#cebc19", "#FF5722"],
 								}}
 								actions={["view"]}
 								linkEdit={"/dashboard/orders"}
 							/>
-						}
+						)}
 					</Suspense>
 				</article>
 			</div>
