@@ -11,56 +11,23 @@ import { GetNameImage } from "@/app/utils/functions"
 import { Modal } from "@/app/components/Modal/Modal"
 import { useEffect, useState } from "react"
 
-export function SaveProductsButton() {
+interface Props {
+	isValid: boolean
+}
+
+export function SaveProductsButton(props: Props) {
+	const { isValid } = props
 	const { setProductValue, productValue, setErrorEmpty, errorEmpty, EmptyProduct, setLoadInformation } = useProductInformation()
 	const { coverImage, productImages } = useImagesProduct()
 	const [uploading, setUploading] = useState(false)
 	const [uploadReady, setUploadReady] = useState(false)
 
-	const ValidateFields = () => {
-		if (
-			!productValue.title ||
-			!productValue.description ||
-			!productValue.image ||
-			productValue.slideImages.length === 0 ||
-			!productValue.category ||
-			!productValue.subcategory ||
-			!productValue.brand ||
-			productValue.price === 0 ||
-			productValue.price.toString() === "" ||
-			productValue.inventoryQuantity === 0 ||
-			!Number.isInteger(productValue.inventoryQuantity) ||
-			productValue.minimuninventoryQuantity === 0
-		) {
-			setErrorEmpty({
-				...errorEmpty,
-				title: !productValue.title,
-				description: !productValue.description,
-				image: !productValue.image,
-				slideImages: productValue.slideImages.length === 0,
-				category: !productValue.category,
-				subcategory: !productValue.subcategory,
-				brand: !productValue.brand,
-				price: productValue.price === 0 || productValue.price.toString() === "",
-				inventoryQuantity: productValue.inventoryQuantity === 0 || !Number.isInteger(productValue.inventoryQuantity),
-				minimuninventoryQuantity: productValue.minimuninventoryQuantity === 0,
-			})
-			enqueueSnackbar("The request is missing a required field. Please make sure all required fields are provided", {
-				variant: "error",
-				anchorOrigin: { horizontal: "center", vertical: "top" },
-				style: { backgroundColor: "darkred" },
-			})
-			return false
-		} else {
-			return true
-		}
-	}
-
 	const HandleSaveProduct = () => {
-		const isValidate = ValidateFields()
-		if (isValidate) {
+		if (isValid) {
 			setUploading(true)
 			UploadImages()
+		} else {
+			enqueueSnackbar("Please fill in all the fields", { variant: "error", anchorOrigin: { horizontal: "center", vertical: "top" } })
 		}
 	}
 
@@ -85,8 +52,6 @@ export function SaveProductsButton() {
 			const productImageURL = await GetURLFile("productImage", NameImages[index])
 			ArrayImages.push(productImageURL)
 		}
-		console.log(productValue.slideImages)
-		console.log(ArrayImages)
 		setProductValue({ ...prevProduct, image: coverImageURL, slideImages: ArrayImages })
 		setUploadReady(true)
 	}
@@ -95,11 +60,9 @@ export function SaveProductsButton() {
 		if (uploadReady) {
 			CreateProduct()
 		}
-
 	}, [uploadReady])
 
 	const CreateProduct = async () => {
-
 		try {
 			const response = await axios.post("/api/products", {
 				productValue,
@@ -117,30 +80,30 @@ export function SaveProductsButton() {
 
 				setTimeout(() => {
 					setLoadInformation(true)
-				}, 5);
+				}, 5)
 			}
 		} catch (error) {
 			setUploading(false)
 			setUploadReady(false)
 			console.error(error)
 		}
-
-
 	}
 
 	return (
 		<>
-			{uploading && <Modal title="" >
-				<LoadingIcon className={styles.modal_icon} />
-				<p className={styles.modal_text}>Creating product... </p>
-				<p className={styles.modal_text}>Please wait a moment.</p>
-			</Modal>}
+			{uploading && (
+				<Modal title="">
+					<LoadingIcon className={styles.modal_icon} />
+					<p className={styles.modal_text}>Creating product... </p>
+					<p className={styles.modal_text}>Please wait a moment.</p>
+				</Modal>
+			)}
 			<Button
 				className={styles.details_addFeature}
 				buttonProps={{
 					onClick: HandleSaveProduct,
 					text: "Save",
-					type: "button",
+					type: "submit",
 					typeButton: ButtonType.WhitIcon,
 					iconButton: <SaveIcon />,
 					isSecondary: false,

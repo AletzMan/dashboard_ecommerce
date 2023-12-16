@@ -2,22 +2,26 @@
 import { LoadImageProvider } from "@/app/components/LoadImageProvider/LoadImageProvider"
 import styles from "./createedit.module.scss"
 import { TextField } from "../../components/TextField/TextField"
-import { IBrand, ICategory, IImage, ProductType, TextFieldType } from "@/app/Types/types"
+import { IBrand, ICategory, IImage, TextFieldType } from "@/app/Types/types"
 import { TextArea } from "../../components/TextArea/TextArea"
 import { ComboBox } from "../../components/ComboBox/ComboBox"
-import { ChangeEvent, useCallback, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import axios from "axios"
 import { useImagesProduct, useProductInformation } from "@/app/utils/store"
 import { enqueueSnackbar } from "notistack"
 import { GetHeightAndWidthFromImageURL } from "@/app/utils/functions"
-import { Modal } from "@/app/components/Modal/Modal"
-import { LoadingIcon } from "@/app/SVG/componentsSVG"
+import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
+import { IInputs } from "./FormProdtc"
+import { set } from "zod"
 
 interface Props {
-	productSelect?: ProductType
+	errors: FieldErrors<IInputs>
+	control: Control<IInputs>
+	setValue: UseFormSetValue<IInputs>
 }
 
-export function BasicInformation() {
+export function BasicInformation(props: Props) {
+	const { errors, control, setValue } = props
 	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()
 	const { coverImage, setCoverImage, productImages, setProductImages } = useImagesProduct()
 	const [loadImage, setLoadImage] = useState(true)
@@ -43,6 +47,17 @@ export function BasicInformation() {
 		GetBrands()
 	}, [loadInformation])
 
+	useEffect(() => {
+		setValue("title", productValue.title)
+		setValue("description", productValue.description)
+		setValue("category", productValue.category)
+		setValue("subcategory", productValue.subcategory)
+		setValue("brand", productValue.brand)
+		setSelectSubAndCategory({ ...selectSubAndCategory, category: productValue.category, subCategory: productValue.subcategory })
+	}, [productValue])
+
+	console.log(selectSubAndCategory.category)
+
 	const GetCategories = async () => {
 		try {
 			const response = await axios.get("/api/categories")
@@ -53,25 +68,23 @@ export function BasicInformation() {
 		} catch (error) {
 			console.error(error)
 		}
-
 	}
 	const GetBrands = async () => {
 		try {
 			const response = await axios.get("/api/brands")
 			if (response.status === 200) {
-				const responseBrands: IBrand[] = response.data.brands
+				const responseBrands: IBrand[] = response.data.data.brands
 				setBrands(responseBrands)
 			}
 		} catch (error) {
 			console.error(error)
 		}
-
 	}
 	useEffect(() => {
 		if (categories && categories?.length > 0) {
 			GetSubCategories()
 		}
-	}, [selectSubAndCategory.category])
+	}, [selectSubAndCategory.category, categories])
 
 	const GetSubCategories = async () => {
 		try {
@@ -86,12 +99,11 @@ export function BasicInformation() {
 		} catch (error) {
 			console.error(error)
 		}
-
 	}
 
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		setProductValue({ ...productValue, [e.target.name]: e.target.value })
-		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
+		//setProductValue({ ...productValue, [e.target.name]: e.target.value })
+		//setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
 	}
 
 	const HandleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -174,12 +186,14 @@ export function BasicInformation() {
 		}
 	}
 
-	const HandleSelectCategory = (value: string) => {
+	const HandleSelectCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+		const value = e.currentTarget.value
 		setProductValue({ ...productValue, category: value })
 		setSelectSubAndCategory({ ...selectSubAndCategory, category: value })
 		setErrorEmpty({ ...errorEmpty, category: false })
 	}
-	const HandleSelectSubCategory = (value: string) => {
+	const HandleSelectSubCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+		const value = e.currentTarget.value
 		const category = categories?.find((category) => category.name === selectSubAndCategory.category)
 		const subcategory = subCategories?.find((subcategory) => subcategory.name === value)
 		if (category) {
@@ -188,7 +202,8 @@ export function BasicInformation() {
 		}
 	}
 
-	const HandleSelectBrand = (value: string) => {
+	const HandleSelectBrand = (e: ChangeEvent<HTMLSelectElement>) => {
+		const value = e.currentTarget.value
 		const brand = brands?.find((brand) => brand.name === value)
 		if (brand) {
 			setProductValue({ ...productValue, brand: value, brandLogo: brand?.logo })
@@ -196,16 +211,18 @@ export function BasicInformation() {
 		}
 	}
 
+	//console.log(productValue)
+
 	return (
 		<div className={styles.fields}>
-
 			<TextField
 				textFieldProps={{
 					name: "title",
 					label: "Title:",
-					value: productValue.title,
-					error: errorEmpty.title,
+					error: errors.title?.message,
 					isRequired: true,
+					value: productValue.title,
+					controlExt: control,
 					onChange: (e) => HandleChangeValue(e),
 					type: TextFieldType.Text,
 				}}
@@ -216,7 +233,8 @@ export function BasicInformation() {
 						textFieldProps={{
 							name: "image",
 							label: "Product Image:",
-							error: errorEmpty.image,
+							error: errors.image?.message,
+							controlExt: control,
 							isRequired: true,
 							onChange: (e) => HandleUploadImage(e),
 							type: TextFieldType.File,
@@ -228,9 +246,10 @@ export function BasicInformation() {
 			<LoadImageProvider images={productImages || []} width={130} height={130}>
 				<TextField
 					textFieldProps={{
-						name: "slideImage",
+						name: "slideImages",
 						label: "Slider Images:",
-						error: errorEmpty.slideImages,
+						error: errors.slideImages?.message,
+						controlExt: control,
 						isRequired: true,
 						onChange: (e) => HandleUploadSlideImage(e),
 						type: TextFieldType.File,
@@ -242,8 +261,9 @@ export function BasicInformation() {
 			<TextArea
 				name="description"
 				label="Description:"
+				error={errors.description?.message}
+				controlExt={control}
 				value={productValue.description}
-				error={errorEmpty.description}
 				isRequired
 				onChange={(e) => HandleChangeValue(e)}
 			/>
@@ -251,19 +271,32 @@ export function BasicInformation() {
 				name="category"
 				label="Category:"
 				options={categories?.map((category) => category.name) || []}
-				error={errorEmpty.category}
+				error={errors.category?.message}
 				value={productValue.category}
+				controlExt={control}
 				onValueChange={HandleSelectCategory}
+				plaaceholder="-- Select a category --"
 			/>
 			<ComboBox
 				name="subcategory"
 				label="SubCategory:"
 				options={subCategories?.map((subcategory) => subcategory.name) || []}
-				error={errorEmpty.subcategory}
+				error={errors.subcategory?.message}
 				value={productValue.subcategory}
+				controlExt={control}
 				onValueChange={HandleSelectSubCategory}
+				plaaceholder="-- Select a subcategory --"
 			/>
-			<ComboBox name="brand" label="Brand:" options={brands?.map((brand) => brand.name) || []} error={errorEmpty.brand} value={productValue.brand} onValueChange={HandleSelectBrand} />
+			<ComboBox
+				name="brand"
+				label="Brand:"
+				options={brands?.map((brand) => brand.name) || []}
+				error={errors.brand?.message}
+				value={productValue.brand}
+				controlExt={control}
+				onValueChange={HandleSelectBrand}
+				plaaceholder="-- Select a brand --"
+			/>
 		</div>
 	)
 }

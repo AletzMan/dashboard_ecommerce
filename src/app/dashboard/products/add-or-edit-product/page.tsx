@@ -1,10 +1,7 @@
 import styles from "./createedit.module.scss"
-import { Details } from "./Details"
-import { Information } from "./Information"
-import { BasicInformation } from "./BasicInformation"
-import { SaveProductsButton } from "./SaveProductButton"
 import axios from "axios"
 import { ProductType } from "@/app/Types/types"
+import { FormProduct } from "./FormProdtc"
 
 const GetProduct = async (id: string) => {
 	try {
@@ -13,11 +10,9 @@ const GetProduct = async (id: string) => {
 			const product: ProductType = response.data.product[0]
 			return product
 		}
-
 	} catch (error) {
 		console.error(error)
 	}
-
 }
 
 export default async function ProductsPage({ searchParams }: { searchParams: string }) {
@@ -26,7 +21,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: str
 	let productSelect: ProductType | undefined = undefined
 
 	if (params.length > 0) {
-		const idFind = params.filter(param => param[0] === "id")
+		const idFind = params.filter((param) => param[0] === "id")
 		if (idFind.length > 0) {
 			const id = idFind[0][1]
 			productSelect = await GetProduct(id)
@@ -35,20 +30,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: str
 
 	return (
 		<section className={`${styles.section} scrollBarStyle`}>
-			<header className={styles.section_header}>
-				<SaveProductsButton />
-			</header>
-			<article className={styles.article}>
-				<div className={`${styles.article_section} ${styles.article_sectionBasic}`}>
-					<h3 className={styles.article_sectionTitle}>Basic information</h3>
-					<BasicInformation />
-				</div>
-				<div className={styles.article_section}>
-					<h3 className={styles.article_sectionTitle}>Sales Information</h3>
-					<Information />
-					<Details productSelect={productSelect} />
-				</div>
-			</article>
+			<FormProduct productSelect={productSelect} />
 		</section>
 	)
 }
