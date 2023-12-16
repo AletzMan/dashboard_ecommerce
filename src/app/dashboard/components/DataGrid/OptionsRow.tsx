@@ -50,16 +50,25 @@ export function OptionsRow(props: Props) {
 	const ButtonsOptions = useCallback(() => {
 		let buttons: ReactNode[] = []
 
-		actions?.forEach(action => {
+		actions?.forEach((action) => {
 			if (action === "view") {
 				buttons.push(
-					<Link href={`${linkEdit}/${row[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonView}`} onClick={() => HandleEditBrand()}>
+					<Link
+						href={`${linkEdit}/${row[0].value}` || ""}
+						className={`${styles.options_button} ${styles.options_buttonView}`}
+						onClick={() => HandleEditBrand()}
+					>
 						<ViewOnIcon className={styles.options_buttonIcon} />
-					</Link>)
+					</Link>
+				)
 			}
 			if (action === "edit") {
 				buttons.push(
-					<Link href={`${linkEdit}?id=${row[0].value}` || ""} className={`${styles.options_button} ${styles.options_buttonEdit}`} onClick={() => HandleEditBrand()}>
+					<Link
+						href={`${linkEdit}?id=${row[0].value}` || ""}
+						className={`${styles.options_button} ${styles.options_buttonEdit}`}
+						onClick={() => HandleEditBrand()}
+					>
 						<EditIcon className={styles.options_buttonIcon} />
 					</Link>
 				)
@@ -79,16 +88,15 @@ export function OptionsRow(props: Props) {
 	return (
 		<>
 			<div className={styles.options}>
-				{ButtonsOptions().map(button => (
-					<div key={button?.toString()}>
-						{button}
-					</div>
+				{ButtonsOptions().map((button, index) => (
+					<div key={index}>{button}</div>
 				))}
 			</div>
 			{open && (
 				<Modal title={"Delete"}>
 					<div className={styles.options_message}>
-						Are you sure you want to delete the item with ID<br />
+						Are you sure you want to delete the item with ID
+						<br />
 						<span className={styles.options_messageMark}>{` ${row[0].value} `}</span>?
 					</div>
 					<div className={styles.options_buttons}>
