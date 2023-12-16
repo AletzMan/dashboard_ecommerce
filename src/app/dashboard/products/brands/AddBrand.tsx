@@ -4,7 +4,7 @@ import { CancelIcon, SaveIcon } from "@/app/SVG/componentsSVG"
 import { Button } from "../../components/Button/Button"
 import styles from "./brands.module.scss"
 import { TextField } from "../../components/TextField/TextField"
-import { IImage, TextFieldType } from "@/app/Types/types"
+import { ButtonType, IImage, TextFieldType } from "@/app/Types/types"
 import { ChangeEvent, useEffect, useState } from "react"
 import { LoadImageProvider } from "@/app/components/LoadImageProvider/LoadImageProvider"
 import { enqueueSnackbar } from "notistack"
@@ -14,10 +14,18 @@ import { GetHeightAndWidthFromImageURL } from "@/app/utils/functions"
 import { useRouter } from "next/navigation"
 import { useViewModal } from "@/app/utils/store"
 import { Modal } from "@/app/components/Modal/Modal"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { brandSchema } from "@/app/validations/productSchema"
 
 interface IErrorFields {
 	name: boolean
 	logo: boolean
+}
+
+type IBrandFileds = {
+	name: string
+	logo: string
 }
 
 export function AddBrands() {
@@ -26,7 +34,14 @@ export function AddBrands() {
 	const [loadImage, setLoadImage] = useState(true)
 	const [logo, setLogo] = useState<IImage[]>([{ file: null, url: brandSelect.logo }])
 	const [nameBrand, setNameBrand] = useState<string>(brandSelect.name)
-	const [errorFields, setErrorFields] = useState<IErrorFields>({ name: false, logo: false })
+	const { handleSubmit, formState, control, reset } = useForm<IBrandFileds>({
+		resolver: zodResolver(brandSchema),
+		defaultValues: {
+			name: "",
+			logo: "",
+		},
+	})
+	const { errors, isValid } = formState
 
 	useEffect(() => {
 		const newLogo: IImage[] = [{ file: null, url: brandSelect.logo }]
@@ -57,14 +72,12 @@ export function AddBrands() {
 				setNameBrand("")
 				setLogo([{ file: null, url: "" }])
 				setLoadImage(false)
-				setErrorFields({ name: false, logo: false })
 				setViewModal(false)
 				return
 			}
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response) {
 				enqueueSnackbar(error.response?.data.message, { variant: "error" })
-				setErrorFields({ name: error.response.data.error.name, logo: error.response.data.error.logo })
 				console.error(error)
 			} else {
 				console.error(error)
@@ -85,7 +98,6 @@ export function AddBrands() {
 				setNameBrand("")
 				setLogo([{ file: null, url: "" }])
 				setLoadImage(false)
-				setErrorFields({ name: false, logo: false })
 				setViewModal(false)
 				router.refresh()
 				return
@@ -93,7 +105,6 @@ export function AddBrands() {
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response) {
 				enqueueSnackbar(error.response?.data.message, { variant: "error" })
-				setErrorFields({ name: error.response.data.error.name, logo: error.response.data.error.logo })
 				console.error(error)
 			} else {
 				console.error(error)
@@ -144,23 +155,29 @@ export function AddBrands() {
 
 	const HandleOpenDialog = () => {
 		setViewModal(false)
-		setErrorFields({ name: false, logo: false })
+		reset()
+	}
+
+	const HandleOnSubmit = (data: IBrandFileds) => {
+		if (isValid) {
+			HandleAddBrand()
+		}
 	}
 
 	return (
 		<>
 			{viewModal && (
 				<Modal title={typeModal === "Edit" ? "Edit brand" : "Add brand"}>
-					<section className={styles.addBrands}>
+					<form onSubmit={handleSubmit(HandleOnSubmit)} className={styles.addBrands}>
 						<TextField
 							textFieldProps={{
 								label: "Name",
-								error: errorFields?.name,
+								error: errors.name?.message,
+								controlExt: control,
 								onChange: HandleChangeName,
 								name: "name",
 								type: TextFieldType.Text,
 								value: nameBrand,
-								isRequired: true,
 								disabled: typeModal === "Edit",
 							}}
 						/>
@@ -169,8 +186,8 @@ export function AddBrands() {
 								<TextField
 									textFieldProps={{
 										label: "Logo",
-										error: errorFields.logo,
-										isRequired: true,
+										error: errors.logo?.message,
+										controlExt: control,
 										onChange: (e) => HandleUploadSlideImage(e),
 										name: "logo",
 										type: TextFieldType.File,
@@ -183,9 +200,9 @@ export function AddBrands() {
 							<Button
 								title="Add brands"
 								buttonProps={{
-									onClick: HandleAddBrand,
+									onClick() {},
 									text: "Save brand",
-									type: "button",
+									type: "submit",
 									iconButton: <SaveIcon />,
 								}}
 							/>
@@ -200,7 +217,7 @@ export function AddBrands() {
 								}}
 							/>
 						</div>
-					</section>
+					</form>
 				</Modal>
 			)}
 		</>
