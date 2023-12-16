@@ -30,6 +30,7 @@ export type OptionsType = {
   section: MenuOptionsTypes
   subSections: string[] | undefined
   links: string
+  linksSubsection: string[]
   icon: JSX.Element
 }
 
