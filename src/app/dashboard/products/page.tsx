@@ -1,4 +1,3 @@
-
 import { ProductType } from "@/app/Types/types"
 import axios from "axios"
 import { Suspense } from "react"
@@ -22,10 +21,8 @@ interface PaginationProducts {
 const GetProducts = async (params: [string, string][]) => {
 	let paramsString: string = ""
 	params.forEach((param, index) => {
-		if (index === 0)
-			paramsString += `?${param[0]}=${param[1]}`
-		else
-			paramsString += `&${param[0]}=${param[1]}`
+		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
+		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
 		const response = await axios.get(`http://localhost:3000/api/products/${paramsString}`)
@@ -39,9 +36,8 @@ const GetProducts = async (params: [string, string][]) => {
 }
 
 export default async function Products({ searchParams }: { searchParams: string }) {
-
 	const params = Object.entries(searchParams)
-	const search = params.filter(param => param[0] === "search")[0]
+	const search = params.filter((param) => param[0] === "search")[0]
 	const response = await GetProducts(params)
 	const data: PaginationProducts = response as PaginationProducts
 	//const products: ProductType[] = []
@@ -52,11 +48,9 @@ export default async function Products({ searchParams }: { searchParams: string 
 				<header className={styles.header}>
 					<div className={styles.header_top}>
 						<Suspense fallback={<SkeletonTotalViews />}>
-							{/* @ts-expect-error Server Component */}
 							<TotalProducts />
 						</Suspense>
 						<Suspense fallback={<SkeletonTotalViews />}>
-							{/* @ts-expect-error Server Component */}
 							<BestProduct />
 						</Suspense>
 					</div>
@@ -80,7 +74,7 @@ export default async function Products({ searchParams }: { searchParams: string 
 						actions={["view", "edit", "delete"]}
 						statusOptions={{
 							statusArray: ["active", "out-of-stock", "inactive"],
-							colors: ["#0cd315", "#cebc19", "#FF5722"]
+							colors: ["#0cd315", "#cebc19", "#FF5722"],
 						}}
 						linkEdit={"/dashboard/products/add-or-edit-product"}
 					/>
