@@ -5,11 +5,9 @@ import { Stats } from "./components/Stats"
 
 export default async function SalesPage({ searchParams }: { searchParams: { [key: string]: string } }) {
 	return (
-		<section className={styles.section}>
+		<section className={`${styles.section} scrollBarStyle`}>
 			<div className={styles.totals}>
-				{/* @ts-expect-error Server Component */}
 				<TotalSales />
-				{/* @ts-expect-error Server Component */}
 				<TotalOrders title="Total Sales" />
 			</div>
 			<Stats />

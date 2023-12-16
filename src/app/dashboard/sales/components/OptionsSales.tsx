@@ -58,7 +58,7 @@ export function OptionsSales(props: Props) {
 						disabled: !(parseInt(year) > firstYear),
 					}}
 				/>
-				<ComboBox options={OptionsPeriod} value={salesPeriod} onValueChange={HandleChangePerdiod} />
+				<ComboBox options={OptionsPeriod} value={salesPeriod} onValueChange={() => HandleChangePerdiod} name="period" />
 				<Button
 					className={styles.header_button}
 					title={`See next ${salesPeriod}`}
@@ -76,11 +76,11 @@ export function OptionsSales(props: Props) {
 				textFieldProps={{
 					label: "",
 					name: "",
-					error: false,
+					error: "",
 					placeholder: "",
 					type: TextFieldType.Text,
 					value: text,
-					onChange() { },
+					onChange() {},
 					disabled: true,
 				}}
 			/>

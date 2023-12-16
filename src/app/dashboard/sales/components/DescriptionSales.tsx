@@ -29,7 +29,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Month",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: currentData?.month,
@@ -42,7 +42,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Amount",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: FormattedString(currentData?.salesAmount || 0),
@@ -55,7 +55,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Sales",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: currentData?.sales.toString() || "0",
@@ -71,7 +71,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Month",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: allTimeData?.period.period || "0",
@@ -84,7 +84,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Amount",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: FormattedString(allTimeData?.period.salesAmount || 0),
@@ -97,7 +97,7 @@ export function DescriptionSales(props: Props) {
 						textFieldProps={{
 							label: "Sales",
 							name: "",
-							error: false,
+							error: "",
 							placeholder: "",
 							type: TextFieldType.Text,
 							value: allTimeData?.period.sales.toString() || "0",
