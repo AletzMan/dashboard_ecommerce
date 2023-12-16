@@ -17,54 +17,63 @@ export const MenuOptions: OptionsType[] = [
 		section: MenuOptionsTypes.overview,
 		subSections: undefined,
 		links: "",
+		linksSubsection: [],
 		icon: <OverviewIcon />,
 	},
 	{
 		section: MenuOptionsTypes.sales,
 		subSections: undefined,
 		links: "?period=Month&year=",
+		linksSubsection: [],
 		icon: <SalesIcon />,
 	},
 	{
 		section: MenuOptionsTypes.inventory,
 		subSections: ["Stock control", "Recording entries and exits", "Low inventory notifications"],
 		links: "",
+		linksSubsection: [],
 		icon: <InventoryIcon />,
 	},
 	{
 		section: MenuOptionsTypes.products,
 		subSections: ["Add or Edit product", "Brands"],
 		links: "",
+		linksSubsection: ["", "?page=1"],
 		icon: <ProductsIcon />,
 	},
 	{
 		section: MenuOptionsTypes.customers,
 		subSections: undefined,
 		links: "",
+		linksSubsection: [],
 		icon: <CustomersIcon />,
 	},
 	{
 		section: MenuOptionsTypes.orders,
 		subSections: ["Invoice generation"],
 		links: "",
+		linksSubsection: [""],
 		icon: <OrdersIcon />,
 	},
 	{
 		section: MenuOptionsTypes.marketing,
 		subSections: ["Marketing campaigns", "Promotions and discounts", "Coupon management", "Social media integration"],
 		links: "",
+		linksSubsection: [],
 		icon: <MarketingIcon />,
 	},
 	{
 		section: MenuOptionsTypes.security,
 		subSections: ["User and permission management", "Registro de actividades", "Data backup and recovery"],
 		links: "",
+		linksSubsection: [],
 		icon: <SecurityIcon />,
 	},
 	{
 		section: MenuOptionsTypes.settings,
 		subSections: ["General store settings", "Payment and shipping methods", "Privacy policies and terms"],
 		links: "",
+		linksSubsection: [],
 		icon: <SettingsIcon />,
 	},
 ]
@@ -231,7 +240,6 @@ export const States = [
 		name: "Yucatán",
 	},
 ]
-
 
 export const OptionsDateLocal: Intl.DateTimeFormatOptions = {
 	timeZone: "America/Mexico_City",
