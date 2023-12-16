@@ -9,10 +9,8 @@ import { DataGrid } from "../../components/DataGrid/DataGrid"
 const GetBrands = async (params: [string, string][]) => {
 	let paramsString: string = ""
 	params.forEach((param, index) => {
-		if (index === 0)
-			paramsString += `?${param[0]}=${param[1]}`
-		else
-			paramsString += `&${param[0]}=${param[1]}`
+		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
+		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	const response = await axios.get(`http://localhost:3000/api/brands/${paramsString}`)
 	const data = response.data.data
@@ -31,7 +29,6 @@ const OptionsDate: Intl.DateTimeFormatOptions = {
 	//hour12: true, // Para usar el formato de 12 horas (AM/PM)
 }
 
-
 interface IPagination {
 	brands: IBrand[]
 	totalBrands: number
@@ -40,14 +37,11 @@ interface IPagination {
 	pageSize: number
 }
 
-
-
 export default async function ProductsPage({ searchParams }: { searchParams: { [key: string]: string } }) {
 	const params = Object.entries(searchParams)
 	const search = searchParams.search
 	const response = await GetBrands(params)
 	const data: IPagination = response as IPagination
-
 
 	return (
 		<section className={`${styles.section} `}>
@@ -55,11 +49,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 				<SearchBrands />
 				<AddBrandButton />
 
-				{search && <div className={styles.section_search}>
-					Found
-					<span className={styles.section_searchResults}>{`${data.totalBrands}`}</span> {search ? "results for" : " brands in the database"}
-					<span className={styles.section_searchResult}>{`${search || ""}`}</span>
-				</div>}
+				{search && (
+					<div className={styles.section_search}>
+						Found
+						<span className={styles.section_searchResults}>{`${data.totalBrands}`}</span> {search ? "results for" : " brands in the database"}
+						<span className={styles.section_searchResult}>{`${search || ""}`}</span>
+					</div>
+				)}
 			</header>
 			<div className={styles.table}>
 				<DataGrid
@@ -77,7 +73,6 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 				/>
 			</div>
 			<AddBrands />
-
 		</section>
 	)
 }
