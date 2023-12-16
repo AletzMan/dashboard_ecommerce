@@ -259,7 +259,7 @@
         }
 
         &Error {
-            border-color: var(--errorColor);
+            border: 1px dashed var(--errorColor);
         }
     }
 

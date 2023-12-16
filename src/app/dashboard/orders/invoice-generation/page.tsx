@@ -45,7 +45,7 @@ type IInputs = {
 }
 
 export default function () {
-	const { register, handleSubmit, watch, formState, control } = useForm<IInputs>({
+	const { handleSubmit, formState, control } = useForm<IInputs>({
 		resolver: zodResolver(invoiceSchema),
 		defaultValues: { items: [{ id: crypto.randomUUID(), item: "", quantity: "0", cost: "0" }] },
 	})
@@ -138,7 +138,7 @@ export default function () {
 							onChange: HandleChageFields,
 							error: errors.invoice_number?.message,
 							name: "invoice_number",
-							control,
+							controlExt: control,
 							type: TextFieldType.Search,
 							placeholder: "#0000",
 						}}
@@ -151,7 +151,7 @@ export default function () {
 							type: TextFieldType.Number,
 							placeholder: "#0000",
 							name: "order_number",
-							control,
+							controlExt: control,
 						}}
 					/>
 				</div>
@@ -163,7 +163,7 @@ export default function () {
 						type: TextFieldType.Text,
 						placeholder: "Optional description",
 						name: "description",
-						control,
+						controlExt: control,
 					}}
 				/>
 				<article className={styles.items}>
@@ -179,7 +179,7 @@ export default function () {
 									label: "Item name",
 									onChange: (e) => HandleChangeProducts(e, index),
 									error: errors.items?.[index]?.item?.message,
-									control,
+									controlExt: control,
 									name: `items.[${index}].item`,
 									type: TextFieldType.Text,
 									placeholder: "Name item",
@@ -191,7 +191,7 @@ export default function () {
 										label: "Quantity",
 										onChange: (e) => HandleChangeProducts(e, index),
 										error: errors.items?.[index]?.quantity?.message,
-										control,
+										controlExt: control,
 										name: `items.[${index}].quantity`,
 										type: TextFieldType.Number,
 										placeholder: "0",
@@ -204,7 +204,7 @@ export default function () {
 										onChange: (e) => HandleChangeProducts(e, index),
 										error: errors.items?.[index]?.cost?.message,
 										name: `items.[${index}].cost`,
-										control,
+										controlExt: control,
 										type: TextFieldType.Number,
 										placeholder: "0",
 										step: "any",
@@ -259,7 +259,7 @@ export default function () {
 					value={customer}
 					onValueChange={HandleChageBillTo}
 					plaaceholder="Select a customer"
-					control={control}
+					controlExt={control}
 					name="bill_to"
 					label="Bill to"
 				/>
@@ -270,7 +270,7 @@ export default function () {
 					plaaceholder="Select a payment"
 					onValueChange={HandleChagePayment}
 					label="Payment"
-					control={control}
+					controlExt={control}
 					name="payment"
 				/>
 				<article className={styles.information_dates}>
