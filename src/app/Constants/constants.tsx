@@ -57,18 +57,18 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.marketing,
-		subSections: ["Marketing campaigns", "Promotions and discounts", "Coupon management", "Social media integration"],
+		subSections: ["Coupon management"],
 		links: "",
-		linksSubsection: [],
+		linksSubsection: [""],
 		icon: <MarketingIcon />,
 	},
-	{
+	/*{
 		section: MenuOptionsTypes.security,
 		subSections: ["User and permission management", "Registro de actividades", "Data backup and recovery"],
 		links: "",
 		linksSubsection: [],
 		icon: <SecurityIcon />,
-	},
+	},*/
 	{
 		section: MenuOptionsTypes.settings,
 		subSections: ["General store settings", "Payment and shipping methods", "Privacy policies and terms"],
