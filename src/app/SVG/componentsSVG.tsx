@@ -364,6 +364,17 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 	)
 }
 
+export function TikTokIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"
+			/>
+		</svg>
+	)
+}
+
 export function ErrorIcon({ className }: { className?: string }) {
 	return (
 		<svg className={className} width="16" height="16" viewBox="0 0 16 16">
@@ -1932,6 +1943,20 @@ export function ArrowDownSolidtIcon({ className }: { className?: string }) {
 }
 
 export function TopIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				stroke="currentColor"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				strokeWidth="1"
+				d="m8.587 8.236l2.598-5.232a.911.911 0 0 1 1.63 0l2.598 5.232l5.808.844a.902.902 0 0 1 .503 1.542l-4.202 4.07l.992 5.75c.127.738-.653 1.3-1.32.952L12 18.678l-5.195 2.716c-.666.349-1.446-.214-1.319-.953l.992-5.75l-4.202-4.07a.902.902 0 0 1 .503-1.54l5.808-.845Z"
+			/>
+		</svg>
+	)
+}
+
+export function Icon({ className }: { className?: string }) {
 	return (
 		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
 			<path
