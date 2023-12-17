@@ -1022,3 +1022,62 @@ export const customers: ICustomer[] = [
         }
     }
 ]
+
+export interface ISocialMedia {
+    id: number
+    name: string
+    followers: number
+    likes: number
+    posts: number
+    comments: number
+    shares: number
+
+}
+
+export const SocialMediaData: ISocialMedia[] = [
+    {
+        id: 0,
+        name: 'Facebook',
+        followers: 1987,
+        likes: 2250,
+        posts: 100,
+        comments: 200,
+        shares: 300
+    },
+    {
+        id: 1,
+        name: 'Twitter',
+        followers: 1450,
+        likes: 1390,
+        posts: 50,
+        comments: 80,
+        shares: 70
+    },
+    {
+        id: 2,
+        name: 'Instagram',
+        followers: 1500,
+        likes: 1750,
+        posts: 80,
+        comments: 100,
+        shares: 200
+    },
+    {
+        id: 3,
+        name: 'TikTok',
+        followers: 1000,
+        likes: 1250,
+        posts: 70,
+        comments: 150,
+        shares: 100
+    },
+    {
+        id: 4,
+        name: 'YouTube',
+        followers: 2500,
+        likes: 2750,
+        posts: 150,
+        comments: 250,
+        shares: 400
+    }
+]
