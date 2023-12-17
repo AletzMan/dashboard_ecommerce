@@ -46,16 +46,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 	return (
 		<section className={`${styles.section} `}>
 			<header className={styles.section_header}>
-				<SearchBrands />
+				<SearchBrands total={data.totalBrands} placeholder="AMD, Intel, samsung, etc..." />
 				<AddBrandButton />
-
-				{search && (
-					<div className={styles.section_search}>
-						Found
-						<span className={styles.section_searchResults}>{`${data.totalBrands}`}</span> {search ? "results for" : " brands in the database"}
-						<span className={styles.section_searchResult}>{`${search || ""}`}</span>
-					</div>
-				)}
 			</header>
 			<div className={styles.table}>
 				<DataGrid
