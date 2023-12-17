@@ -1,0 +1,30 @@
+.section {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    grid-column: 2 / 3;
+    gap: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+
+    @media (width < 920px) {
+        grid-column: 1 / span 2;
+    }
+}
+
+.header {
+    display: grid;
+    gap: 0.5em;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(11.5em, 1fr));
+    grid-template-rows: max-content;
+    height: max-content;
+}
+
+
+.article {
+    width: 100%;
+    background: radial-gradient(50% 50% at 50% 50%, #242424 0%, #0f0f0f 100%);
+}
