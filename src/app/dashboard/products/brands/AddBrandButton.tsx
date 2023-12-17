@@ -15,6 +15,7 @@ export function AddBrandButton() {
 	return (
 		<div className={styles.buttonAddBrand}>
 			<Button
+				className={styles.buttonAddBrand}
 				title="New brands"
 				buttonProps={{
 					onClick: () => HandleOpenDialog(),
