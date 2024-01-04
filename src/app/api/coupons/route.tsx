@@ -11,8 +11,8 @@ export async function GET(request: NextRequest, context: any) {
 	const page: number = Number(params.get("page")) || 1
 	console.log("search", search)
 	/*if (session === null) {
-      return NextResponse.json({ message: "You do not have the necessary permissions to access this resource." }, { status: 403 })
-    }*/
+	  return NextResponse.json({ message: "You do not have the necessary permissions to access this resource." }, { status: 403 })
+	}*/
 	try {
 		/* TODO */
 		//Agregar aqui el fetch a la base de datos
@@ -52,5 +52,29 @@ export async function GET(request: NextRequest, context: any) {
 		return NextResponse.json({ coupons, total, totalPages, currentPage: page, pageSize }, { status: 200 })
 	} catch (error) {
 		return NextResponse.json({ error }, { status: 500 })
+	}
+}
+
+interface ICoupon {
+	code: string
+	description: string
+	discount: number
+	start_date: string
+	end_date: string
+	limits: number
+}
+
+export async function POST(request: NextRequest, context: any) {
+	try {
+		/*const session = await getServerSession({ req: request })
+		if (session === null) {
+			return NextResponse.json({ message: "You do not have the necessary permissions to access this resource." }, { status: 403 })
+		}*/
+		const coupon: ICoupon = await request.json()
+		const query = "INSERT INTO coupons (code, description, limits, discount, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)"
+		const response = await pool.query(query, [coupon.code, coupon.description, coupon.limits, coupon.discount, coupon.start_date, coupon.end_date])
+		return NextResponse.json({ message: "OK", error: false }, { status: 201 })
+	} catch (error) {
+		return NextResponse.json({ message: error, error: true }, { status: 500 })
 	}
 }
