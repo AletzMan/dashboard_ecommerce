@@ -29,7 +29,7 @@ export async function GET(request: NextRequest, context: any) {
       if (search && user_id) {
         query += " WHERE user_id=? AND LIKE ? OR order_id LIKE ?"
       } else if (search) {
-        query += " WHERE id LIKE ? OR order_id LIKE ?"
+        query += " WHERE orders.id LIKE ? OR order_id LIKE ?"
       } else if (user_id) {
         query += " WHERE user_id=?"
       }
