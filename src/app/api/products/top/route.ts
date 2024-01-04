@@ -9,14 +9,15 @@ interface IQuantity {
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
-  const paramQuantity = params.get("quantity") || 1
+  const paramQuantity = params.get("quantity") || "1"
   try {
     const [products] = await pool.query(
       `SELECT * FROM products ORDER BY soldQuantity DESC LIMIT ?`,
-      [paramQuantity]
+      [parseInt(paramQuantity)]
     )
     return NextResponse.json({ products }, { status: 200 })
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ error }, { status: 500 })
   }
 }

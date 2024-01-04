@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest, context: any) {
   const params = request.nextUrl.searchParams
+  const stock = params.get("stock")
   const paramSort = params.get("sort")
   const paramQuantity: string = params.get("quantity") || ""
   const search = params.get("search") || ""
@@ -34,7 +35,25 @@ export async function GET(request: NextRequest, context: any) {
       const pageSize = 5
       const offset = (page - 1) * pageSize
 
-      if (search) {
+      if (search && stock) {
+        query +=
+          " WHERE sku LIKE ? OR brand LIKE ? OR title LIKE ? OR description LIKE ? OR category LIKE ? OR subcategory LIKE ?"
+        if (stock === "outstock") query += " AND inventoryQuantity = 0"
+        else if (stock === "criticalstock")
+          query += "AND inventoryQuantity < minimuninventoryQuantity AND inventoryQuantity > 0"
+        else if (stock === "lowstock")
+          query += `AND inventoryQuantity > minimuninventoryQuantity AND inventoryQuantity < minimuninventoryQuantity + 10`
+        else if (stock === "normal")
+          query += " AND inventoryQuantity > minimuninventoryQuantity + 10"
+      } else if (!search && stock) {
+        if (stock === "outstock") query += " WHERE inventoryQuantity = 0"
+        else if (stock === "criticalstock")
+          query += " WHERE inventoryQuantity < minimuninventoryQuantity AND inventoryQuantity > 0"
+        else if (stock === "lowstock")
+          query += ` WHERE inventoryQuantity > minimuninventoryQuantity AND inventoryQuantity < minimuninventoryQuantity + 10`
+        else if (stock === "normal")
+          query += " WHERE inventoryQuantity > minimuninventoryQuantity + 10"
+      } else if (search && !stock) {
         query +=
           " WHERE sku LIKE ? OR brand LIKE ? OR title LIKE ? OR description LIKE ? OR category LIKE ? OR subcategory LIKE ?"
       }
@@ -54,7 +73,26 @@ export async function GET(request: NextRequest, context: any) {
       const [products] = await pool.query(query, values)
 
       let queryCount = "SELECT COUNT (*) AS quantity FROM products"
-      if (search) {
+      if (search && stock) {
+        queryCount +=
+          " WHERE sku LIKE ? OR brand LIKE ? OR title LIKE ? OR description LIKE ? OR category LIKE ? OR subcategory LIKE ?"
+        if (stock === "outstock") queryCount += " AND inventoryQuantity = 0"
+        else if (stock === "criticalstock")
+          queryCount += "AND inventoryQuantity < minimuninventoryQuantity AND inventoryQuantity > 0"
+        else if (stock === "lowstock")
+          queryCount += `AND inventoryQuantity > minimuninventoryQuantity AND inventoryQuantity < minimuninventoryQuantity + 10`
+        else if (stock === "instock")
+          queryCount += " AND inventoryQuantity > minimuninventoryQuantity + 10"
+      } else if (!search && stock) {
+        if (stock === "outstock") queryCount += " WHERE inventoryQuantity = 0"
+        else if (stock === "criticalstock")
+          queryCount +=
+            " WHERE inventoryQuantity < minimuninventoryQuantity AND inventoryQuantity > 0"
+        else if (stock === "lowstock")
+          queryCount += ` WHERE inventoryQuantity > minimuninventoryQuantity AND inventoryQuantity < minimuninventoryQuantity + 10`
+        else if (stock === "instock")
+          queryCount += " WHERE inventoryQuantity > minimuninventoryQuantity + 10"
+      } else if (search && !stock) {
         queryCount +=
           " WHERE sku LIKE ? OR brand LIKE ? OR title LIKE ? OR description LIKE ? OR category LIKE ? OR subcategory LIKE ?"
       }
