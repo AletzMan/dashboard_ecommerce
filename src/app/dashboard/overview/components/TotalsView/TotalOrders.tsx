@@ -6,11 +6,22 @@ interface Props {
 	title: string
 }
 
+const GetOrdersCount = async () => {
+	try {
+		const responseOrders = await axios.get("http://localhost:3000/api/orders/count")
+		return responseOrders.data.response
+	} catch (error) {
+		//console.log(error)
+		return 0
+	}
+}
+
 export async function TotalOrders(props: Props) {
 	const { title } = props
-	const responseOrders = await axios.get("http://localhost:3000/api/orders/count")
 
-	const orders: number = responseOrders.data.response
+	const orders: number = await GetOrdersCount()
+
+	console.log("ORDERS: ", orders)
 	return (
 		<article className={styles.article}>
 			<header className={styles.article_header}>

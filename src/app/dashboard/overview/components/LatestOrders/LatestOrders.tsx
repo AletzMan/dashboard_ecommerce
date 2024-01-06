@@ -20,11 +20,22 @@ interface IPagination {
 	pageSize: number
 }
 
+const GetOrders = async () => {
+	try {
+		const response = await axios.get("http://localhost:3000/api/orders")
+		return response.data.data
+
+	} catch (error) {
+		console.log(error)
+		return undefined
+	}
+}
+
 
 export async function LatestOrders() {
-	const response = await axios.get("http://localhost:3000/api/orders")
 
-	const orders: IPagination = response.data.data
+	const response = await GetOrders()
+	const orders: IPagination = response
 
 	return (
 		<div className={`${styles.section} scrollBarStyle`}>
@@ -50,7 +61,7 @@ export async function LatestOrders() {
 							<li className={`${styles.order_item} ${styles.order_date}`}>{order.creation_date}</li>
 							<li className={`${styles.order_item} ${styles.order_amount}`}>{FormattedString(order.total_price)}</li>
 							<li className={`${styles.order_item}`}>
-								<Link className={`${styles.order_details}`} href={`dashboard/orders/order-list/${order.order_id}`} title="View order details">
+								<Link className={`${styles.order_details}`} href={`/dashboard/orders/${order.id}`} title="View order details">
 									<ViewOnIcon className={styles.order_detailsIcon} />
 								</Link>
 							</li>
