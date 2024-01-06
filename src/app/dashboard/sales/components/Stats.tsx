@@ -41,12 +41,12 @@ export function Stats() {
 		const firstYear: number = response.data.first
 		const lastYear: number = response.data.last
 		setRangeYears({ firstYear, lastYear })
-		setLoading(false)
+		//setLoading(false)
 	}
 
 	useEffect(() => {
 		if (dataSales.length > 0) {
-			setLoading(true)
+			//setLoading(true)
 			const options: IOptionsChart = {
 				chart: {
 					height: 350,
@@ -93,8 +93,8 @@ export function Stats() {
 
 			setDataChart({ options, xaxis, yaxis })
 			setDataSeries(series)
-			setLoading(false)
 		}
+		setLoading(false)
 	}, [dataSales])
 
 	useEffect(() => {
