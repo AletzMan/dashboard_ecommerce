@@ -33,9 +33,10 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 
 	return (
 		<section className={styles.section}>
-			{/* @ts-expect-error Server Component */}
-			<TotalCustomers />
-			<SearchSection total={data?.totalUsers || 0} />
+			<header className={styles.section_header}>
+				<TotalCustomers />
+				<SearchSection total={data?.totalUsers || 0} />
+			</header>
 			{data && (
 				<DataGrid
 					rows={data?.users}
