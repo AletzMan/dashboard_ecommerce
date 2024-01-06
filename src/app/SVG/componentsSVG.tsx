@@ -6,9 +6,10 @@ export function Logo({ type, className }: { type: "dark" | "light"; className?: 
 			<Link
 				href={"/"}
 				title="Go to Home"
+				className={className}
 				style={{ borderBottom: "1px solid var(--fontColor)", width: "max-content", display: "flex", alignItems: "flex-end" }}
 			>
-				<svg className={className} viewBox="0 0 509.36 139.33" width="200" height="50">
+				<svg viewBox="0 0 509.36 139.33" width="200" height="50">
 					<path
 						d="M186.1,163.85c-8.38,8.39-16.79,16-24.89,22.7h51.31a9.16,9.16,0,0,0,9.16-9.16V122.08A319,319,0,0,1,186.1,163.85Z"
 						transform="translate(-94.75 -76.33)"
