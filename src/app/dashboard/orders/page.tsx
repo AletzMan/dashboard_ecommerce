@@ -10,13 +10,19 @@ import { SkeletonTotalViews } from "../overview/components/SkeletonTotalViews/Sk
 import { TotalOrders } from "../overview/components/TotalsView/TotalOrders"
 import { TotalOrderCompleted } from "../overview/components/TotalsView/TotalOrdersCompleted"
 import { TotalOrderCancelled } from "../overview/components/TotalsView/TotalOrdersCancelled"
+import { SearchSection } from "../components/SearchSection/SearchSection"
 
-const GetOrders = async (id: string) => {
+const GetOrders = async (params: [string, string][]) => {
+	let paramsString: string = ""
+	params.forEach((param, index) => {
+		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
+		else paramsString += `&${param[0]}=${param[1]}`
+	})
 	try {
-		const response = await axios.get(`http://localhost:3000/api/orders`)
+		const response = await axios.get(`http://localhost:3000/api/orders${paramsString}`)
 		const orders: IPagination = response.data.data
 		return orders
-	} catch (error) {}
+	} catch (error) { }
 }
 
 interface IPagination {
@@ -27,15 +33,17 @@ interface IPagination {
 	pageSize: number
 }
 
-export default async function PageOrders() {
+export default async function PageOrders({ searchParams }: { searchParams: { [key: string]: string } }) {
 	const headersList = headers()
 	const pathname = headersList.get("next-url")
+	const params = Object.entries(searchParams)
+
 	let orders: IPagination | undefined = undefined
 	const id = pathname?.split("/")[3] || ""
 
 	//if (pathname) {
 	//customer = await GetCustomer(id)
-	orders = await GetOrders(id)
+	orders = await GetOrders(params)
 
 	//}
 	return (
@@ -46,15 +54,18 @@ export default async function PageOrders() {
 					<TotalOrders id={id} title="Total Orders" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
+					{/* @ts-expect-error Server Component */}
 					<TotalOrderCompleted id={id} title="Orders Completed" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
+					{/* @ts-expect-error Server Component */}
 					<TotalOrderCancelled id={id} title="Orders Cancelled" />
 				</Suspense>
 			</article>
 			<div className={styles.section_id}>
 				<article className={styles.orders}>
 					<h2 className={styles.orders_title}> All Orders</h2>
+					<SearchSection total={orders?.totalOrders || 0} placeholder="Search by Order ID or id" />
 					<Suspense fallback={<SkeletonTotalViews />}>
 						{orders && orders?.orders.length > 0 && (
 							<DataGrid

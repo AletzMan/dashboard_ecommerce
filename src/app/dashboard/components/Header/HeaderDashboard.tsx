@@ -53,7 +53,7 @@ export function HeaderDashboard() {
 
 	return (
 		<>
-			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "left", vertical: "top" }} />
+			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
 			<header className={styles.header}>
 				<h1 className={styles.header__title}>
 					{MenuOptions.find((menu) => menu.section === currentPage)?.icon}

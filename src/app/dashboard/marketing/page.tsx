@@ -1,52 +1,62 @@
 import { FacebookIcon } from "@/app/SVG/componentsSVG"
 import { CardSocialMediaStatistics } from "./components/CardSocialMediaStatistics"
 import styles from "./marketing.module.scss"
-import { LineChartG } from "../components/LineChart/LineChart"
+import { BarChart, IOptionsChart } from "../components/BarChart/BarChart"
 
-const data = [
-	["Year", "Facebook", "Twitter", "Instagram", "YouTube", "TikTok"],
-	["2013", 1000, 400, 200, 100, 50],
-	["2014", 1170, 460, 250, 200, 100],
-	["2015", 660, 1120, 300, 300, 200],
-	["2016", 1030, 540, 350, 400, 300],
-	["2017", 1150, 400, 400, 500, 400],
-	["2018", 1250, 500, 450, 600, 500],
-	["2019", 1350, 600, 500, 700, 600],
-	["2020", 1450, 700, 550, 800, 700],
-	["2021", 1550, 800, 600, 900, 800],
+
+
+const options: IOptionsChart = {
+	chart: {
+		height: 220,
+		width: 1600,
+	},
+	stroke: {
+		show: true,
+		width: 2,
+		colors: ["transparent"],
+	},
+	fill: {
+		opacity: 1,
+		colors: [
+			"#3b5998", "#1da1f2", "#c13584", "#ff0000", "#DDDDDD"
+		],
+	},
+}
+
+const series = [
+	{
+		name: "Facebook",
+		data: [4000, 8000, 9234, 7234, 10000, 12000, 15345],
+	},
+	{
+		name: "Twitter",
+		data: [6000, 10000, 11234, 10234, 8000, 6000, 12345]
+	},
+	{
+		name: "Instagram",
+		data: [8000, 12000, 13234, 12234, 10000, 8000, 19345]
+	},
+	{
+		name: "YouTube",
+		data: [10000, 15000, 16234, 15234, 12000, 10000, 22345],
+	},
+	{
+		name: "TikTok",
+		data: [12000, 18000, 19234, 18234, 14000, 12000, 25345]
+	}
 ]
-
-const options = {
-	hAxis: {
-		title: "Year",
-		textStyle: {
-			color: "DDDDDD",
-		},
-		titleTextStyle: {
-			color: "DDDDDD",
-		},
-		gridlines: {
-			color: "#333333",
-		},
+const xaxis = {
+	title: {
+		enabled: true,
+		text: "Months",
 	},
-	vAxis: {
-		title: "Traffic form social media",
-		textStyle: {
-			color: "DDDDDD",
-		},
-		titleTextStyle: {
-			color: "DDDDDD",
-		},
+	categories: ["2017", "2018", "2019", "2020", "2021", "2022", "2023"],
+}
+const yaxis = {
+	title: {
+		enabled: true,
+		text: "Followers",
 	},
-	series: {},
-	annotations: {
-		textStyle: {
-			color: "DDDDDD",
-		},
-	},
-	backgroundColor: "transparent",
-	is3D: true,
-	//colors: ["#3b5998", "#1da1f2", "#c13584", "#ff0000", "#DDDDDD"],
 }
 
 export default function MarketingPage() {
@@ -60,7 +70,7 @@ export default function MarketingPage() {
 				<CardSocialMediaStatistics name="TikTok" />
 			</header>
 			<article className={styles.article}>
-				<LineChartG data={data} options={options} />
+				<BarChart series={series} options={options} xaxis={xaxis} yaxis={yaxis} />
 			</article>
 		</section>
 	)

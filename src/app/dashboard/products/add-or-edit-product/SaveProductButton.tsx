@@ -27,7 +27,7 @@ export function SaveProductsButton(props: Props) {
 			setUploading(true)
 			UploadImages()
 		} else {
-			enqueueSnackbar("Please fill in all the fields", { variant: "error", anchorOrigin: { horizontal: "center", vertical: "top" } })
+			enqueueSnackbar("Fill in all fields correctly", { variant: "error", anchorOrigin: { horizontal: "center", vertical: "top" } })
 		}
 	}
 

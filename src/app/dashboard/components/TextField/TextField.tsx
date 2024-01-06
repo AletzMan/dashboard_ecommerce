@@ -46,9 +46,8 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 
 	return (
 		<div
-			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${
-				type === TextFieldType.File && styles.textfield_isFile
-			} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError} ${error && styles.textfield_isError}`}
+			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile
+				} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError} ${error && styles.textfield_isError}`}
 			onBlur={() => setViewHelp(false)}
 		>
 			{type === TextFieldType.File && (
@@ -63,9 +62,8 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 				control={controlExt || control}
 				render={({ field: { onChange, name } }) => (
 					<input
-						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${
-							type === "file" && styles.textfield_isFileInput
-						} ${error && styles.textfield__inputError}`}
+						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput
+							} ${error && styles.textfield__inputError}`}
 						onChange={(e) => HandleOnChange(e, onChange)}
 						type={inputType}
 						placeholder={placeholder}
@@ -73,7 +71,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 						multiple={multipleFile}
 						name={name}
 						step={step}
-						value={value}
+						defaultValue={value}
 					/>
 				)}
 			/>
@@ -95,7 +93,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 			{error && (
 				<>
 					<p className={styles.textfield_error}>{error}</p>
-					<ErrorIcon className={styles.textfield_iconError} />
+					{(type !== TextFieldType.Date && type !== TextFieldType.DateTime) && <ErrorIcon className={styles.textfield_iconError} />}
 				</>
 			)}
 		</div>

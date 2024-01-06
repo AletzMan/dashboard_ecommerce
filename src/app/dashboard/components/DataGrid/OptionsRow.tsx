@@ -17,10 +17,11 @@ interface Props {
 	row: ICell[]
 	linkEdit?: string
 	actions?: ["view"] | ["edit"] | ["delete"] | ["view", "edit"] | ["view", "delete"] | ["edit", "delete"] | ["view", "edit", "delete"]
+	databaseName?: string
 }
 
 export function OptionsRow(props: Props) {
-	const { row, linkEdit, actions } = props
+	const { row, linkEdit, actions, databaseName } = props
 	const router = useRouter()
 	const [open, setOpen] = useState(false)
 	const pathname = usePathname()
@@ -35,15 +36,18 @@ export function OptionsRow(props: Props) {
 
 	const HandleDeletetBrand = async () => {
 		try {
-			await DeleteFile("logosBrands", row[0].value)
-			const response = await axios.delete(`/api/${section}/${row[0].value}`)
+			//await DeleteFile("logosBrands", row[0].value)
+			const response = await axios.delete(`/api/${databaseName}/${row[0].value}`)
 
 			if (response.status === 200) {
 				enqueueSnackbar("Record successfully deleted", { variant: "success" })
 				router.refresh()
+				setOpen(false)
 			}
 		} catch (error) {
 			console.error(error)
+			enqueueSnackbar("Error deleting record", { variant: "error" })
+			setOpen(false)
 		}
 	}
 

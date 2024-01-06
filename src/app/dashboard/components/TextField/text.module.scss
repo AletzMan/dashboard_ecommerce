@@ -102,7 +102,9 @@
         outline: none;
         transition: 0.25s ease-in-out all;
 
-
+        &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
 
         &Error {
             border: 1px dashed var(--errorColor);
