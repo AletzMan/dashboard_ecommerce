@@ -3,7 +3,7 @@ import styles from "./brands.module.scss"
 import { IBrand } from "@/app/Types/types"
 import { AddBrands } from "./AddBrand"
 import { AddBrandButton } from "./AddBrandButton"
-import { SearchBrands } from "./SearchBrand"
+import { SearchSection } from "../../components/SearchSection/SearchSection"
 import { DataGrid } from "../../components/DataGrid/DataGrid"
 
 const GetBrands = async (params: [string, string][]) => {
@@ -46,7 +46,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 	return (
 		<section className={`${styles.section} `}>
 			<header className={styles.section_header}>
-				<SearchBrands total={data.totalBrands} placeholder="AMD, Intel, samsung, etc..." />
+				<SearchSection total={data.totalBrands} placeholder="AMD, Intel, samsung, etc..." />
 				<AddBrandButton />
 			</header>
 			<div className={styles.table}>

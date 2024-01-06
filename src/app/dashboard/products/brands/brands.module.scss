@@ -8,8 +8,8 @@
     }
 
     &_header {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 8em;
         column-gap: 1em;
         row-gap: 0.5em;
         width: 100%;
@@ -19,6 +19,14 @@
         @media (width < 700px) {
             column-gap: 2em;
             flex-direction: column;
+        }
+
+        &>section {
+            grid-column: 1 / 2;
+        }
+
+        &>div {
+            grid-column: 2 / 3;
         }
     }
 
@@ -49,33 +57,7 @@
 
     }
 
-    &_search {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        flex-direction: row;
-        column-gap: 0.5em;
-        padding: 0.25em 0 0 1em;
-        font-size: 0.9em;
-        color: var(--fontColor);
-        grid-row: 2 / 3;
-        grid-column: 1 / span 2;
 
-
-
-        &Result {
-            color: var(--highLightHoverColor);
-            font-weight: 600;
-            font-size: 1em;
-        }
-
-
-        &Results {
-            color: var(--clearanceBorderColor);
-            font-weight: 600;
-            font-size: 1.2em;
-        }
-    }
 }
 
 .buttonAddBrand {
@@ -124,27 +106,4 @@
 
 .table {
     padding: 0.5em;
-}
-
-.search {
-    display: flex;
-    flex-direction: column;
-    place-items: start center;
-    grid-row: 1 / 2;
-    grid-column: 2 / span 2;
-    width: 100%;
-
-
-
-    &_input {
-        display: grid;
-        grid-template-columns: 1fr 4em;
-
-        width: 100%;
-
-        &>:last-child {
-            height: 2.15em;
-        }
-    }
-
 }
