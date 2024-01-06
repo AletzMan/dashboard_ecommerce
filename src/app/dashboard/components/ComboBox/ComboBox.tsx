@@ -19,6 +19,7 @@ interface Props {
 export const ComboBox: FC<Props> = ({ options, name, controlExt, error, loading, plaaceholder, label, onValueChange, value }) => {
 	const [selectOption, setSelectOption] = useState(value)
 	const { control } = useForm()
+
 	const HandleChangeValue = (e: ChangeEvent<HTMLSelectElement>, event: (...event: any[]) => void) => {
 		const newValue = e.currentTarget.value
 		event(newValue)
@@ -30,7 +31,7 @@ export const ComboBox: FC<Props> = ({ options, name, controlExt, error, loading,
 		setSelectOption(value)
 	}, [value])
 
-	console.log(selectOption, value)
+	//console.log(selectOption, value)
 
 	return (
 		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled}`}>
