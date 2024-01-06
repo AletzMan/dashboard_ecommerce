@@ -12,11 +12,50 @@
     background-color: var(--secondaryColor);
     padding: 0.5em;
     transition: transform 0.3s ease-in-out;
+    z-index: 6;
 
     @media (width < 920px) {
         position: absolute;
+        top: 0;
         transform: translateX(-100%);
 
+        &_view {
+            transform: translateX(0);
+        }
+    }
+
+    @media (width < 600px) {
+        width: 100%;
+    }
+
+    &_logo {
+        @media (width < 920px) and (width > 600px) {
+            transform: scale(0.8) translateX(-2.5em);
+        }
+    }
+
+    &_button {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 3em;
+        height: 3em;
+        border: none;
+        background-color: transparent;
+        color: var(--fontColor);
+        transition: all 0.3s ease-in-out;
+
+        @media (width < 920px) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &Icon {
+            width: 2em;
+            height: 2em;
+        }
     }
 
     &__nav {
