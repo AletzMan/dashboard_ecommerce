@@ -51,11 +51,12 @@ interface Props {
         statusArray: string[],
         colors: string[]
     }
+    databaseName?: string
 }
 
 
 export function DataGrid(props: Props) {
-    const { rows, columns, paginacion, linkEdit, actions, statusOptions } = props
+    const { rows, columns, paginacion, linkEdit, actions, statusOptions, databaseName } = props
     const [valuesRows, setValuesRows] = useState<IRow[]>()
     const [valuesHeaderColumns, setValuesHeaderColumns] = useState<IColumnHeader[]>([{ id: "", name: "", headerName: "", role: "text" }])
 
@@ -147,7 +148,7 @@ export function DataGrid(props: Props) {
                                             <span className={`${styles.row_item} ${styles.row_price}`}>{FormattedString(Number(cell.value))}</span>
                                         }
                                         {columns[index]?.role === "image" && <Image src={cell.value} width={40} height={40} alt={`Image`} />}
-                                        {columns[index]?.role === "actions" && <OptionsRow row={row.cell} linkEdit={linkEdit} actions={actions} />}
+                                        {columns[index]?.role === "actions" && <OptionsRow row={row.cell} linkEdit={linkEdit} actions={actions} databaseName={databaseName} />}
                                         {columns[index]?.role === "status" && statusOptions &&
                                             <span
                                                 className={`${styles.row_item} ${styles.row_status} `}

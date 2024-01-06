@@ -1,6 +1,7 @@
 import { ICustomer } from "@/app/Types/types"
 import axios from "axios"
 import { DataGrid } from "../components/DataGrid/DataGrid"
+import { SearchSection } from "../components/SearchSection/SearchSection"
 import { TotalCustomers } from "../overview/components/TotalsView/TotalCustomers"
 import styles from "./customers.module.scss"
 
@@ -22,7 +23,7 @@ const GetCustomers = async (params: [string, string][]) => {
 		const response = await axios.get(`http://localhost:3000/api/customers${paramsString}`)
 		const data: ICustomersPagination = response.data.data
 		return data
-	} catch (error) {}
+	} catch (error) { }
 }
 
 export default async function CustomersPage({ searchParams }: { searchParams: string }) {
@@ -32,7 +33,9 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 
 	return (
 		<section className={styles.section}>
+			{/* @ts-expect-error Server Component */}
 			<TotalCustomers />
+			<SearchSection total={data?.totalUsers || 0} />
 			{data && (
 				<DataGrid
 					rows={data?.users}
