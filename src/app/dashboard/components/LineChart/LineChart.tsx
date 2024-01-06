@@ -2,7 +2,7 @@
 
 import Chart from "react-google-charts"
 
-interface IData {}
+interface IData { }
 
 interface IOptions {
 	annotations?: {
@@ -65,5 +65,5 @@ interface ILineChart {
 }
 
 export const LineChartG = ({ data, options }: ILineChart) => {
-	return <Chart chartType="LineChart" data={data} options={options} width={"100%"} height={"350px"} />
+	return <Chart chartType="ColumnChart" data={data} options={options} width={"100%"} height={"350px"} />
 }
