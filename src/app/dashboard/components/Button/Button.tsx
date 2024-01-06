@@ -9,7 +9,7 @@ export function Button({ buttonProps, className, title }: { buttonProps: ButtonP
 	return (
 		<div className={`${className} ${styles.container} ${disabled && styles.container__disabled}`}>
 			{href !== undefined && (
-				<Link className={`${styles.button}`} href={href} title={title}>
+				<Link className={`${styles.button} ${isSecondary && styles.button__secondary}`} href={href} title={title}>
 					{typeButton === ButtonType.WhitOutIcon || (ButtonType.OnlyIcon && iconButton)}
 					{typeButton !== ButtonType.OnlyIcon && text}
 				</Link>

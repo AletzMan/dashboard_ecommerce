@@ -50,6 +50,7 @@
         background: linear-gradient(to right, var(--fontSecondColor), var(--fontColor));
         background-size: 200% 200%;
         border-color: var(--highLightColor);
+        transition: all 0.45s ease-in-out;
 
 
     }
