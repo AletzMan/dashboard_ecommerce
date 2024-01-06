@@ -4,6 +4,7 @@ import styles from "../MenuDashboard/menudashboard.module.scss"
 import { MouseEvent } from "react"
 import { OptionsType } from "@/app/Types/types"
 import { usePathname } from "next/navigation"
+import { useViewMenu } from "@/app/utils/store"
 
 interface props {
 	options: OptionsType
@@ -11,11 +12,16 @@ interface props {
 }
 
 export function MenuOption(props: props) {
+	const { setViewMenuDashboard } = useViewMenu()
 	const pathname = usePathname()
 	const sectionName = pathname.split("/")[2]
 	const subSectionName = pathname.split("/")[3]
 
 	const { options, handleActiveSections } = props
+
+	const HandleViewMenuDashboard = () => {
+		setViewMenuDashboard(false)
+	}
 
 	return (
 		<>
@@ -37,6 +43,7 @@ export function MenuOption(props: props) {
 							className={`${styles.aside__sublink} ${subSectionName === subSection.replaceAll(" ", "-").toLowerCase() && styles.aside__sublinkActive}`}
 							href={`/dashboard/${options.section.toLowerCase()}/${subSection.toLowerCase()}`.replaceAll(" ", "-") + options.linksSubsection[index]}
 							title={`Go to section ${subSection}`}
+							onClick={HandleViewMenuDashboard}
 						>
 							<PointIcon />
 							{subSection}
