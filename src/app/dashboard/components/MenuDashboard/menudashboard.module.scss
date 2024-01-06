@@ -13,7 +13,7 @@
     padding: 0.5em;
     transition: transform 0.3s ease-in-out;
 
-    @media (max-width: 920px) {
+    @media (width < 920px) {
         position: absolute;
         transform: translateX(-100%);
 
