@@ -42,6 +42,9 @@ export enum TextFieldType {
   Password = "password",
   File = "file",
   Number = "number",
+  Date = "date",
+  Time = "time",
+  DateTime = "datetime-local",
 }
 
 export type ProductStatus = ["active, inactive", "out-of-stock"]
@@ -163,6 +166,29 @@ export interface IProductData {
   quantitySold: number
   piecesSold: number
   price: number
+}
+
+export interface IProductInventory {
+  id: number
+  sku: string
+  title: string
+  name: string
+  description: string
+  image: string
+  brandLogo: string
+  category: string
+  subcategory: string
+  price: number
+  inventoryQuantity: number
+  minimuninventoryQuantity: number
+  soldQuantity: number
+  status: string
+}
+
+export interface IAlertInventory {
+  id: number
+  name: string
+  quantity: number
 }
 
 export interface IOrderByState {
