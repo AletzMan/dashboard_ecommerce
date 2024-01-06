@@ -31,6 +31,7 @@ export const useViewModal = create<IViewModal>((set) => ({
 
 const EmptyProduct: ProductType = {
   sku: "",
+  id: 0,
   title: "",
   specs: [],
   image: "",
@@ -129,5 +130,18 @@ export const useImagesProduct = create<IImageProduct>((set) => ({
   setProductImages: (value: IImage[]) =>
     set((state) => ({
       productImages: value,
+    })),
+}))
+
+interface IViewMenu {
+  viewMenuDashboard: boolean
+  setViewMenuDashboard: (value: boolean) => void
+}
+
+export const useViewMenu = create<IViewMenu>((set) => ({
+  viewMenuDashboard: false,
+  setViewMenuDashboard: (value: boolean) =>
+    set((state) => ({
+      viewMenuDashboard: value,
     })),
 }))
