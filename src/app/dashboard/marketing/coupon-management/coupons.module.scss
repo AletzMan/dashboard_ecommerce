@@ -8,8 +8,50 @@
     gap: 0.5em;
     width: 100%;
     padding: 0.5em;
+    width: 100%;
 
     @media (width < 920px) {
         grid-column: 1 / span 2;
+    }
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 8em;
+    gap: 1em;
+    width: 100%;
+
+    &>section {
+        grid-column: 1 / 2;
+    }
+
+    &>div {
+        grid-column: 2 / 3;
+    }
+}
+
+
+.modal {
+    width: 100%;
+    min-width: 20em;
+
+    &_section {
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1.5em;
+        width: 100%;
+        padding: 0.5em;
+    }
+
+    &_footer {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1em;
+        width: 100%;
+        padding: 1em 0.5em 0.5em 0.5em;
     }
 }
