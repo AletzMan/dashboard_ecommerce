@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, context: any) {
     /* TODO */
     //Agregar aqui el fetch a la base de datos
     let query = "SELECT * FROM brands"
-    const pageSize = 3
+    const pageSize = 8
     const offset = (page - 1) * pageSize
 
     if (search) {
@@ -30,8 +30,7 @@ export async function GET(request: NextRequest, context: any) {
     if (order) {
       query += ` ORDER BY ${order} ${sort}`
     }
-    if (params.size > 0)
-      query += ` LIMIT ${pageSize} OFFSET ${offset}`
+    if (params.size > 0) query += ` LIMIT ${pageSize} OFFSET ${offset}`
 
     // Crear un array de valores para la declaración preparada
     const likePattern = `%${search}%`
