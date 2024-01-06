@@ -1,5 +1,5 @@
 "use client"
-import { ArrowDownIcon, Logo, LogoutIcon, NotificationIcon, UserIcon } from "@/app/SVG/componentsSVG"
+import { ArrowDownIcon, Logo, LogoutIcon, MenuIcon, NotificationIcon, UserIcon } from "@/app/SVG/componentsSVG"
 import styles from "./headerdashboard.module.scss"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"
 import { MenuOptions } from "@/app/Constants/constants"
 import { FloatingMenu } from "../FloatingMenu/FloatingMenu"
 import { SnackbarProvider } from "notistack"
+import { useViewMenu } from "@/app/utils/store"
 
 const OptionsDate: Intl.DateTimeFormatOptions = {
 	timeZone: "America/Mexico_City",
@@ -22,6 +23,7 @@ const OptionsDate: Intl.DateTimeFormatOptions = {
 }
 
 export function HeaderDashboard() {
+	const { setViewMenuDashboard, viewMenuDashboard } = useViewMenu()
 	const { data: session, update } = useSession()
 	const [viewMenu, setViewMenu] = useState<boolean>(false)
 	const [viewNotifications, setViewNotifications] = useState<boolean>(false)
@@ -49,16 +51,27 @@ export function HeaderDashboard() {
 		setViewNotifications((prev) => !prev)
 	}
 
+	const HandleViewMenuDashboard = () => {
+		setViewMenuDashboard(!viewMenuDashboard)
+	}
+
 	const date = new Date().toLocaleString("es-MX", OptionsDate)
 
 	return (
 		<>
 			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
 			<header className={styles.header}>
-				<h1 className={styles.header__title}>
-					{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
-					{`${currentPage}`}
-				</h1>
+				<div className={styles.header_container}>
+					<button className={styles.header_menu} onClick={HandleViewMenuDashboard}>
+						<MenuIcon className={styles.header_menuIcon} />
+					</button>
+					<h1 className={styles.header_title}>
+						{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
+						{`${currentPage}`}
+						{pathname.split("/").length > 3 && " /"}
+						<span className={styles.header_subtitle}>{MenuOptions.find((menu) => menu.section === currentPage)?.subSections?.find((sub, index) => sub.toLowerCase().replaceAll(" ", "-") === pathname.split("/")[3])}</span>
+					</h1>
+				</div>
 				<p className={styles.header_date}>{date}</p>
 				<nav className={styles.header_nav}>
 					<div className={styles.notifications} onBlur={() => setViewNotifications(false)}>
