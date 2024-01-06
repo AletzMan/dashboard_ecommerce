@@ -13,6 +13,7 @@ interface IButtonPag {
 interface Props {
     totalPages: number
     currentPage: number
+    pathname?: string
 
 }
 
