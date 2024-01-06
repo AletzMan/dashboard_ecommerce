@@ -50,8 +50,7 @@ export default async function PageOrders({ searchParams }: { searchParams: { [ke
 		<section className={`${styles.section} scrollBarStyle`}>
 			<article className={styles.totals}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
-					<TotalOrders id={id} title="Total Orders" />
+					<TotalOrders title="Total Orders" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
 					<TotalOrderCompleted id={id} title="Orders Completed" />
