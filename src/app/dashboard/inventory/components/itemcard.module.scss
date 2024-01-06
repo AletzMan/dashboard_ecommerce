@@ -1,0 +1,139 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fontColor);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0.5em 0 0.5em;
+    background-color: var(--fontColor);
+
+
+    &_sku {
+        font-size: 0.7em;
+        font-weight: 600;
+        color: var(--fontSecondColor);
+    }
+
+    &_category {
+        font-size: 0.75em;
+        color: var(--primaryColor);
+        padding: 0.25em 0.5em;
+        font-weight: 600;
+        border-radius: 1em;
+        background-color: var(--backCategoryColor);
+    }
+
+}
+
+.section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5em 0 1em 0;
+    margin: 0 0.5em;
+    border-bottom: 1px solid var(--fontSecondColor);
+    background-color: var(--fontColor);
+
+    &_title {
+        font-size: 0.85em;
+        font-weight: 600;
+        color: var(--terciaryColor);
+        text-align: center;
+        max-lines: 1;
+        height: 1.1em;
+        overflow: hidden;
+    }
+
+    &_brand {
+        position: absolute;
+        left: 0;
+        top: -0.5em;
+    }
+
+    &_status {
+        position: absolute;
+        right: 0;
+        top: 0.5em;
+        font-size: 0.75em;
+        text-transform: capitalize;
+
+        &Low {
+            font-weight: 600;
+            padding: 0.25em 0.5em;
+            color: var(--warningColor);
+            background-color: var(--warningBackgroundColor);
+        }
+
+        &Critical {
+            font-weight: 600;
+            padding: 0.25em 0.5em;
+            color: var(--criticalColor);
+            background-color: var(--criticalBackgroundColor);
+        }
+
+        &OutStock {
+            font-weight: 600;
+            padding: 0.25em 0.5em;
+            color: var(--outStockColor);
+            background-color: var(--outStockBackgroundColor);
+        }
+
+        &Normal {
+            font-weight: 600;
+            padding: 0.25em 0.5em;
+            color: var(--normalColor);
+            background-color: var(--normalBackgroundColor);
+        }
+    }
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 7em;
+    padding: 0.5em;
+    background-color: var(--fontColor);
+    margin: 0.5em 0 0 0;
+
+    &_quantity {
+        font-size: 1.15em;
+        font-weight: 600;
+        color: var(--newBorderColor);
+
+        &Text {
+            font-size: 0.85em;
+            font-weight: 400;
+            color: var(--backgroundColor);
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4em;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    min-width: 17em;
+
+    &_title {
+        font-size: 0.9em;
+        font-weight: 600;
+        text-align: center;
+        color: var(--fontColor);
+    }
+}
