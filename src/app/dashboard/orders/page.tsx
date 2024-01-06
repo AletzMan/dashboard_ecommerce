@@ -54,11 +54,9 @@ export default async function PageOrders({ searchParams }: { searchParams: { [ke
 					<TotalOrders id={id} title="Total Orders" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalOrderCompleted id={id} title="Orders Completed" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalOrderCancelled id={id} title="Orders Cancelled" />
 				</Suspense>
 			</article>
