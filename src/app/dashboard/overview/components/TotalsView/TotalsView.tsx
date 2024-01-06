@@ -26,31 +26,25 @@ export async function TotalsView() {
 		<>
 			<div className={styles.section}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalSales />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalOrders title="Orders" />
 				</Suspense>
 			</div>
 			<div className={styles.section}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalProducts />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalCustomers />
 				</Suspense>
 			</div>
 			<div className={styles.section}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalVisitors />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<ConversionRate />
 				</Suspense>
 			</div>

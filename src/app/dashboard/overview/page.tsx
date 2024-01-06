@@ -67,7 +67,6 @@ export default async function OverviewPage() {
 		<main className={`${styles.main_container} scrollBarStyle`}>
 			<section className={` ${styles.totals}`}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					{/* @ts-expect-error Server Component */}
 					<TotalsView />
 				</Suspense>
 			</section>
@@ -91,7 +90,6 @@ export default async function OverviewPage() {
 						</Link>
 					</header>
 					<Suspense fallback={<SkeletonTotalViews />}>
-						{/* @ts-expect-error Server Component */}
 						<LatestOrders />
 					</Suspense>
 				</section>
@@ -102,7 +100,6 @@ export default async function OverviewPage() {
 						<ArrowRightIcon />
 					</Link>
 					<Suspense fallback={<SkeletonTotalViews />}>
-						{/* @ts-expect-error Server Component */}
 						{<TopProducts />}
 					</Suspense>
 				</section>
