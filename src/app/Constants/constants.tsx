@@ -29,7 +29,7 @@ export const MenuOptions: OptionsType[] = [
 	},
 	{
 		section: MenuOptionsTypes.inventory,
-		subSections: ["Stock control", "Recording entries and exits", "Low inventory notifications"],
+		subSections: undefined,
 		links: "",
 		linksSubsection: [],
 		icon: <InventoryIcon />,
