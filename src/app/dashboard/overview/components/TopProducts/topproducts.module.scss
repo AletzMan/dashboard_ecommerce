@@ -11,7 +11,7 @@
 
     &_header {
         display: grid;
-        grid-template-columns: 10em 5em 1fr 5em 1fr;
+        grid-template-columns: 10em 6em 1fr 5em 1fr;
         align-items: center;
         justify-content: flex-start;
         column-gap: 1em;
@@ -34,7 +34,7 @@
 
 .product {
     display: grid;
-    grid-template-columns: 10em 5em 1fr 5em 1fr;
+    grid-template-columns: 10em 6em 1fr 5em 1fr;
     align-items: center;
     //justify-content: flex-start;
     column-gap: 1em;
@@ -44,16 +44,19 @@
     border-bottom: 1px solid var(--backCategoryColor);
 
     &_name {
+        text-align: center;
+        color: var(--fontSecondColor);
+        list-style: none;
+        font-size: 0.85em;
+
+    }
+
+    &_sku {
         width: 100%;
         text-align: center;
         color: var(--fontSecondColor);
         list-style: none;
-    }
-
-    &_sku {
-        text-align: center;
-        color: var(--fontSecondColor);
-        list-style: none;
+        font-size: 0.85em;
     }
 
 
@@ -71,7 +74,7 @@
 
     &_profit {
         text-align: center;
-        color: var(--fontSecondColor);
+        color: var(--normalColor);
         list-style: none;
     }
 

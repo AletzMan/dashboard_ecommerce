@@ -48,9 +48,9 @@
 
 
     &_search {
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.5em;
+        display: grid;
+        grid-template-columns: 1fr 8em;
+        gap: 0.5em;
         width: 100%;
 
         @media (width < 700px) {
@@ -59,17 +59,14 @@
         }
 
         &Fields {
-            display: grid;
-            grid-template-columns: 1fr 4em;
-            place-items: end center;
-            max-width: 28em;
-
+            grid-column: 1 / 2;
         }
     }
 
     &_container {
+        grid-column: 2 / 3;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         width: 100%;
 

@@ -1,11 +1,12 @@
 import axios from "axios"
 import styles from "./topproducts.module.scss"
-import { IProductData } from "@/app/Types/types"
+import { IProductData, IProductInventory } from "@/app/Types/types"
 import { FormattedString } from "@/app/utils/functions"
+import { DataGrid } from "@/app/dashboard/components/DataGrid/DataGrid"
 
 export async function TopProducts() {
-	const response = await axios.get("http://localhost:3000/api/products?sort=profit&quantity=6")
-	const products: IProductData[] = response.data.response
+	const response = await axios.get("http://localhost:3000/api/products/top?quantity=7")
+	const products: IProductInventory[] = response.data.products
 	return (
 		<div className={`${styles.section} scrollBarStyle`}>
 			<article className={styles.article}>
@@ -21,9 +22,9 @@ export async function TopProducts() {
 						<ul className={styles.product}>
 							<li className={styles.product_name}>{product.name}</li>
 							<li className={styles.product_sku}>{product.sku}</li>
-							<li className={styles.product_price}>{FormattedString(product.price)}</li>
-							<li className={styles.product_sold}>{product.piecesSold}</li>
-							<li className={styles.product_profit}>{FormattedString(product.quantitySold)}</li>
+							<li className={styles.product_price}>{FormattedString(Number(product.price))}</li>
+							<li className={styles.product_sold}>{product.soldQuantity}</li>
+							<li className={styles.product_profit}>{FormattedString(product.price * product.soldQuantity)}</li>
 						</ul>
 					))}
 				</section>
