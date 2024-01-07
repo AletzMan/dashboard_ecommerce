@@ -155,6 +155,7 @@ export type ButtonProps = {
   href?: string
   disabled?: boolean
   onClick: () => void
+  onMouseEnter?: () => void
   isSecondary?: boolean
   type: "button" | "reset" | "submit"
 }
