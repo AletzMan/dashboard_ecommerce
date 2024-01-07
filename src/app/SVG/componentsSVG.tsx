@@ -4,13 +4,14 @@ export function Logo({ type, className }: { type: "dark" | "light"; className?: 
 	if (type === "dark") {
 		return (
 			<Link
-				href={"/"}
+				href={"/dashboard/overview"}
 				title="Go to Home"
 				className={className}
-				style={{ borderBottom: "1px solid var(--fontColor)", width: "max-content", display: "flex", alignItems: "flex-end" }}
+				style={{ borderBottom: "1px solid var(--primaryColor)", width: "max-content", display: "flex", alignItems: "flex-end", position: "relative" }}
 			>
 				<svg viewBox="0 0 509.36 139.33" width="200" height="50">
 					<path
+						fill="var(--highLightColor)"
 						d="M186.1,163.85c-8.38,8.39-16.79,16-24.89,22.7h51.31a9.16,9.16,0,0,0,9.16-9.16V122.08A319,319,0,0,1,186.1,163.85Z"
 						transform="translate(-94.75 -76.33)"
 					/>
@@ -67,6 +68,19 @@ export function Logo({ type, className }: { type: "dark" | "light"; className?: 
 						transform="translate(-94.75 -76.33)"
 					/>
 				</svg>
+				<span
+					style={{
+						position: "absolute",
+						right: "0",
+						bottom: "0.4em",
+						minWidth: "max-content",
+						color: "var(--primaryColor)",
+						fontSize: "0.6em",
+						borderBottom: "0.1em solid var(--secondaryColor)",
+					}}
+				>
+					Technology at your fingertips
+				</span>
 			</Link>
 		)
 	} else {
