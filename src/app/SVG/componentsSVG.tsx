@@ -86,7 +86,7 @@ export function Logo({ type, className }: { type: "dark" | "light"; className?: 
 	} else {
 		return (
 			<Link
-				href={"/"}
+				href={"/dashboard/overview"}
 				title="Go to Home"
 				style={{
 					borderBottom: "0em solid var(--fontColor)",
