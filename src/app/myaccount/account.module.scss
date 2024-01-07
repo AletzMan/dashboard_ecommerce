@@ -1,0 +1,76 @@
+.section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: var(--primaryColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--terciaryColor);
+}
+
+.content {
+    position: relative;
+    top: 12em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1em 1em 2em 1em;
+    border-radius: var(--border-radius);
+    background-color: var(--secondaryColor);
+    color: var(--fontColor);
+    border: 1px solid var(--fourthColor);
+
+}
+
+.image {
+    position: relative;
+    width: 8em;
+    height: 8em;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+
+}
+
+.picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8em;
+    height: 8em;
+    margin-bottom: 1em;
+    border-radius: 5em;
+    overflow: hidden;
+    border: 3px solid var(--highLightColor);
+
+    &_img {
+        width: 95%;
+        height: 95%;
+        border-radius: 5em;
+        object-fit: cover;
+    }
+
+    &_button {
+        position: absolute;
+        bottom: 1em;
+        right: 0;
+        width: 2em;
+        height: 2em;
+        background-color: var(--secondaryColor);
+        border: 2px solid var(--highLightColor);
+        color: var(--fontColor);
+        border-radius: 2em;
+        overflow: visible;
+        cursor: pointer;
+    }
+}
