@@ -1,11 +1,15 @@
 import { Logo } from "@/app/SVG/componentsSVG"
 import styles from "./header.module.scss"
 
-function HeaderHome() {
+interface Props {
+	title: string
+}
+
+function HeaderHome({ title }: Props) {
 	return (
 		<header className={styles.header}>
 			<Logo type="light" />
-			<h1 className={styles.header__title}>e-Commerce Dashboard</h1>
+			<h1 className={styles.header__title}>{title}</h1>
 			<div className={styles.header__band}></div>
 		</header>
 	)
