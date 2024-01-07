@@ -4,6 +4,7 @@ import { ChangeEvent, ChangeEventHandler, MouseEvent, useState } from "react"
 import { ErrorIcon, HelpIcon, UploadIcon, ViewOffIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
 import { Control, UseFormRegister } from "react-hook-form/dist/types"
 import { Controller, useForm } from "react-hook-form"
+import { KeyboardEvent } from "react"
 
 type TextFieldProps = {
 	placeholder?: string
@@ -19,6 +20,7 @@ type TextFieldProps = {
 	step?: string
 	value?: string
 	onChange: ChangeEventHandler<HTMLInputElement>
+	onKeyDown?: () => void
 	//register: UseFormRegister<any>
 }
 
@@ -26,7 +28,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 	const [viewPassword, setViewPassword] = useState(false)
 	const [viewHelp, setViewHelp] = useState(false)
 	const { control } = useForm()
-	const { controlExt, placeholder, value, type, name, step, label, error, isRequired, disabled, multipleFile, help, onChange } = textFieldProps
+	const { controlExt, placeholder, value, type, name, step, label, error, isRequired, disabled, multipleFile, help, onChange, onKeyDown } = textFieldProps
 
 	const inputType = type === "password" ? (viewPassword ? "text" : "password") : type
 
@@ -42,6 +44,16 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 	const HandleOnChange = (e: ChangeEvent<HTMLInputElement>, event: (...event: any[]) => void) => {
 		event(e.target.value)
 		onChange(e)
+	}
+
+	const HandleMouseEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+		const key = e.key
+		if (key === "Enter") {
+			e.preventDefault()
+			if (onKeyDown) {
+				onKeyDown()
+			}
+		}
 	}
 
 	return (
@@ -65,6 +77,7 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput
 							} ${error && styles.textfield__inputError}`}
 						onChange={(e) => HandleOnChange(e, onChange)}
+						onKeyDown={HandleMouseEnter}
 						type={inputType}
 						placeholder={placeholder}
 						disabled={disabled}
