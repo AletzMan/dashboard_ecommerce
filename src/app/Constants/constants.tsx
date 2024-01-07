@@ -69,13 +69,13 @@ export const MenuOptions: OptionsType[] = [
 		linksSubsection: [],
 		icon: <SecurityIcon />,
 	},*/
-	{
+	/*{
 		section: MenuOptionsTypes.settings,
 		subSections: ["General store settings", "Payment and shipping methods", "Privacy policies and terms"],
 		links: "",
 		linksSubsection: [],
 		icon: <SettingsIcon />,
-	},
+	},*/
 ]
 
 export const States = [
