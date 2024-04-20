@@ -9,10 +9,11 @@ import { BestProduct } from "../overview/components/TotalsView/BestProduct"
 import { TotalProducts } from "../overview/components/TotalsView/Totalproducts"
 import styles from "./productcatalog.module.scss"
 import { ProductHeader } from "./ProductHeader"
+import { URL_API, URL_ProductImage } from "@/app/Constants/constants"
 
-interface PaginationProducts {
-	products: ProductType[]
-	totalProducts: number
+export interface PaginationProducts {
+	results: ProductType[]
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
@@ -25,10 +26,11 @@ const GetProducts = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
-		const response = await axios.get(`http://localhost:3000/api/products/${paramsString}`)
-		const products: PaginationProducts = response.data.data
+		const response = await fetch(`${URL_API}products/${paramsString}`, { next: { revalidate: 3600, tags: ['productsPage'] } })
+		const responseProducts = await response.json()
+		const products: PaginationProducts = responseProducts.response
 		//const products: ProductType[] = []
-		console.log(response.data.data)
+		console.log(products)
 		return products
 	} catch (error) {
 		console.log(error)
@@ -54,12 +56,12 @@ export default async function Products({ searchParams }: { searchParams: string 
 							<BestProduct />
 						</Suspense>
 					</div>
-					<ProductHeader products={data.products} totalResults={data?.totalProducts || 0} searchText={search ? search[1] : ""} />
+					<ProductHeader products={data.results} totalResults={data?.totalResults || 0} searchText={search ? search[1] : ""} />
 				</header>
 
 				<div className={styles.articles}>
 					<DataGrid
-						rows={data.products}
+						rows={data.results}
 						columns={[
 							{ field: "id", headerName: "ID", role: "text", width: 60 },
 							{ field: "sku", headerName: "SKU", role: "text", width: "1fr" },
@@ -77,6 +79,7 @@ export default async function Products({ searchParams }: { searchParams: string 
 							colors: ["#0cd315", "#cebc19", "#FF5722"],
 						}}
 						linkEdit={"/dashboard/products/add-or-edit-product"}
+						urlImage={URL_ProductImage}
 					/>
 
 					<article className={styles.graph}>

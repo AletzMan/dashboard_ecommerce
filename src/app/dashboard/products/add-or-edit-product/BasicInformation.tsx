@@ -13,6 +13,7 @@ import { GetHeightAndWidthFromImageURL } from "@/app/utils/functions"
 import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
 import { IInputs } from "./FormProdtc"
 import { set } from "zod"
+import { URL_API } from "@/app/Constants/constants"
 
 interface Props {
 	errors: FieldErrors<IInputs>
@@ -56,14 +57,13 @@ export function BasicInformation(props: Props) {
 		setSelectSubAndCategory({ ...selectSubAndCategory, category: productValue.category, subCategory: productValue.subcategory })
 	}, [productValue])
 
-	console.log(selectSubAndCategory.category)
-
 	const GetCategories = async () => {
 		try {
-			const response = await axios.get("/api/categories")
+			const response = await fetch(`${URL_API}categories`, { next: { revalidate: 7200 } })
+			const responseCategories = await response.json()
 			if (response.status === 200) {
-				const responseCategories: ICategory[] = response.data.categories
-				setCategories(responseCategories)
+				const selectCategories: ICategory[] = responseCategories.response as ICategory[]
+				setCategories(selectCategories)
 			}
 		} catch (error) {
 			console.error(error)
@@ -88,12 +88,16 @@ export function BasicInformation(props: Props) {
 
 	const GetSubCategories = async () => {
 		try {
+
 			if (selectSubAndCategory.category !== "-- Select a category --") {
 				const idCategory = categories?.find((category) => category.name === selectSubAndCategory.category)?.id
-				const response = await axios.get(`/api/categories/${idCategory}/subcategories`)
+
+				const response = await fetch(`${URL_API}subcategories?category_id=${idCategory}`, { next: { revalidate: 7200 } })
+				const responseSubCategories = await response.json()
+
 				if (response.status === 200) {
-					const responseSubCategories: ICategory[] = response.data.subCategories
-					setSubCategories(responseSubCategories)
+					const selectSubCategories: ICategory[] = responseSubCategories.response
+					setSubCategories(selectSubCategories)
 				}
 			}
 		} catch (error) {
@@ -181,7 +185,7 @@ export function BasicInformation(props: Props) {
 			}
 			setProductImages(ArrayImages)
 			//Almacenar la ruta previa, antes de subirla, solo para validar si no esta vacio
-			setProductValue({ ...productValue, slideImages: [ArrayImages[0].url] })
+			setProductValue({ ...productValue, slide_images: [ArrayImages[0].url] })
 			setErrorEmpty({ ...errorEmpty, slideImages: false })
 		}
 	}
@@ -206,12 +210,10 @@ export function BasicInformation(props: Props) {
 		const value = e.currentTarget.value
 		const brand = brands?.find((brand) => brand.name === value)
 		if (brand) {
-			setProductValue({ ...productValue, brand: value, brandLogo: brand?.logo })
+			setProductValue({ ...productValue, brand: value, brand_logo: brand?.logo })
 			setErrorEmpty({ ...errorEmpty, brand: false })
 		}
 	}
-
-	//console.log(productValue)
 
 	return (
 		<div className={styles.fields}>
@@ -287,15 +289,17 @@ export function BasicInformation(props: Props) {
 				onValueChange={HandleSelectSubCategory}
 				plaaceholder="-- Select a subcategory --"
 			/>
-			<ComboBox
-				name="brand"
-				label="Brand:"
-				options={brands?.map((brand) => brand.name) || []}
-				error={errors.brand?.message}
-				value={productValue.brand}
-				controlExt={control}
-				onValueChange={HandleSelectBrand}
-				plaaceholder="-- Select a brand --"
+			<TextField
+				textFieldProps={{
+					name: "brand",
+					label: "Brand",
+					error: errors.brand?.message,
+					isRequired: true,
+					value: productValue.brand,
+					controlExt: control,
+					onChange: (e) => HandleChangeValue(e),
+					type: TextFieldType.Text,
+				}}
 			/>
 		</div>
 	)

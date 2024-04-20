@@ -1,5 +1,5 @@
 :root {
-  /*--backgroundColor: #b1b1b1;
+	/*--backgroundColor: #b1b1b1;
   --primaryColor: #101416;
   --secondaryColor: #1f2122;
   --terciaryColor: #2b2f33;
@@ -30,117 +30,116 @@
   --checkColor: #58ff25;
   --toolTipColor: #f1f4c4;*/
 
-  --backgroundColor: #b1b1b1;
-  --primaryColor: #08090a;
-  --secondaryColor: #191818;
-  --terciaryColor: #232323;
-  --fourthColor: #30333a;
-  --highLightColor: #7eb409;
-  --highLightHoverColor: #a5f102;
-  --backgroundMenu: #a5f10230;
-  --shadowColor: #a7a6a6;
-  --fontColor: #ffffff;
-  --fontSecondColor: #d1cfcf;
-  --saleBorderColor: #f83f3f;
-  --saleColor: #a81b1b;
-  --saleBackgroundColor: #faa6a620;
-  --freeBorderColor: #ffc449;
-  --freeColor: #ad7b19;
-  --freeBackgroundColor: #fde8ba20;
-  --clearanceBorderColor: #3dc7f1;
-  --clearanceColor: #1b7d9b;
-  --clearanceBackgroundColor: #93ddf420;
-  --newBorderColor: #8be113;
-  --newColor: #69ae19;
-  --newBackgroundColor: #95e43b20;
-  --borderCardColor: #313131;
-  --borderCardHoverColor: #464646;
-  --backCategoryColor: #81838315;
-  --backTagColor: #6ff87f35;
-  --deleteButton: #cb3838bb;
-  --errorColor: #ba1b1b;
-  --checkColor: #58ff25;
-  --toolTipColor: #f1f4c4;
-  --criticalColor: #ff0000;
-  --warningColor: #ffae00;
-  --normalColor: #0ed30e;
-  --outStockColor: #525252;
-  --criticalBackgroundColor: #ff000020;
-  --warningBackgroundColor: #ffae0020;
-  --outStockBackgroundColor: #52525220;
-  --normalBackgroundColor: #00ff0020;
+	--backgroundColor: #b1b1b1;
+	--primaryColor: #08090a;
+	--secondaryColor: #191818;
+	--terciaryColor: #232323;
+	--fourthColor: #30333a;
+	--highLightColor: #7eb409;
+	--highLightHoverColor: #a5f102;
+	--backgroundMenu: #a5f10230;
+	--shadowColor: #a7a6a6;
+	--fontColor: #ffffff;
+	--fontSecondColor: #d1cfcf;
+	--saleBorderColor: #f83f3f;
+	--saleColor: #a81b1b;
+	--saleBackgroundColor: #faa6a620;
+	--freeBorderColor: #ffc449;
+	--freeColor: #ad7b19;
+	--freeBackgroundColor: #fde8ba20;
+	--clearanceBorderColor: #3dc7f1;
+	--clearanceColor: #1b7d9b;
+	--clearanceBackgroundColor: #93ddf420;
+	--newBorderColor: #8be113;
+	--newColor: #69ae19;
+	--newBackgroundColor: #95e43b20;
+	--borderCardColor: #313131;
+	--borderCardHoverColor: #464646;
+	--backCategoryColor: #81838315;
+	--backTagColor: #6ff87f35;
+	--deleteButton: #cb3838bb;
+	--errorColor: #ba1b1b;
+	--checkColor: #58ff25;
+	--toolTipColor: #f1f4c4;
+	--criticalColor: #ff0000;
+	--warningColor: #ffae00;
+	--normalColor: #0ed30e;
+	--outStockColor: #525252;
+	--criticalBackgroundColor: #ff000020;
+	--warningBackgroundColor: #ffae0020;
+	--outStockBackgroundColor: #52525220;
+	--normalBackgroundColor: #00ff0020;
 
-  --boxShadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-  /*--boxShadow: rgba(74, 78, 82, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;*/
-  --background: #17191a;
-  --backgroundGradient: radial-gradient(
-    circle at 500%,
-    var(--secondaryColor) 20%,
-    var(--primaryColor)
-  );
+	--boxShadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+	/*--boxShadow: rgba(74, 78, 82, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;*/
+	--background: #17191a;
+	--backgroundGradient: radial-gradient(
+		circle at 500%,
+		var(--secondaryColor) 20%,
+		var(--primaryColor)
+	);
 
-  --dataGridColumns: repeat(6, 1fr);
+	--dataGridColumns: repeat(6, 1fr);
 
-  --max-width: 1200px;
-  --border-radius: 4px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
-    "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
-    "Courier New", monospace;
+	--max-width: 1200px;
+	--border-radius: 4px;
+	--fontFamily: "Montserrat", "Roboto Mono", sans-serif;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 body {
-  width: 100%;
-  height: 100svh;
-  overflow-x: hidden;
-  background: var(--background);
+	width: 100%;
+	height: 100svh;
+	overflow-x: hidden;
+	background: var(--background);
+	font-family: var(--fontFamily);
 }
 
 html {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 .scrollBarStyle {
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-color: red;
+	overflow-y: auto;
+	overflow-x: hidden;
+	scrollbar-color: red;
 }
 
 .scrollBarStyle::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+	width: 8px;
+	height: 8px;
 }
 
 .scrollBarStyle::-webkit-scrollbar-thumb {
-  background-color: var(--highLightColor);
+	background-color: var(--highLightColor);
 }
 
 .scrollBarStyle::-webkit-scrollbar-track {
-  background-color: var(--terciaryColor);
+	background-color: var(--terciaryColor);
 }
 
 .scrollBarStyleX {
-  overflow-y: hidden;
-  overflow-x: auto;
-  scrollbar-color: red;
+	overflow-y: hidden;
+	overflow-x: auto;
+	scrollbar-color: red;
 }
 
 .scrollBarStyleX::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+	width: 8px;
+	height: 8px;
 }
 
 .scrollBarStyleX::-webkit-scrollbar-thumb {
-  background-color: var(--highLightColor);
+	background-color: var(--highLightColor);
 }
 
 .scrollBarStyleX::-webkit-scrollbar-track {
-  background-color: var(--terciaryColor);
+	background-color: var(--terciaryColor);
 }

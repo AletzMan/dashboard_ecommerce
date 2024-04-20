@@ -1,6 +1,7 @@
 import axios from "axios"
 import styles from "./totalsview.module.scss"
 import { ArrowIcon, OrdersIcon } from "@/app/SVG/componentsSVG"
+import { URL_API } from "@/app/Constants/constants"
 
 interface Props {
 	title: string
@@ -8,8 +9,10 @@ interface Props {
 
 const GetOrdersCount = async () => {
 	try {
-		const responseOrders = await axios.get("http://localhost:3000/api/orders/count")
-		return responseOrders.data.response
+		const response = await fetch(`${URL_API}orders`, { next: { revalidate: 3600, tags: ["totalorders"] } })
+		const responseOrders = await response.json()
+		const orders = responseOrders.response.totalResults
+		return orders
 	} catch (error) {
 		//console.log(error)
 		return 0
@@ -20,6 +23,7 @@ export async function TotalOrders(props: Props) {
 	const { title } = props
 
 	const orders: number = await GetOrdersCount()
+	console.log(orders)
 
 	console.log("ORDERS: ", orders)
 	return (

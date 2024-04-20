@@ -2,10 +2,13 @@
 import axios from "axios"
 import styles from "./totalsview.module.scss"
 import { ArrowIcon, ProductsIcon } from "@/app/SVG/componentsSVG"
+import { URL_API } from "@/app/Constants/constants"
 
 export async function TotalProducts() {
-	const responseProducts = await axios.get("http://localhost:3000/api/products/count")
-	const products: number = responseProducts.data.response
+	const response = await fetch(`${URL_API}products`, { next: { revalidate: 3600, tags: ["totalproducts"] } })
+	const responseProducts = await response.json()
+	const products = responseProducts.response.totalResults
+	console.log(products)
 	return (
 		<article className={styles.article}>
 			<header className={styles.article_header}>

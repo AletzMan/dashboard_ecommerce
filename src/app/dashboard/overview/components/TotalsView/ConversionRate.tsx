@@ -1,10 +1,12 @@
 import axios from "axios"
 import styles from "./totalsview.module.scss"
 import { ArrowIcon, ConversionIcon } from "@/app/SVG/componentsSVG"
+import { URL_API } from "@/app/Constants/constants"
 
 export async function ConversionRate() {
-	const responseOrders = await axios.get("http://localhost:3000/api/orders/count")
-	const orders: number = responseOrders.data.response
+	const response = await fetch(`${URL_API}orders`, { next: { revalidate: 3600, tags: ["totalorders"] } })
+	const responseOrders = await response.json()
+	const orders = responseOrders.response.totalResults
 
 	const visitors = 2138
 	return (

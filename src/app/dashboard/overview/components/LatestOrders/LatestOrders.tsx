@@ -4,6 +4,7 @@ import { IOrder } from "@/app/Types/types"
 import Link from "next/link"
 import { FormattedString } from "@/app/utils/functions"
 import { ArrowIcon, ArrowRightIcon, ViewOffIcon, ViewOnIcon } from "@/app/SVG/componentsSVG"
+import { URL_API } from "@/app/Constants/constants"
 
 const classStatus = [
 	{ status: "pending", class: styles.order_statusPending },
@@ -13,8 +14,8 @@ const classStatus = [
 ]
 
 interface IPagination {
-	orders: IOrder[]
-	totalOrders: number
+	results: IOrder[]
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
@@ -22,8 +23,9 @@ interface IPagination {
 
 const GetOrders = async () => {
 	try {
-		const response = await axios.get("http://localhost:3000/api/orders")
-		return response.data.data
+		const response = await fetch(`${URL_API}orders`, { next: { revalidate: 3600, tags: ['orders'] } })
+		const data = await response.json()
+		return data.response as IPagination
 
 	} catch (error) {
 		console.log(error)
@@ -34,8 +36,7 @@ const GetOrders = async () => {
 
 export async function LatestOrders() {
 
-	const response = await GetOrders()
-	const orders: IPagination = response
+	const orders = await GetOrders()
 
 	return (
 		<div className={`${styles.section} scrollBarStyle`}>
@@ -50,7 +51,7 @@ export async function LatestOrders() {
 					<li className={styles.header_title}>Details</li>
 				</ul>
 				<div className={styles.table_orders}>
-					{orders.orders.map((order) => (
+					{orders?.results?.map((order) => (
 						<ul className={styles.order}>
 							<li className={`${styles.order_item} ${styles.order_id}`}>{order.id}</li>
 							<li className={`${styles.order_item} ${styles.order_products}`}>{order.address_id}</li>

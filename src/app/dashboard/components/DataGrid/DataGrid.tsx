@@ -1,7 +1,7 @@
 "use client"
 
 import { Pagination } from "@/app/components/Pagination/Pagination"
-import { OptionsDateLocal } from "@/app/Constants/constants"
+import { OptionsDateLocal, URL_ProductImage } from "@/app/Constants/constants"
 import { IBrand } from "@/app/Types/types"
 import { FormattedString } from "@/app/utils/functions"
 import Image from "next/image"
@@ -52,11 +52,12 @@ interface Props {
         colors: string[]
     }
     databaseName?: string
+    urlImage: string
 }
 
 
 export function DataGrid(props: Props) {
-    const { rows, columns, paginacion, linkEdit, actions, statusOptions, databaseName } = props
+    const { rows, columns, paginacion, linkEdit, actions, statusOptions, databaseName, urlImage } = props
     const [valuesRows, setValuesRows] = useState<IRow[]>()
     const [valuesHeaderColumns, setValuesHeaderColumns] = useState<IColumnHeader[]>([{ id: "", name: "", headerName: "", role: "text" }])
 
@@ -125,8 +126,6 @@ export function DataGrid(props: Props) {
 
     }, [rows])
 
-    //console.log(valuesRows)
-    //console.log(valuesHeaderColumns)
 
     return (
         <section className={styles.datagrid}>
@@ -147,7 +146,7 @@ export function DataGrid(props: Props) {
                                         {columns[index]?.role === "price" &&
                                             <span className={`${styles.row_item} ${styles.row_price}`}>{FormattedString(Number(cell.value))}</span>
                                         }
-                                        {columns[index]?.role === "image" && <Image src={cell.value} width={40} height={40} alt={`Image`} />}
+                                        {columns[index]?.role === "image" && <Image src={`${urlImage}${cell.value}`} width={40} height={40} alt={`Image`} />}
                                         {columns[index]?.role === "actions" && <OptionsRow row={row.cell} linkEdit={linkEdit} actions={actions} databaseName={databaseName} />}
                                         {columns[index]?.role === "status" && statusOptions &&
                                             <span

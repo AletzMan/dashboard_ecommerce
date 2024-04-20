@@ -17,6 +17,7 @@ import { Modal } from "@/app/components/Modal/Modal"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { brandSchema } from "@/app/validations/productSchema"
+import { URL_API } from "@/app/Constants/constants"
 
 interface IErrorFields {
 	name: boolean
@@ -65,7 +66,7 @@ export function AddBrands() {
 				result = await UploadFile(logo[0].file as File, "logosBrands", nameBrand)
 			}
 
-			const response = await axios.post("/api/brands", { nameBrand, name_logo: nameBrand, logo: result })
+			const response = await axios.post(`${URL_API}brands`, { nameBrand, name_logo: nameBrand, logo: result })
 			if (response.status === 201) {
 				enqueueSnackbar("Brand added successfully", { variant: "success" })
 				router.refresh()
@@ -92,7 +93,7 @@ export function AddBrands() {
 			if (logo[0].file && nameBrand !== "" && nameBrand.length > 1) {
 				result = await UploadFile(logo[0].file as File, "logosBrands", nameBrand)
 			}
-			const response = await axios.put(`/api/brands/${brandSelect.id}`, { nameBrand, name_logo, logo: result })
+			const response = await axios.put(`${URL_API}brands/${brandSelect.id}`, { nameBrand, name_logo, logo: result })
 			if (response.status === 200) {
 				enqueueSnackbar("Successfully edited brand", { variant: "success" })
 				setNameBrand("")
@@ -200,7 +201,7 @@ export function AddBrands() {
 							<Button
 								title="Add brands"
 								buttonProps={{
-									onClick() {},
+									onClick() { },
 									text: "Save brand",
 									type: "submit",
 									iconButton: <SaveIcon />,

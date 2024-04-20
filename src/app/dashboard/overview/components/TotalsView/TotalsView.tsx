@@ -26,10 +26,10 @@ export async function TotalsView() {
 		<>
 			<div className={styles.section}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalSales />
+					{<TotalSales />}
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalOrders title="Orders" />
+					{<TotalOrders title="Orders" />}
 				</Suspense>
 			</div>
 			<div className={styles.section}>
@@ -37,7 +37,7 @@ export async function TotalsView() {
 					<TotalProducts />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalCustomers />
+					{<TotalCustomers />}
 				</Suspense>
 			</div>
 			<div className={styles.section}>
