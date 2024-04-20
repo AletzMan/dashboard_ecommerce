@@ -56,7 +56,7 @@ function FormLogin() {
 			setLoading(false)
 		}
 		if (response?.error) {
-			enqueueSnackbar(response.error.replaceAll(`'email'`, "").replaceAll(`'password'`, ""), { variant: "error" })
+			enqueueSnackbar("Invalid login credentials. Please try again.", { variant: "error" })
 			setError({
 				email: response.error.includes("email"),
 				password: response.error.includes("password"),

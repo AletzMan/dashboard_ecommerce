@@ -21,8 +21,8 @@ export function Information(props: Props) {
 
 	useEffect(() => {
 		setValue("price", productValue.price.toString())
-		setValue("inventoryQuantity", productValue.inventoryQuantity.toString())
-		setValue("minimuninventoryQuantity", productValue.minimuninventoryQuantity.toString())
+		setValue("inventoryQuantity", productValue.inventory_quantity.toString())
+		setValue("minimuninventoryQuantity", productValue.minimun_inventory_quantity.toString())
 	}, [productValue])
 
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,8 +47,8 @@ export function Information(props: Props) {
 				/>
 				<ToggleSwitch
 					label="Is Discounted"
-					active={productValue.isDiscounted}
-					setActive={(e) => setProductValue({ ...productValue, isDiscounted: e.valueOf() as boolean })}
+					active={productValue.is_discounted}
+					setActive={(e) => setProductValue({ ...productValue, is_discounted: e.valueOf() as boolean })}
 				/>
 				<TextField
 					textFieldProps={{
@@ -58,7 +58,7 @@ export function Information(props: Props) {
 						error: "",
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
-						disabled: !productValue.isDiscounted,
+						disabled: !productValue.is_discounted,
 					}}
 				/>
 			</div>
@@ -66,13 +66,13 @@ export function Information(props: Props) {
 				<h4 className={styles.article_deliveryTitle}>Shipping and pickup</h4>
 				<ToggleSwitch
 					label="Same day delivery"
-					active={productValue.sameDayDelivery}
-					setActive={(e) => setProductValue({ ...productValue, sameDayDelivery: e.valueOf() as boolean })}
+					active={productValue.same_day_delivery}
+					setActive={(e) => setProductValue({ ...productValue, same_day_delivery: e.valueOf() as boolean })}
 				/>
 				<ToggleSwitch
 					label="Store PickUp"
-					active={productValue.storePickUp}
-					setActive={(e) => setProductValue({ ...productValue, storePickUp: e.valueOf() as boolean })}
+					active={productValue.store_pickUp}
+					setActive={(e) => setProductValue({ ...productValue, store_pickUp: e.valueOf() as boolean })}
 				/>
 			</div>
 			<div className={styles.article_delivery}>
@@ -81,7 +81,7 @@ export function Information(props: Props) {
 					textFieldProps={{
 						name: "inventoryQuantity",
 						label: "Inventory Quantity:",
-						value: productValue.inventoryQuantity.toString(),
+						value: productValue?.inventory_quantity?.toString(),
 						isRequired: true,
 						error: errors.inventoryQuantity?.message,
 						controlExt: control,
@@ -93,7 +93,7 @@ export function Information(props: Props) {
 					textFieldProps={{
 						name: "minimuninventoryQuantity",
 						label: "Minimum Quantity:",
-						value: productValue.minimuninventoryQuantity.toString(),
+						value: productValue?.minimun_inventory_quantity?.toString(),
 						isRequired: true,
 						error: errors.minimuninventoryQuantity?.message,
 						controlExt: control,
@@ -101,21 +101,21 @@ export function Information(props: Props) {
 						type: TextFieldType.Number,
 					}}
 				/>
-				<ToggleSwitch label="Is New" active={productValue.isNew} setActive={(e) => setProductValue({ ...productValue, isNew: e.valueOf() as boolean })} />
+				<ToggleSwitch label="Is New" active={productValue.is_new} setActive={(e) => setProductValue({ ...productValue, is_new: e.valueOf() as boolean })} />
 				<ToggleSwitch
 					label="Is Free Shipping"
-					active={productValue.isFreeShipping}
-					setActive={(e) => setProductValue({ ...productValue, isFreeShipping: e.valueOf() as boolean })}
+					active={productValue.is_freeShipping}
+					setActive={(e) => setProductValue({ ...productValue, is_freeShipping: e.valueOf() as boolean })}
 				/>
 				<ToggleSwitch
 					label="Is Clearance"
-					active={productValue.isClearance}
-					setActive={(e) => setProductValue({ ...productValue, isClearance: e.valueOf() as boolean })}
+					active={productValue.is_clearance}
+					setActive={(e) => setProductValue({ ...productValue, is_clearance: e.valueOf() as boolean })}
 				/>
 				<ToggleSwitch
 					label="Is Sale"
-					active={productValue.isSale}
-					setActive={(e) => setProductValue({ ...productValue, isSale: e.valueOf() as boolean })}
+					active={productValue.is_sale}
+					setActive={(e) => setProductValue({ ...productValue, is_sale: e.valueOf() as boolean })}
 				/>
 			</div>
 		</div>

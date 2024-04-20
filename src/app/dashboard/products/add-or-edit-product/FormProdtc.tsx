@@ -8,9 +8,10 @@ import styles from "./createedit.module.scss"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { productSchema } from "@/app/validations/productSchema"
+import { IProduct } from "@/app/interfaces/product"
 
 interface Props {
-	productSelect?: ProductType
+	productSelect?: IProduct
 }
 
 export type IInputs = {

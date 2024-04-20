@@ -5,6 +5,7 @@ import { AddBrands } from "./AddBrand"
 import { AddBrandButton } from "./AddBrandButton"
 import { SearchSection } from "../../components/SearchSection/SearchSection"
 import { DataGrid } from "../../components/DataGrid/DataGrid"
+import { URL_API } from "@/app/Constants/constants"
 
 const GetBrands = async (params: [string, string][]) => {
 	let paramsString: string = ""
@@ -12,8 +13,11 @@ const GetBrands = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await axios.get(`http://localhost:3000/api/brands/${paramsString}`)
-	const data = response.data.data
+
+	const response = await fetch(`${URL_API}brands${paramsString}`, { next: { revalidate: 7200 } })
+	const responseBrands = await response.json()
+
+	const data = responseBrands.response
 
 	return data
 }
@@ -30,8 +34,8 @@ const OptionsDate: Intl.DateTimeFormatOptions = {
 }
 
 interface IPagination {
-	brands: IBrand[]
-	totalBrands: number
+	results: IBrand[]
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
@@ -46,7 +50,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 	return (
 		<section className={`${styles.section} `}>
 			<header className={styles.section_header}>
-				<SearchSection total={data.totalBrands} placeholder="AMD, Intel, samsung, etc..." />
+				<SearchSection total={data.totalResults} placeholder="AMD, Intel, samsung, etc..." />
 				<AddBrandButton />
 			</header>
 			<div className={styles.table}>
@@ -55,13 +59,14 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 						{ field: "id", headerName: "ID", width: 50, role: "text" },
 						{ field: "name", headerName: "Name", width: "1fr", role: "text" },
 						{ field: "logo", headerName: "Logo", width: 80, role: "image" },
-						{ field: "createdDate", headerName: "Created Date", width: "1fr", role: "date" },
-						{ field: "lastModified", headerName: "Last Modified", width: "1fr", role: "date" },
+						{ field: "created_date", headerName: "Created Date", width: "1fr", role: "date" },
+						{ field: "last_modified", headerName: "Last Modified", width: "1fr", role: "date" },
 						{ field: "", headerName: "", width: "1fr", role: "actions" },
 					]}
-					rows={data.brands}
+					rows={data.results}
 					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
 					actions={["view", "edit", "delete"]}
+					linkEdit="/dashboard/products/brands"
 				/>
 			</div>
 			<AddBrands />

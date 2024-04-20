@@ -83,7 +83,7 @@ export default function () {
 		setProducts(prevProducts)
 	}
 
-	const HandleChageFields = (e: ChangeEvent<HTMLInputElement>) => {}
+	const HandleChageFields = (e: ChangeEvent<HTMLInputElement>) => { }
 
 	const HandleChageDates = (e: ChangeEvent<HTMLInputElement>, event: (...event: any[]) => void) => {
 		const name = e.currentTarget.name

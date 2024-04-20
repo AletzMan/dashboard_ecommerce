@@ -6,15 +6,16 @@ import { ButtonType, IAttribute, ICharacteristicProduct, ProductType, TextFieldT
 import { AddIcon, DeleteIcon, RemoveIcon } from "@/app/SVG/componentsSVG"
 import { Button } from "../../components/Button/Button"
 import { useProductInformation } from "@/app/utils/store"
+import { IProduct, IProductCharacteristic } from "@/app/interfaces/product"
 
 interface Props {
-	productSelect?: ProductType
+	productSelect?: IProduct
 }
 
 export function Details(props: Props) {
 	const { productSelect } = props
 	const { setProductValue, productValue, loadInformation } = useProductInformation()
-	const [detailsProduct, setDetailsProduct] = useState<ICharacteristicProduct[]>([
+	const [detailsProduct, setDetailsProduct] = useState<IProductCharacteristic[]>([
 		{ id: crypto.randomUUID(), name: "", attributes: [{ id: crypto.randomUUID(), name: "", value: "" }] }
 	])
 	const [remove, setRemove] = useState({ remove: false, index: NaN })
@@ -26,7 +27,8 @@ export function Details(props: Props) {
 		])
 		if (productSelect) {
 			setProductValue(productSelect)
-			setDetailsProduct(productSelect.specs)
+
+			setDetailsProduct(productSelect.specs.details)
 		}
 	}, [loadInformation])
 
@@ -77,7 +79,7 @@ export function Details(props: Props) {
 		const newName = e.currentTarget.value
 		prevCharacteristics[index].name = newName
 		setDetailsProduct(prevCharacteristics)
-		setProductValue({ ...productValue, specs: prevCharacteristics })
+		setProductValue({ ...productValue, specs: { details: prevCharacteristics } })
 	}
 	const HandleChangeAttribute = (e: ChangeEvent<HTMLInputElement>, indexCharacteristic: number, indexAttribute: number) => {
 		const prevCharacteristics = [...detailsProduct]
@@ -87,7 +89,7 @@ export function Details(props: Props) {
 			prevCharacteristics[indexCharacteristic].attributes[indexAttribute][nameField] = newName
 		}
 		setDetailsProduct(prevCharacteristics)
-		setProductValue({ ...productValue, specs: prevCharacteristics })
+		setProductValue({ ...productValue, specs: { details: prevCharacteristics } })
 	}
 
 	return (
@@ -95,7 +97,7 @@ export function Details(props: Props) {
 			<h3 className={styles.article_sectionTitle}>Details product</h3>
 			<div className={`${styles.details_characteristics}  `}>
 				<h3 className={styles.details_title}>Characteristics</h3>
-				{detailsProduct.map((characteristic, indexCharacteristic) => (
+				{detailsProduct?.map((characteristic, indexCharacteristic) => (
 					<div
 						key={characteristic.id}
 						className={`${styles.details_characteristic} ${remove.remove && remove.index === indexCharacteristic && styles.details_characteristicNone}`}
@@ -114,7 +116,7 @@ export function Details(props: Props) {
 								name: "characteristic",
 								label: "Characteristic name:",
 								value: detailsProduct[indexCharacteristic].name,
-								error: false,
+								error: "",
 								onChange: (e) => HandleChangeCharacteristic(e, indexCharacteristic),
 								type: TextFieldType.Text,
 							}}
@@ -123,14 +125,14 @@ export function Details(props: Props) {
 							<h4 className={styles.details_attributesTitle}>Attributes</h4>
 
 
-							{characteristic.attributes.map((attribute, indexAttribute) => (
+							{characteristic?.attributes?.map((attribute, indexAttribute) => (
 								<div key={attribute.id} className={styles.details_attribute}>
 									<TextField
 										textFieldProps={{
 											name: "name",
 											label: "Attribute:",
 											value: detailsProduct[indexCharacteristic].attributes[indexAttribute].name,
-											error: false,
+											error: "",
 											onChange: (e) => HandleChangeAttribute(e, indexCharacteristic, indexAttribute),
 											type: TextFieldType.Text,
 										}}
@@ -140,7 +142,7 @@ export function Details(props: Props) {
 											name: "value",
 											label: "Value:",
 											value: detailsProduct[indexCharacteristic].attributes[indexAttribute].value,
-											error: false,
+											error: "",
 											onChange: (e) => HandleChangeAttribute(e, indexCharacteristic, indexAttribute),
 											type: TextFieldType.Text,
 										}}

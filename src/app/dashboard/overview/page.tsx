@@ -3,7 +3,6 @@ import Link from "next/link"
 import styles from "./overview.module.scss"
 import { TotalsView } from "./components/TotalsView/TotalsView"
 import { TopProducts } from "./components/TopProducts/TopProducts"
-import axios from "axios"
 import { TopSales } from "./components/TopSales/TopSales"
 import { BarChart, IOptionsChart } from "../components/BarChart/BarChart"
 import { IOrderByState } from "@/app/Types/types"
@@ -12,6 +11,7 @@ import { LatestOrders } from "./components/LatestOrders/LatestOrders"
 import { PieChartG } from "../components/PieChart/PieChart"
 import { Suspense } from "react"
 import { SkeletonTotalViews } from "./components/SkeletonTotalViews/SkeletonTotalViews"
+import { stateOrdersData } from "@/app/utils/mockdata"
 
 const options: IOptionsChart = {
 	chart: {
@@ -60,14 +60,16 @@ const yaxis = {
 }
 
 export default async function OverviewPage() {
-	const response = await axios.get("http://localhost:3000/api/orders?sort=state")
-	const orders: IOrderByState[] = response.data.response
-	const ordersTop = orders.filter((data, index) => index < 10)
+	//const response = await fetch(`${URL_API}orders?sort=state`)
+	//const responseOrders = await response.json()
+	const orders: IOrderByState[] = stateOrdersData
+
+	const ordersTop = orders?.filter((data, index) => index < 10)
 	return (
 		<main className={`${styles.main_container} scrollBarStyle`}>
 			<section className={` ${styles.totals}`}>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalsView />
+					{<TotalsView />}
 				</Suspense>
 			</section>
 			<div className={styles.container}>
@@ -90,7 +92,7 @@ export default async function OverviewPage() {
 						</Link>
 					</header>
 					<Suspense fallback={<SkeletonTotalViews />}>
-						<LatestOrders />
+						{<LatestOrders />}
 					</Suspense>
 				</section>
 				<section className={`${styles.container_products} ${styles.container_section}`}>
