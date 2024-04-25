@@ -1,34 +1,47 @@
 :root {
-	/*--backgroundColor: #b1b1b1;
-  --primaryColor: #101416;
-  --secondaryColor: #1f2122;
-  --terciaryColor: #2b2f33;
-  --fourthColor: #3d434b;
-  --highLightColor: #66ad39;
-  --highLightHoverColor: #64d422;
-  --shadowColor: #8b8b8b;
-  --fontColor: #ffffff;
-  --fontSecondColor: #bfbebe;
-  --saleBorderColor: #d63c3c;
-  --saleColor: #d12020;
-  --saleBackgroundColor: #faa6a620;
-  --freeBorderColor: #ffc449;
-  --freeColor: #d29721;
-  --freeBackgroundColor: #fde8ba20;
-  --clearanceBorderColor: #3dc7f1;
-  --clearanceColor: #208eb0;
-  --clearanceBackgroundColor: #93ddf420;
-  --newBorderColor: #8be113;
-  --newColor: #69ae19;
-  --newBackgroundColor: #d6f9af20;
-  --borderCardColor: #ffffff15;
-  --borderCardHoverColor: #ffffff20;
-  --backCategoryColor: #81838310;
-  --backTagColor: #6ff87f35;
-  --deleteButton: #cb3838bb;
-  --errorColor: #ed3030;
-  --checkColor: #58ff25;
-  --toolTipColor: #f1f4c4;*/
+	/*
+	--backgroundColor: #b1b1b1;
+	--primaryColor: #08090a;
+	--secondaryColor: #191818;
+	--terciaryColor: #232323;
+	--fourthColor: #30333a;
+	--highLightColor: #7eb409;
+	--highLightHoverColor: #a5f102;
+	--backgroundMenu: #a5f10230;
+	--shadowColor: #a7a6a6;
+	--fontColor: #ffffff;
+	--fontSecondColor: #d1cfcf;
+	--saleBorderColor: #f83f3f;
+	--saleColor: #a81b1b;
+	--saleBackgroundColor: #faa6a620;
+	--freeBorderColor: #ffc449;
+	--freeColor: #ad7b19;
+	--freeBackgroundColor: #fde8ba20;
+	--clearanceBorderColor: #3dc7f1;
+	--clearanceColor: #1b7d9b;
+	--clearanceBackgroundColor: #93ddf420;
+	--newBorderColor: #8be113;
+	--newColor: #69ae19;
+	--newBackgroundColor: #95e43b20;
+	--borderCardColor: #313131;
+	--borderCardHoverColor: #46464650;
+	--backCategoryColor: #81838315;
+	--backTagColor: #6ff87f35;
+	--deleteButton: #cb3838bb;
+	--errorColor: #ba1b1b;
+	--checkColor: #58ff25;
+	--toolTipColor: #f1f4c4;
+	--criticalColor: #ff0000;
+	--warningColor: #ffae00;
+	--normalColor: #0ed30e;
+	--outStockColor: #525252;
+	--criticalBackgroundColor: #ff000020;
+	--warningBackgroundColor: #ffae0020;
+	--outStockBackgroundColor: #52525220;
+	--normalBackgroundColor: #00ff0020;
+	--toolTipColor: #ffffcc;
+
+	*/
 
 	--backgroundColor: #b1b1b1;
 	--primaryColor: #08090a;
@@ -54,7 +67,7 @@
 	--newColor: #69ae19;
 	--newBackgroundColor: #95e43b20;
 	--borderCardColor: #313131;
-	--borderCardHoverColor: #464646;
+	--borderCardHoverColor: #46464650;
 	--backCategoryColor: #81838315;
 	--backTagColor: #6ff87f35;
 	--deleteButton: #cb3838bb;
@@ -69,6 +82,7 @@
 	--warningBackgroundColor: #ffae0020;
 	--outStockBackgroundColor: #52525220;
 	--normalBackgroundColor: #00ff0020;
+	--toolTipColor: #ffffcc;
 
 	--boxShadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 	/*--boxShadow: rgba(74, 78, 82, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;*/
@@ -78,6 +92,8 @@
 		var(--secondaryColor) 20%,
 		var(--primaryColor)
 	);
+
+	--borderRadius: 0.25em;
 
 	--dataGridColumns: repeat(6, 1fr);
 
