@@ -99,9 +99,9 @@
 .footer {
     display: grid;
     grid-template-columns: 1fr 7em;
-    padding: 0.5em;
+    padding: 0.25em 0.5em;
     background-color: var(--fontColor);
-    margin: 0.5em 0 0 0;
+    margin: 0em 0 0 0;
 
     &_quantity {
         font-size: 1.15em;
@@ -109,7 +109,7 @@
         color: var(--newBorderColor);
 
         &Text {
-            font-size: 0.85em;
+            font-size: 0.7em;
             font-weight: 400;
             color: var(--backgroundColor);
         }
