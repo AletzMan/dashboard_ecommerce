@@ -255,7 +255,7 @@ export default function () {
 				<h3 className={styles.information_title}>Information and Payment</h3>
 				<ComboBox
 					error={errors.bill_to?.message}
-					options={["Hugo Sanches", "Cristiano Ronaldo"]}
+					options={[["Hugo Sanches", "Hugo Sanches"], ["Cristiano Ronaldo", "Cristiano Ronaldo"]]}
 					value={customer}
 					onValueChange={HandleChageBillTo}
 					plaaceholder="Select a customer"
@@ -265,7 +265,7 @@ export default function () {
 				/>
 				<ComboBox
 					error={errors.payment?.message}
-					options={["Paypal", "Debit Card"]}
+					options={[["Paypal", "Paypal"], ["Debit Card", "Debit Card"]]}
 					value={payment}
 					plaaceholder="Select a payment"
 					onValueChange={HandleChagePayment}

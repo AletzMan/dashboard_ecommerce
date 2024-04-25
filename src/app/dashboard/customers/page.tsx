@@ -4,10 +4,11 @@ import { DataGrid } from "../components/DataGrid/DataGrid"
 import { SearchSection } from "../components/SearchSection/SearchSection"
 import { TotalCustomers } from "../overview/components/TotalsView/TotalCustomers"
 import styles from "./customers.module.scss"
+import { URL_API } from "@/app/Constants/constants"
 
 interface ICustomersPagination {
-	users: ICustomer[]
-	totalUsers: number
+	results: ICustomer[]
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
@@ -20,9 +21,11 @@ const GetCustomers = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
-		const response = await axios.get(`http://localhost:3000/api/customers${paramsString}`)
-		const data: ICustomersPagination = response.data.data
-		return data
+		const response = await fetch(`${URL_API}customers${paramsString}`, { next: { revalidate: 1, tags: ["customers"] } })
+		const data = await response.json()
+		console.log(data)
+		const customers: ICustomersPagination = data.response
+		return customers
 	} catch (error) { }
 }
 
@@ -35,11 +38,11 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 		<section className={styles.section}>
 			<header className={styles.section_header}>
 				<TotalCustomers />
-				<SearchSection total={data?.totalUsers || 0} />
+				<SearchSection total={data?.totalResults || 0} />
 			</header>
 			{data && (
 				<DataGrid
-					rows={data?.users}
+					rows={data?.results}
 					columns={[
 						{ field: "id", headerName: "ID", role: "text", width: 70 },
 						{ field: "name", headerName: "Name", role: "text", width: 130 },
@@ -49,8 +52,10 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 						{ field: "", headerName: "", role: "actions", width: "1fr" },
 					]}
 					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
-					linkEdit={"/dashboard/customers"}
+					linkView="/dashboard/customers"
+					databaseName="customers"
 					actions={["view"]}
+					detailsView={<></>}
 				/>
 			)}
 		</section>

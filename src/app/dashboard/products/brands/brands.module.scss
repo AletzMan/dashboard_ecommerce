@@ -1,7 +1,8 @@
 .section {
-    background: var(--background);
     padding: 0;
+    height: calc(100svh - 4em);
     overflow-x: hidden;
+    overflow-y: hidden;
 
     @media (width < 920px) {
         grid-column: 1 / span 2;
@@ -102,8 +103,18 @@
         column-gap: 4em;
     }
 
+    &_button {
+        max-width: 10em;
+    }
+
 }
 
 .table {
     padding: 0.5em;
+    height: calc(100svh - 12.5em);
+
+    @media (width < 500px) {
+        padding: 0;
+    }
+
 }

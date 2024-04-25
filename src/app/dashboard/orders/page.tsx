@@ -1,4 +1,4 @@
-import { OptionsDateLocal } from "@/app/Constants/constants"
+import { OptionsDateLocal, URL_API } from "@/app/Constants/constants"
 import { ICustomer, IOrder } from "@/app/Types/types"
 import axios from "axios"
 import { headers } from "next/headers"
@@ -19,8 +19,9 @@ const GetOrders = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
-		const response = await axios.get(`http://localhost:3000/api/orders${paramsString}`)
-		const orders: IPagination = response.data.data
+		const response = await fetch(`${URL_API}${paramsString}`, { next: { revalidate: 7200, tags: ["orderspage"] } })
+		const data = await response.json()
+		const orders: IPagination = data.response
 		return orders
 	} catch (error) { }
 }
@@ -53,10 +54,10 @@ export default async function PageOrders({ searchParams }: { searchParams: { [ke
 					<TotalOrders title="Total Orders" />
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalOrderCompleted id={id} title="Orders Completed" />
+					{/*<TotalOrderCompleted id={id} title="Orders Completed" />*/}
 				</Suspense>
 				<Suspense fallback={<SkeletonTotalViews />}>
-					<TotalOrderCancelled id={id} title="Orders Cancelled" />
+					{/*<TotalOrderCancelled id={id} title="Orders Cancelled" />*/}
 				</Suspense>
 			</article>
 			<div className={styles.section_id}>
@@ -84,6 +85,7 @@ export default async function PageOrders({ searchParams }: { searchParams: { [ke
 								}}
 								actions={["view"]}
 								linkEdit={"/dashboard/orders"}
+								detailsView={<></>}
 							/>
 						)}
 					</Suspense>

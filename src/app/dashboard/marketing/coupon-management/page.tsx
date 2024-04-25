@@ -3,6 +3,9 @@ import styles from "./coupons.module.scss"
 import { DataGrid } from "../../components/DataGrid/DataGrid"
 import { SearchSection } from "../../components/SearchSection/SearchSection"
 import { ButtonAddCoupon } from "./ButtonAddCoupon"
+import { URL_API } from "@/app/Constants/constants"
+import { HeaderSection } from "../../components/HeaderSection/HeaderSection"
+import { AddCoupon } from "./AddCoupon"
 
 interface ICoupon {
 	id: number
@@ -16,11 +19,11 @@ interface ICoupon {
 }
 
 interface IPagination {
-	total: number
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
-	coupons: ICoupon[]
+	results: ICoupon[]
 }
 
 const GetCoupons = async (params: [string, string][]) => {
@@ -29,9 +32,9 @@ const GetCoupons = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await axios(`http://localhost:3000/api/coupons${paramsString}`)
-	const data = await response.data
-	return data
+	const response = await fetch(`${URL_API}coupons${paramsString}`, { next: { revalidate: 7200, tags: ["coupons"] } })
+	const data = await response.json()
+	return data.response
 }
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string } }) {
@@ -39,13 +42,16 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 	const data: IPagination = await GetCoupons(params)
 
 	return (
-		<section className={`${styles.section} scrollBarStyle`}>
-			<header className={styles.header}>
+		<section className={`${styles.section} `}>
+			{/*<header className={styles.header}>
 				<SearchSection total={data.total} placeholder="Search by code or description" />
 				<ButtonAddCoupon />
-			</header>
+	</header>*/}
+			<HeaderSection results={data.totalResults} title="Add Coupon">
+				<AddCoupon />
+			</HeaderSection>
 			<DataGrid
-				rows={data.coupons}
+				rows={data.results}
 				columns={[
 					{ field: "id", headerName: "ID", role: "text", width: 70 },
 					{ field: "code", headerName: "Code", role: "text", width: 130 },
@@ -63,6 +69,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 				}}
 				actions={["delete"]}
 				databaseName="coupons"
+				detailsView={<></>}
 
 			/>
 		</section>

@@ -1,5 +1,5 @@
 
-import { OptionsDateLocal } from "@/app/Constants/constants"
+import { OptionsDateLocal, URL_API } from "@/app/Constants/constants"
 import { ICustomer, IOrder } from "@/app/Types/types"
 import axios from "axios"
 import { headers } from "next/headers"
@@ -15,7 +15,7 @@ import styles from "../customers.module.scss"
 const GetCustomer = async (id: string) => {
 
     try {
-        const response = await axios.get(`http://localhost:3000/api/customers/${id}`)
+        const response = await axios.get(`${URL_API}customers/${id}`)
         const customer: ICustomer[] = response.data.customer
         return customer[0]
     } catch (error) {
@@ -127,16 +127,13 @@ export default async function PageCostomer() {
         <section className={`${styles.section} scrollBarStyle`} >
             <article className={styles.totals}>
                 <Suspense fallback={<SkeletonTotalViews />}>
-                    {/* @ts-expect-error Server Component */}
                     <TotalOrdersByCustomer id={id} title="Total Orders" />
                 </Suspense>
                 <Suspense fallback={<SkeletonTotalViews />}>
-                    {/* @ts-expect-error Server Component */}
-                    <TotalOrderCompletedByCustomer id={id} title="Completed Orders" />
+                    {/*<TotalOrderCompletedByCustomer id={id} title="Completed Orders" />*/}
                 </Suspense>
                 <Suspense fallback={<SkeletonTotalViews />}>
-                    {/* @ts-expect-error Server Component */}
-                    <TotalOrderCancelledByCustomer id={id} title="Cancelled Orders" />
+                    {/*<TotalOrderCancelledByCustomer id={id} title="Cancelled Orders" />*/}
                 </Suspense>
             </article>
             <div className={styles.section_id}>
@@ -187,6 +184,7 @@ export default async function PageCostomer() {
                                     statusArray: ["On the way", "Delivered", "Pending", "Cancelled"],
                                     colors: ["#2196F3", "#0cd315", "#cebc19", "#FF5722"]
                                 }}
+                                detailsView={<></>}
 
                             />
                         }
