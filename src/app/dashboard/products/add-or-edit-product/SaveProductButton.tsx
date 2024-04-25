@@ -9,15 +9,17 @@ import axios from "axios"
 import { GetURLFile, UploadFile } from "@/Firebase/firebase"
 import { GetNameImage } from "@/app/utils/functions"
 import { Modal } from "@/app/components/Modal/Modal"
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { URL_API } from "@/app/Constants/constants"
+import { Revailidate } from "@/app/services/actions"
 
 interface Props {
 	isValid: boolean
+	setStep: Dispatch<SetStateAction<number>>
 }
 
-export function SaveProductsButton(props: Props) {
-	const { isValid } = props
-	const { setProductValue, productValue, setErrorEmpty, errorEmpty, EmptyProduct, setLoadInformation } = useProductInformation()
+export function SaveProductsButton({ isValid, setStep }: Props) {
+	const { setProductValue, productValue, setErrorEmpty, errorEmpty, EmptyProduct, setLoadInformation, setIsEdit } = useProductInformation()
 	const { coverImage, productImages } = useImagesProduct()
 	const [uploading, setUploading] = useState(false)
 	const [uploadReady, setUploadReady] = useState(false)
@@ -52,7 +54,7 @@ export function SaveProductsButton(props: Props) {
 			const productImageURL = await GetURLFile("productImage", NameImages[index])
 			ArrayImages.push(productImageURL)
 		}
-		setProductValue({ ...prevProduct, image: coverImageURL, slideImages: ArrayImages })
+		setProductValue({ ...prevProduct, image: coverImageURL, slide_images: ArrayImages })
 		setUploadReady(true)
 	}
 
@@ -64,9 +66,10 @@ export function SaveProductsButton(props: Props) {
 
 	const CreateProduct = async () => {
 		try {
-			const response = await axios.post("/api/products", {
+			const response = await axios.post(`${URL_API}products`, {
 				productValue,
 			})
+
 			if (response.status === 201) {
 				enqueueSnackbar("Product successfully created", {
 					variant: "success",
@@ -77,6 +80,9 @@ export function SaveProductsButton(props: Props) {
 				setLoadInformation(false)
 				setUploading(false)
 				setUploadReady(false)
+				Revailidate("productsPage")
+				setStep(5)
+				setIsEdit(false)
 
 				setTimeout(() => {
 					setLoadInformation(true)
@@ -92,7 +98,7 @@ export function SaveProductsButton(props: Props) {
 	return (
 		<>
 			{uploading && (
-				<Modal title="">
+				<Modal title="" viewModal={uploading}>
 					<LoadingIcon className={styles.modal_icon} />
 					<p className={styles.modal_text}>Creating product... </p>
 					<p className={styles.modal_text}>Please wait a moment.</p>

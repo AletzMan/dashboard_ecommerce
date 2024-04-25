@@ -3,6 +3,19 @@ import { combine, persist } from "zustand/middleware"
 import { IBrand, ICharacteristicProduct, IImage, ProductType } from "../Types/types"
 import { IProduct, IProductDetails } from "../interfaces/product"
 
+interface IViewID {
+	viewID: string
+	setViewID: (value: string) => void
+}
+
+export const useViewID = create<IViewID>((set) => ({
+	viewID: "",
+	setViewID: (value: string) =>
+		set((state) => ({
+			viewID: value,
+		})),
+}))
+
 interface IViewModal {
 	viewModal: boolean
 	setViewModal: (value: boolean) => void
@@ -18,7 +31,7 @@ export const useViewModal = create<IViewModal>((set) => ({
 		set((state) => ({
 			viewModal: value,
 		})),
-	brandSelect: { id: 0, name: "", logo: "", name_logo: "", createdDate: "", lastModified: "" },
+	brandSelect: { id: 0, name: "", logo: "", created_date: "", last_modified: "" },
 	setBrandSelect: (value: IBrand) =>
 		set((state) => ({
 			brandSelect: value,
@@ -94,26 +107,40 @@ interface IProductInformation {
 	EmptyProduct: IProduct
 	loadInformation: boolean
 	setLoadInformation: (value: boolean) => void
+	isEdit: boolean
+	setIsEdit: (value: boolean) => void
 }
 
-export const useProductInformation = create<IProductInformation>((set) => ({
-	productValue: EmptyProduct,
-	setProductValue: (value: IProduct) =>
-		set((state) => ({
-			productValue: value,
-		})),
-	errorEmpty: EmptyError,
-	setErrorEmpty: (value: IEmptyError) =>
-		set((state) => ({
-			errorEmpty: value,
-		})),
-	loadInformation: true,
-	setLoadInformation: (value: boolean) =>
-		set((state) => ({
-			loadInformation: value,
-		})),
-	EmptyProduct,
-}))
+export const useProductInformation = create(
+	persist<IProductInformation>(
+		(set) => ({
+			productValue: EmptyProduct,
+			setProductValue: (value: IProduct) =>
+				set((state) => ({
+					productValue: value,
+				})),
+			errorEmpty: EmptyError,
+			setErrorEmpty: (value: IEmptyError) =>
+				set((state) => ({
+					errorEmpty: value,
+				})),
+			loadInformation: true,
+			setLoadInformation: (value: boolean) =>
+				set((state) => ({
+					loadInformation: value,
+				})),
+			isEdit: false,
+			setIsEdit: (value: boolean) =>
+				set((state) => ({
+					isEdit: value,
+				})),
+			EmptyProduct,
+		}),
+		{
+			name: "AddProduct",
+		}
+	)
+)
 
 interface IImageProduct {
 	coverImage: IImage[]

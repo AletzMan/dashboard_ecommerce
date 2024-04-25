@@ -1,0 +1,37 @@
+.tagStatus {
+    background-color: #292929;
+    width: max-content;
+    padding: 0.15em 0.4em;
+    font-size: 0.6em;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primaryColor);
+    border: 1px solid transparent;
+    border-radius: 0.1em;
+    transform: skewX(-15deg);
+
+    &__new {
+        background-color: var(--newBackgroundColor);
+        border-color: var(--newBorderColor);
+        color: var(--newColor);
+
+    }
+
+    &__sale {
+        background-color: var(--saleBackgroundColor);
+        border-color: var(--saleBorderColor);
+        color: var(--saleColor);
+    }
+
+    &__clearance {
+        background-color: var(--clearanceBackgroundColor);
+        border-color: var(--clearanceBorderColor);
+        color: var(--clearanceColor);
+    }
+
+    &__freeShipping {
+        background-color: var(--freeBackgroundColor);
+        border-color: var(--freeBorderColor);
+        color: var(--freeColor);
+    }
+}

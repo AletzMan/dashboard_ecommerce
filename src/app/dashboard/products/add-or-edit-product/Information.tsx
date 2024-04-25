@@ -6,7 +6,7 @@ import styles from "./createedit.module.scss"
 import { ChangeEvent, useEffect } from "react"
 import { TextFieldType } from "@/app/Types/types"
 import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
-import { IInputs } from "./FormProdtc"
+import { IInputs } from "./FormProduct"
 import { set } from "zod"
 
 interface Props {
@@ -20,24 +20,31 @@ export function Information(props: Props) {
 	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()
 
 	useEffect(() => {
-		setValue("price", productValue.price.toString())
-		setValue("inventoryQuantity", productValue.inventory_quantity.toString())
-		setValue("minimuninventoryQuantity", productValue.minimun_inventory_quantity.toString())
+		setValue("price", productValue?.price?.toString())
+		setValue("inventory_quantity", productValue?.inventory_quantity?.toString())
+		setValue("minimun_inventory_quantity", productValue?.minimun_inventory_quantity?.toString())
 	}, [productValue])
 
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
 		setProductValue({ ...productValue, [e.target.name]: e.target.value })
 		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
 	}
+
+	const HandleChecked = (e: ChangeEvent<HTMLInputElement>) => {
+		setProductValue({ ...productValue, [e.target.name]: e.target.checked })
+		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
+	}
+
+
 	return (
 		<div className={styles.salesInformation}>
-			<div className={styles.article_price}>
-				<h4 className={styles.article_deliveryTitle}>Pricing options</h4>
+			<fieldset className={styles.article_price}>
+				<legend className={styles.article_deliveryTitle}>Pricing options</legend>
 				<TextField
 					textFieldProps={{
 						name: "price",
 						label: "Price:",
-						value: productValue.price.toString(),
+						value: productValue?.price?.toString(),
 						isRequired: true,
 						error: errors.price?.message,
 						controlExt: control,
@@ -46,44 +53,49 @@ export function Information(props: Props) {
 					}}
 				/>
 				<ToggleSwitch
+					name="is_discounted"
 					label="Is Discounted"
+					controlExt={control}
 					active={productValue.is_discounted}
-					setActive={(e) => setProductValue({ ...productValue, is_discounted: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
 				<TextField
 					textFieldProps={{
 						name: "discount",
 						label: "Discount:",
-						value: productValue.discount.toString(),
-						error: "",
+						value: productValue?.discount?.toString(),
+						error: errors.discount?.message,
+						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 						disabled: !productValue.is_discounted,
 					}}
 				/>
-			</div>
-			<div className={styles.article_delivery}>
-				<h4 className={styles.article_deliveryTitle}>Shipping and pickup</h4>
+			</fieldset>
+			<fieldset className={styles.article_delivery}>
+				<legend className={styles.article_deliveryTitle}>Shipping and pickup</legend>
 				<ToggleSwitch
+					name="same_day_delivery"
 					label="Same day delivery"
 					active={productValue.same_day_delivery}
-					setActive={(e) => setProductValue({ ...productValue, same_day_delivery: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
 				<ToggleSwitch
+					name="store_pickUp"
 					label="Store PickUp"
 					active={productValue.store_pickUp}
-					setActive={(e) => setProductValue({ ...productValue, store_pickUp: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
-			</div>
-			<div className={styles.article_delivery}>
-				<h4 className={styles.article_deliveryTitle}>Status</h4>
+			</fieldset>
+			<fieldset className={styles.article_delivery}>
+				<legend className={styles.article_deliveryTitle}>Status</legend>
 				<TextField
 					textFieldProps={{
-						name: "inventoryQuantity",
+						name: "inventory_quantity",
 						label: "Inventory Quantity:",
 						value: productValue?.inventory_quantity?.toString(),
 						isRequired: true,
-						error: errors.inventoryQuantity?.message,
+						error: errors?.inventory_quantity?.message,
 						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
@@ -91,33 +103,36 @@ export function Information(props: Props) {
 				/>
 				<TextField
 					textFieldProps={{
-						name: "minimuninventoryQuantity",
+						name: "minimun_inventory_quantity",
 						label: "Minimum Quantity:",
 						value: productValue?.minimun_inventory_quantity?.toString(),
 						isRequired: true,
-						error: errors.minimuninventoryQuantity?.message,
+						error: errors.minimun_inventory_quantity?.message,
 						controlExt: control,
 						onChange: (e) => HandleChangeValue(e),
 						type: TextFieldType.Number,
 					}}
 				/>
-				<ToggleSwitch label="Is New" active={productValue.is_new} setActive={(e) => setProductValue({ ...productValue, is_new: e.valueOf() as boolean })} />
+				<ToggleSwitch name="is_new" label="Is New" active={productValue.is_new} onChanges={(e) => HandleChecked(e)} />
 				<ToggleSwitch
+					name="is_freeShipping"
 					label="Is Free Shipping"
 					active={productValue.is_freeShipping}
-					setActive={(e) => setProductValue({ ...productValue, is_freeShipping: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
 				<ToggleSwitch
+					name="is_clearance"
 					label="Is Clearance"
 					active={productValue.is_clearance}
-					setActive={(e) => setProductValue({ ...productValue, is_clearance: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
 				<ToggleSwitch
+					name="is_sale"
 					label="Is Sale"
 					active={productValue.is_sale}
-					setActive={(e) => setProductValue({ ...productValue, is_sale: e.valueOf() as boolean })}
+					onChanges={(e) => HandleChecked(e)}
 				/>
-			</div>
+			</fieldset>
 		</div>
 	)
 }

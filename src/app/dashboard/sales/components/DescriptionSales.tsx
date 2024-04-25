@@ -16,7 +16,9 @@ export function DescriptionSales(props: Props) {
 	const [currentSales, setCurrentSales] = useState({ month: "March", sales: 32545 })
 	const [allTimeSales, setAllTimeSales] = useState({ month: "December", sales: 45654 })
 
-	const HandleChangeCurrent = () => {}
+	console.log(currentData)
+
+	const HandleChangeCurrent = () => { }
 
 	return (
 		<div className={styles.description}>

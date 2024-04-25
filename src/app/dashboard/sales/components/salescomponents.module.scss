@@ -20,6 +20,17 @@
         max-width: 4em;
     }
 
+    &_year {
+        color: var(--fontSecondColor);
+        border: 1px solid var(--borderCardColor);
+        width: 10em;
+        font-weight: 600;
+        text-align: center;
+        padding: 0.5em 0;
+        border-radius: var(--borderRadius);
+        background-color: var(--secondaryColor);
+    }
+
     &_field {
         max-width: 100%;
 

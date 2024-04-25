@@ -36,7 +36,7 @@ export function Stats() {
 		setDataSales(data)
 		setCurrentData(response.data.current)
 		setAllTimeData(response.data.allTime)
-		//console.log(data)
+
 
 		const firstYear: number = response.data.first
 		const lastYear: number = response.data.last

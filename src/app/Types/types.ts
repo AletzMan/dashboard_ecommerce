@@ -230,10 +230,9 @@ export interface ICategory {
 export interface IBrand {
 	id: number
 	name: string
-	name_logo: string
 	logo: string
-	createdDate: string
-	lastModified: string
+	created_date: string
+	last_modified: string
 }
 
 export interface IAttribute {

@@ -28,7 +28,7 @@ export const ButtonAddCoupon = () => {
                         onClick: () => HandleAddCoupon()
                     }
                 } />
-            {openModal && <AddCoupon setOpenModal={() => setOpenModal(false)} />}
+            {openModal && <AddCoupon setOpenModal={setOpenModal} />}
         </div>
     )
 }
