@@ -4,7 +4,8 @@
     justify-content: center;
     column-gap: 0.25em;
     padding: 0.25em;
-    //background-color: var(--secondaryColor);
+    border: 1px solid var(--terciaryColor);
+    background-color: var(--backCategoryColor);
 
     &_button {
         display: flex;
@@ -16,11 +17,12 @@
         font-weight: 600;
         text-decoration: none;
         text-align: center;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         border: none;
         transition: all 0.25s ease-in-out;
-        color: var(--fontSecondColor);
-        background-color: var(--borderCardColor);
+        color: var(--fontColor);
+        background-color: var(--terciaryColor);
+        cursor: pointer;
 
         &:hover {
             color: var(--fontColor);
@@ -28,7 +30,7 @@
         }
 
         &Current {
-            color: var(--fontColor);
+            color: var(--primaryColor);
             background-color: var(--highLightColor);
             pointer-events: none;
         }
