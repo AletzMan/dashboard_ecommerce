@@ -6,6 +6,7 @@ import { SearchSection } from '../components/SearchSection/SearchSection'
 import HeaderInventory from './components/HeaderInventory/HeaderInventory'
 import ItemCard from './components/ItemCard'
 import styles from './inventory.module.scss'
+import { URL_API } from '@/app/Constants/constants'
 
 const GetProducts = async (params: [string, string][]) => {
 	let paramsString: string = ""
@@ -13,17 +14,18 @@ const GetProducts = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await axios.get(`http://localhost:3000/api/products${paramsString}`)
-	const products = response.data.data
-	return products
+	const response = await fetch(`${URL_API}products${paramsString}`, { next: { revalidate: 10000, tags: ["productsPage"] } })
+	const products = await response.json()
+	console.log(products)
+	return products.response
 }
 
 const GetAlerts = async () => {
 	try {
-		const response = await axios.get(`http://localhost:3000/api/products/alerts`)
+		const response = await fetch(`${URL_API}products/statistics/alerts`, { next: { revalidate: 7200, tags: ["alerts"] } })
+		const data = await response.json()
 		if (response.status === 200) {
-			const alerts = response.data.alerts
-			return alerts
+			return data.response
 		}
 	} catch (error) {
 		console.error(error)
@@ -32,18 +34,17 @@ const GetAlerts = async () => {
 }
 
 interface IProducts {
-	totalProducts: number
+	totalResults: number
 	totalPages: number
 	currentPage: number
 	pageSize: number
-	products: IProductInventory[]
+	results: IProductInventory[]
 }
 
 export default async function InventoryPage({ searchParams }: { searchParams: { [key: string]: string } }) {
 	const params = Object.entries(searchParams)
 	const response = await GetProducts(params)
 	const alerts: IAlertInventory[] = await GetAlerts()
-	console.log(alerts[0])
 
 	const data: IProducts = response
 
@@ -51,11 +52,11 @@ export default async function InventoryPage({ searchParams }: { searchParams: { 
 		<section className={styles.section}>
 			<header className={styles.header}>
 				<HeaderInventory alerts={alerts} />
-				<SearchSection total={data.totalProducts} placeholder="Search by name or SKU" />
+				<SearchSection total={data.totalResults} placeholder="Search by name or SKU" />
 			</header>
 			{data &&
 				<section className={styles.products}>
-					{data.products?.map(product => (
+					{data.results?.map(product => (
 						<ItemCard key={product.id} product={product} alerts={alerts} />
 					))}
 				</section>}
