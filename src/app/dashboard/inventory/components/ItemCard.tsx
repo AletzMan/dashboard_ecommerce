@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../components/Button/Button'
 import { TextField } from '../../components/TextField/TextField'
 import styles from './itemcard.module.scss'
+import { URL_API } from '@/app/Constants/constants'
 
 interface IForm {
     inventoryQuantity: string
@@ -27,12 +28,12 @@ interface Props {
 export default function ItemCard({ product, alerts }: Props) {
     const router = useRouter()
     const [openModal, setOpenModal] = useState(false)
-    const { control, formState: { errors, isValid }, handleSubmit, getValues } = useForm<IForm>({ defaultValues: { inventoryQuantity: product.inventoryQuantity.toString(), minimuninventoryQuantity: product.minimuninventoryQuantity.toString() }, resolver: zodResolver(inventorySchema) })
+    const { control, formState: { errors, isValid }, handleSubmit, getValues } = useForm<IForm>({ defaultValues: { inventoryQuantity: product.inventory_quantity.toString(), minimuninventoryQuantity: product.minimun_inventory_quantity.toString() }, resolver: zodResolver(inventorySchema) })
 
     const HandleUpdateStock = async (id: number) => {
         if (isValid) {
             try {
-                const response = await axios.put(`http://localhost:3000/api/products/${id}`, { inventoryQuantity: getValues("inventoryQuantity"), minimuninventoryQuantity: getValues("minimuninventoryQuantity") })
+                const response = await axios.put(`${URL_API}products/stock/${id}`, { inventory_quantity: getValues("inventoryQuantity"), minimun_inventory_quantity: getValues("minimuninventoryQuantity") })
                 if (response.status === 200) {
                     setOpenModal(false)
                     router.refresh()
@@ -46,9 +47,9 @@ export default function ItemCard({ product, alerts }: Props) {
     }
 
     const GetAlertOfProduct = () => {
-        if (product.inventoryQuantity > (product.minimuninventoryQuantity) && product.inventoryQuantity < product.minimuninventoryQuantity + alerts[0].quantity) return alerts[0].name
-        if (product.inventoryQuantity < (product.minimuninventoryQuantity) && product.inventoryQuantity > 0) return alerts[1].name
-        if (product.inventoryQuantity === 0) return "out of stock"
+        if (product.inventory_quantity > (product.minimun_inventory_quantity) && product.inventory_quantity < product.minimun_inventory_quantity + alerts[0]?.quantity) return alerts[0].name
+        if (product.inventory_quantity < (product.minimun_inventory_quantity) && product.inventory_quantity > 0) return alerts[1].name
+        if (product.inventory_quantity === 0) return "out of stock"
         else return "normal"
     }
 
@@ -63,7 +64,7 @@ export default function ItemCard({ product, alerts }: Props) {
             <section className={styles.section}>
                 <Image className={styles.section_image} src={product.image} alt={product.title} width={100} height={100} />
                 <h2 className={styles.section_title}>{product.title.split(",")[0]}</h2>
-                <Image className={styles.section_brand} src={product.brandLogo} alt={product.title} width={50} height={50} />
+                <Image className={styles.section_brand} src={product.brand_logo} alt={product.title} width={50} height={50} />
                 {<span className={`
                 ${styles.section_status} ${AlertName === "low stock" && styles.section_statusLow} 
                 ${AlertName === "critical stock" && styles.section_statusCritical} 
@@ -72,7 +73,7 @@ export default function ItemCard({ product, alerts }: Props) {
                 }>{GetAlertOfProduct()}</span>}
             </section>
             <footer className={styles.footer}>
-                <span className={styles.footer_quantity}>{product.inventoryQuantity}<span className={styles.footer_quantityText}> available</span></span>
+                <span className={styles.footer_quantity}>{product.inventory_quantity}<span className={styles.footer_quantityText}> available</span></span>
                 <Button className={styles.footer_button}
                     title="Update stock"
                     buttonProps={{
@@ -84,14 +85,14 @@ export default function ItemCard({ product, alerts }: Props) {
                 />
             </footer>
             {openModal &&
-                <Modal title='Update Stock'>
+                <Modal title='Update Stock' viewModal={openModal} onClick={() => setOpenModal(false)}>
                     <form className={styles.form} onSubmit={handleSubmit((data) => console.log(data))}>
                         <h2 className={styles.form_title}>{product.sku}</h2>
                         <TextField textFieldProps={{
                             label: "Inventory Quantity",
                             name: "inventoryQuantity",
                             type: TextFieldType.Number,
-                            value: product.inventoryQuantity.toString(),
+                            value: product.inventory_quantity.toString(),
                             controlExt: control,
                             step: "1",
                             error: errors.inventoryQuantity?.message,
@@ -102,7 +103,7 @@ export default function ItemCard({ product, alerts }: Props) {
                             name: "minimuninventoryQuantity",
                             type: TextFieldType.Number,
                             controlExt: control,
-                            value: product.minimuninventoryQuantity.toString(),
+                            value: product.minimun_inventory_quantity.toString(),
                             error: errors.minimuninventoryQuantity?.message,
                             step: "1",
                             onChange: () => { }

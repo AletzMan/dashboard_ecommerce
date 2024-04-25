@@ -1,0 +1,305 @@
+.details {
+    max-width: 900px;
+    width: 100%;
+    margin: 9.8em auto 1em auto;
+    padding: 0.4em 2em 0 2em;
+    background: var(--backgroundGradient);
+
+    @media (max-width: 600px) {
+        padding: 0 0.5em;
+    }
+
+    &__product {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 0.75em;
+        row-gap: 1em;
+        padding: 1em 0;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+
+        }
+    }
+
+
+
+    &__options {
+        display: grid;
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0.5em;
+        align-items: center;
+        color: var(--fontColor);
+        border-radius: 0.25em;
+        box-shadow: var(--boxShadow);
+        background: var(--fontColor);
+
+        @media (max-width: 768px) {
+            row-gap: 0;
+            grid-row: 2 / 3;
+            grid-column: 1 / 2;
+        }
+
+        &Title {
+            grid-column: 1 / span 3;
+            font-size: 1em;
+            color: var(--terciaryColor);
+        }
+
+        &Sku {
+            grid-row: 2 / 3;
+            font-size: 0.75em;
+            font-weight: 600;
+            align-self: flex-start;
+            color: var(--secondaryColor);
+
+            &Number {
+                font-weight: 300;
+            }
+        }
+
+        &Tags {
+            grid-row: 3 / 4;
+            grid-column: 2 / span 2;
+            display: flex;
+            gap: 0.1em;
+            align-self: flex-start;
+            justify-self: end;
+        }
+
+        &Rating {
+            grid-row: 3 / 4;
+            margin: 0 0 2em 0;
+            align-self: flex-start;
+
+        }
+
+        &Prices {
+            position: relative;
+            display: flex;
+            gap: 1em;
+            grid-column: 1 / span 2;
+            grid-row: 4 / 5;
+            font-size: 1.5em;
+            margin: 0 0 1.5em 0;
+
+            @media (max-width: 768px) {
+                grid-column: 1 / span 3;
+            }
+
+            &Discount {
+                position: absolute;
+                top: -1.5em;
+                padding: 0.1em 0.3em;
+                border-radius: 0.2em;
+                font-size: 0.6em;
+                background-color: var(--saleBorderColor);
+            }
+
+        }
+
+        &Share {
+            display: flex;
+            max-width: max-content;
+            align-self: flex-start;
+            justify-self: flex-end;
+            border: none;
+            background-color: transparent;
+            grid-column: 3 / 4;
+            grid-row: 4 / 5;
+            font-size: 0.9em;
+
+            @media (max-width: 500px) {
+                font-size: 0.65em;
+
+                &>button>svg {
+                    width: 1.6em;
+                    height: 1.6em;
+                }
+            }
+
+        }
+
+        &Price {
+            color: var(--newBorderColor);
+
+            &Discounted {
+                color: var(--fontSecondColor);
+                text-decoration: line-through;
+            }
+        }
+
+        &TypePack {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            gap: 2em;
+            grid-row: 5 / 6;
+            grid-column: 1 / span 2;
+            margin: 0 0 2em 0;
+
+            &Title {
+                position: absolute;
+                top: -1.5em;
+                font-size: 0.7em;
+                color: var(--terciaryColor);
+            }
+        }
+
+        &Delivery {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 6em;
+            height: 3em;
+            padding: 0.25em;
+            border-radius: 0.25em;
+
+
+            &Mark {
+                position: absolute;
+                right: 0;
+                border-radius: 0.25em;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                transition: all 0.35s ease;
+                background-color: var(--borderCardHoverColor);
+                border: 1px solid var(--secondaryColor);
+            }
+
+            &Radio {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                z-index: 1;
+
+                &:checked~.details__optionsDeliveryMark {
+                    border: 1px solid var(--clearanceBorderColor);
+                    background-color: var(--clearanceBackgroundColor);
+                    opacity: 0.4;
+                }
+            }
+
+            &Icon {
+                width: 2.5em;
+                height: 2.5em;
+            }
+
+            &Text {
+                font-size: 0.6em;
+                text-align: center;
+                color: var(--terciaryColor);
+            }
+        }
+
+        &Pickup {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            width: 6em;
+            height: 3em;
+            padding: 0.25em;
+            border-radius: 0.25em;
+
+
+
+            &Mark {
+                position: absolute;
+                border: 1px solid var(--fourthColor);
+                border-radius: 0.25em;
+                width: 100%;
+                height: 100%;
+                transition: all 0.35s ease;
+                z-index: 0;
+                background-color: var(--borderCardHoverColor);
+                border: 1px solid var(--secondaryColor);
+            }
+
+            &Radio {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                z-index: 1;
+
+                &:checked~.details__optionsPickupMark {
+                    border: 1px solid var(--clearanceBorderColor);
+                    background-color: var(--clearanceBackgroundColor);
+                    opacity: 0.4;
+                }
+            }
+
+            &Icon {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+            &Text {
+                font-size: 0.7em;
+                text-align: center;
+                color: var(--primaryColor);
+            }
+        }
+
+
+        &Quantity {
+            grid-row: 6 / 7;
+
+            @media (max-width: 500px) {
+                grid-row: 5 / 6;
+                justify-self: flex-end;
+                margin: 0 0 1em 0;
+
+            }
+
+            &Disabled {
+                pointer-events: none;
+                opacity: 0.6;
+            }
+        }
+
+        &ButtonAdd {
+            grid-row: 6 / 7;
+            grid-column: 2 / span 2;
+
+            @media (max-width: 500px) {
+                grid-column: 1 / span 3;
+            }
+        }
+
+    }
+
+
+
+}
+
+.spec {
+    width: 100%;
+    grid-column: 1 / span 2;
+}
+
+
+.sliderSimilar {
+    grid-column: 1 / span 2;
+    width: 100%;
+    max-width: var(--max-width);
+    padding: 1em 2em;
+}
+
+.sectionNewsApp {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    grid-column: 1 / span 2;
+    gap: 1em;
+    width: 100%;
+}
