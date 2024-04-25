@@ -41,6 +41,7 @@ export const SearchSection = ({ total, placeholder }: Props) => {
 					}}
 				/>
 				<Button
+					className={styles.sectionButton}
 					title="Search"
 					buttonProps={{
 						onClick() { },
@@ -57,7 +58,7 @@ export const SearchSection = ({ total, placeholder }: Props) => {
 			{
 				<div className={styles.section_search}>
 					Found
-					<span className={styles.section_searchResults}>{`${total}`}</span>
+					<span className={styles.section_searchResults}>{`${total || "0"}`}</span>
 					<span className={styles.section_searchResultsText}>{paramSearch ? " results for " : " result in the database"}
 						<span className={styles.section_searchResult}>{`${paramSearch || ""}`}</span></span>
 				</div>
