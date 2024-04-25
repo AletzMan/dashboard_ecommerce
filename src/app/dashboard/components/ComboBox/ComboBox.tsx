@@ -6,7 +6,7 @@ import { Control, Controller, useForm } from "react-hook-form"
 
 interface Props {
 	value: string
-	options: string[]
+	options: string[][]
 	label?: string
 	name: string
 	controlExt?: Control<any>
@@ -27,37 +27,38 @@ export const ComboBox: FC<Props> = ({ options, name, controlExt, error, loading,
 		setSelectOption(newValue)
 	}
 
+	console.log(options)
+
 	useEffect(() => {
 		setSelectOption(value)
 	}, [value])
 
-	//console.log(selectOption, value)
-
 	return (
-		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled}`}>
+		<div className={`${styles.combobox} ${options.length === 1 && styles.comboboxDisabled}`}>
 			{label && <label className={styles.combobox_label}>{label}</label>}
 			<Controller
 				name={name}
 				control={controlExt || control}
-				render={({ field: { value, onChange, name } }) => (
+				render={({ field: { onChange, name } }) => (
 					<select
 						className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
 						name={name}
 						onChange={(e) => HandleChangeValue(e, onChange)}
-						defaultValue={selectOption || plaaceholder}
+						defaultValue={value}
+						value={selectOption}
 					>
-						{
+						{/*
 							<option className={styles.combobox_default} value={selectOption || plaaceholder} disabled>
 								{selectOption || plaaceholder}
 							</option>
-						}
+				*/}
 						{options?.map((option) => (
 							<option
-								key={option}
-								className={`${styles.combobox__optionsOption} ${selectOption === option && styles.combobox__optionsOptionSelected}`}
-								value={option}
+								key={option[1]}
+								className={`${styles.combobox__optionsOption} ${selectOption === option[0] && styles.combobox__optionsOptionSelected}`}
+								value={option[0]}
 							>
-								{option}
+								{option[1]}
 							</option>
 						))}
 					</select>
@@ -65,7 +66,7 @@ export const ComboBox: FC<Props> = ({ options, name, controlExt, error, loading,
 			/>
 			{error && (
 				<>
-					<span className={styles.combobox_labelError}>{error}</span>
+					<span className={styles.combobox_error}>{error}</span>
 					<ErrorIcon className={styles.combobox_iconError} />
 				</>
 			)}
