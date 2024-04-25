@@ -1,0 +1,73 @@
+.delivery {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 6em;
+    height: 3em;
+    padding: 0.25em;
+    border-radius: 0.25em;
+
+
+    &_mark {
+        position: absolute;
+        right: 0;
+        border-radius: 0.25em;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        transition: all 0.35s ease;
+        background-color: var(--borderCardHoverColor);
+        border: 1px solid var(--secondaryColor);
+    }
+
+
+
+    &_icon {
+        width: 2.5em;
+        height: 2.5em;
+    }
+
+    &_text {
+        font-size: 0.6em;
+        text-align: center;
+        color: var(--terciaryColor);
+    }
+}
+
+.pickup {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 6em;
+    height: 3em;
+    padding: 0.25em;
+    border-radius: 0.25em;
+
+
+
+    &_mark {
+        position: absolute;
+        border: 1px solid var(--fourthColor);
+        border-radius: 0.25em;
+        width: 100%;
+        height: 100%;
+        transition: all 0.35s ease;
+        z-index: 0;
+        background-color: var(--borderCardHoverColor);
+        border: 1px solid var(--secondaryColor);
+    }
+
+    &_icon {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    &_text {
+        font-size: 0.7em;
+        text-align: center;
+        color: var(--primaryColor);
+    }
+}

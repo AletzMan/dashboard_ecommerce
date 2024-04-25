@@ -2,13 +2,11 @@
 import { ComboBox } from "@/app/dashboard/components/ComboBox/ComboBox"
 import styles from "./salescomponents.module.scss"
 import { ChangeEvent, useEffect, useState } from "react"
-import { TextField } from "@/app/dashboard/components/TextField/TextField"
-import { TextFieldType } from "@/app/Types/types"
 import { Button } from "@/app/dashboard/components/Button/Button"
 import { ArrowIcon, ArrowLeftIcon, ArrowRightIcon } from "@/app/SVG/componentsSVG"
 import { useRouter, useSearchParams } from "next/navigation"
 
-const OptionsPeriod = ["Year", "Month", "Week", "Day"]
+const OptionsPeriod = [["Year", "Year"], ["Month", "Month"], ["Week", "Week"], ["Day", "Day"]]
 
 interface Props {
 	firstYear: number
@@ -71,19 +69,7 @@ export function OptionsSales(props: Props) {
 					}}
 				/>
 			</div>
-			<TextField
-				className={styles.header_field}
-				textFieldProps={{
-					label: "",
-					name: "",
-					error: "",
-					placeholder: "",
-					type: TextFieldType.Text,
-					value: text,
-					onChange() {},
-					disabled: true,
-				}}
-			/>
+			<span className={styles.header_year}> {text}</span>
 		</header>
 	)
 }

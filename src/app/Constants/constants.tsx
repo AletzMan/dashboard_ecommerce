@@ -38,7 +38,7 @@ export const MenuOptions: OptionsType[] = [
 		section: MenuOptionsTypes.products,
 		subSections: ["Add or Edit product", "Brands"],
 		links: "",
-		linksSubsection: ["", "?page=1"],
+		linksSubsection: ["", "?order=id&sort=asc"],
 		icon: <ProductsIcon />,
 	},
 	{

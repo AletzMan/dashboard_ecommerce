@@ -16,10 +16,10 @@ export default function HeaderInventory({ alerts }: Props) {
 
     useEffect(() => {
         if (stock === 'All') router.push('/dashboard/inventory')
-        else if (stock === 'Normal') router.push('/dashboard/inventory?stock=normal')
-        else if (stock === 'Out of Stock') router.push('/dashboard/inventory?stock=outstock')
-        else if (stock === 'Critical Stock') router.push('/dashboard/inventory?stock=criticalstock')
-        else if (stock === 'Low Stock') router.push('/dashboard/inventory?stock=lowstock')
+        else if (stock === 'Normal') router.push('/dashboard/inventory?status=active')
+        else if (stock === 'Out of Stock') router.push('/dashboard/inventory?status=outstock')
+        else if (stock === 'Critical Stock') router.push('/dashboard/inventory?status=criticalstock')
+        else if (stock === 'Low Stock') router.push('/dashboard/inventory?status=lowstock')
     }, [stock])
 
     const handleStockChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -33,7 +33,7 @@ export default function HeaderInventory({ alerts }: Props) {
         <div className={styles.filters}>
             <ComboBox
                 name='Stock'
-                options={['All', 'Normal', 'Out of Stock', 'Critical Stock', 'Low Stock']}
+                options={[['All', 'All'], ['Normal', 'Normal'], ['Out of Stock', 'Out of Stock'], ['Critical Stock', 'Critical Stock'], ['Low Stock', 'Low Stock']]}
                 label='Stock'
                 value={stock}
                 onValueChange={(e) => handleStockChange(e)}

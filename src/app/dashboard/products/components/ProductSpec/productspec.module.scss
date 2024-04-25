@@ -1,0 +1,105 @@
+.spec {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 1.5em;
+    flex-direction: column;
+    padding: 5em 0.5em 0.5em 0.5em;
+    color: var(--fontColor);
+    font-family: var(--fontFamily);
+    border-radius: 0.25em;
+    box-shadow: var(--boxShadow);
+    background: var(--fontColor);
+
+    @media (max-width: 600px) {
+        width: 100%;
+
+    }
+
+    &__icon {
+        position: absolute;
+        right: 1em;
+        top: 0em;
+        width: 5em;
+        height: 5em;
+        opacity: 0.2;
+        color: var(--secondaryColor);
+
+        @media (max-width: 500px) {
+            right: 0.2em;
+            top: 0.2em;
+        }
+
+        &>svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__title {
+        padding: 0.5em 1em;
+        text-transform: uppercase;
+        color: var(--terciaryColor);
+
+        @media (max-width: 500px) {
+            text-align: center;
+        }
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15em;
+        padding: 0.15em;
+        font-size: 0.85em;
+        border-radius: 0.25em;
+        border: 1px solid var(--fourthColor);
+        background-color: var(--terciaryColor);
+
+        &Title {
+            color: var(--backgroundColor);
+            padding: 0.4em 0.5em;
+            font-weight: 500;
+            font-size: 1.5em;
+
+            @media (max-width: 500px) {
+                text-align: center;
+                font-size: 1.2em;
+
+            }
+        }
+    }
+
+    &__option {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.15em;
+
+        &Name,
+        &Description {
+            padding: 0.2em 0.4em;
+            border: 1px solid var(--fourthColor);
+        }
+
+        &Name {
+            font-weight: 600;
+            color: var(--primaryColor);
+            background-color: var(--fourthColor);
+            border-right: none;
+        }
+
+        &Description {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            font-weight: 500;
+            color: var(--primaryColor);
+            background-color: var(--backgroundColor);
+            border-left: none;
+
+            &Value {
+                padding: 0.15em 0;
+            }
+        }
+    }
+}

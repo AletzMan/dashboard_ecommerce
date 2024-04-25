@@ -11,7 +11,7 @@ import { useImagesProduct, useProductInformation } from "@/app/utils/store"
 import { enqueueSnackbar } from "notistack"
 import { GetHeightAndWidthFromImageURL } from "@/app/utils/functions"
 import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
-import { IInputs } from "./FormProdtc"
+import { IInputs } from "./FormProduct"
 import { set } from "zod"
 import { URL_API } from "@/app/Constants/constants"
 
@@ -24,23 +24,24 @@ interface Props {
 export function BasicInformation(props: Props) {
 	const { errors, control, setValue } = props
 	const { productValue, setProductValue, errorEmpty, setErrorEmpty, loadInformation } = useProductInformation()
-	const { coverImage, setCoverImage, productImages, setProductImages } = useImagesProduct()
-	const [loadImage, setLoadImage] = useState(true)
 	const [categories, setCategories] = useState<ICategory[]>()
-	const [subCategories, setSubCategories] = useState<ICategory[]>()
+	const [subCategories, setSubCategories] = useState<ICategory[]>([])
 	const [brands, setBrands] = useState<IBrand[]>()
 	const [selectSubAndCategory, setSelectSubAndCategory] = useState({
-		category: "-- Select a category --",
-		subCategory: "-- Select a subcategory --",
-		brand: "-- Select a brand --",
+		category: "",
+		subCategory: "",
+		brand: "",
 	})
 
+
 	useEffect(() => {
-		setProductImages([])
-		setCoverImage([])
 		setCategories([])
 		setSubCategories([])
 		setBrands([])
+		const newCategory: ICategory = { id: 0, name: "-- Select an option --", name_abbr: "" }
+		const newSub: ICategory[] | undefined = [...subCategories]
+		newSub.unshift(newCategory)
+		setSubCategories(newSub)
 	}, [loadInformation])
 
 	useEffect(() => {
@@ -59,10 +60,12 @@ export function BasicInformation(props: Props) {
 
 	const GetCategories = async () => {
 		try {
-			const response = await fetch(`${URL_API}categories`, { next: { revalidate: 7200 } })
+			const response = await fetch(`${URL_API}categories`, { next: { revalidate: 7200 }, cache: "force-cache" })
 			const responseCategories = await response.json()
 			if (response.status === 200) {
 				const selectCategories: ICategory[] = responseCategories.response as ICategory[]
+				const newCategory: ICategory = { id: 0, name: "-- Select an option --", name_abbr: "" }
+				selectCategories.unshift(newCategory)
 				setCategories(selectCategories)
 			}
 		} catch (error) {
@@ -71,10 +74,14 @@ export function BasicInformation(props: Props) {
 	}
 	const GetBrands = async () => {
 		try {
-			const response = await axios.get("/api/brands")
+			const response = await fetch(`${URL_API}brands/count/all`, { next: { revalidate: 7200 }, cache: "force-cache" })
+			const responseBrands = await response.json()
+
 			if (response.status === 200) {
-				const responseBrands: IBrand[] = response.data.data.brands
-				setBrands(responseBrands)
+				const resultBrands: IBrand[] = responseBrands.response
+				const newBrand: IBrand = { id: 0, name: "-- Select an option --", logo: "", created_date: "", last_modified: "" }
+				resultBrands.unshift(newBrand)
+				setBrands(resultBrands)
 			}
 		} catch (error) {
 			console.error(error)
@@ -89,14 +96,16 @@ export function BasicInformation(props: Props) {
 	const GetSubCategories = async () => {
 		try {
 
-			if (selectSubAndCategory.category !== "-- Select a category --") {
-				const idCategory = categories?.find((category) => category.name === selectSubAndCategory.category)?.id
+			if (selectSubAndCategory.category !== "-- Select a category --" && selectSubAndCategory.category !== "") {
+				const idCategory = selectSubAndCategory.category
 
-				const response = await fetch(`${URL_API}subcategories?category_id=${idCategory}`, { next: { revalidate: 7200 } })
+				const response = await fetch(`${URL_API}subcategories?category_id=${idCategory}`, { next: { revalidate: 7200 }, cache: "force-cache" })
 				const responseSubCategories = await response.json()
 
 				if (response.status === 200) {
 					const selectSubCategories: ICategory[] = responseSubCategories.response
+					const newCategory: ICategory = { id: 0, name: "-- Select an option --", name_abbr: "" }
+					selectSubCategories.unshift(newCategory)
 					setSubCategories(selectSubCategories)
 				}
 			}
@@ -106,88 +115,8 @@ export function BasicInformation(props: Props) {
 	}
 
 	const HandleChangeValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		//setProductValue({ ...productValue, [e.target.name]: e.target.value })
-		//setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
-	}
-
-	const HandleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
-		if (e?.target?.files) {
-			const file = e.target.files[0]
-			const url: string = URL.createObjectURL(file)
-			const response = await GetHeightAndWidthFromImageURL(url)
-			if (!file.type.includes("image/")) {
-				enqueueSnackbar("The image format must be PNG", { variant: "info" })
-				setLoadImage(false)
-				setTimeout(() => {
-					setLoadImage(true)
-				}, 100)
-				return
-			}
-			if (response.width > 650 || response.height > 500) {
-				enqueueSnackbar("The image cannot be larger than 600px x 500px", { variant: "info" })
-				setLoadImage(false)
-				setTimeout(() => {
-					setLoadImage(true)
-				}, 100)
-				return
-			}
-			if (file.size > 65000) {
-				enqueueSnackbar("The image must be less than 65 Kbytes", { variant: "info" })
-				setLoadImage(false)
-				setTimeout(() => {
-					setLoadImage(true)
-				}, 100)
-				return
-			}
-
-			const newImage: IImage[] = [{ file: file, url: url }]
-			setCoverImage(newImage)
-			//Almacenar la ruta previa, antes de subirla, solo para validar si no esta vacio
-			setProductValue({ ...productValue, image: newImage[0].url })
-			setErrorEmpty({ ...errorEmpty, image: false })
-		}
-	}
-
-	const HandleUploadSlideImage = async (e: ChangeEvent<HTMLInputElement>) => {
-		let ArrayImages: IImage[] = []
-		if (e?.target?.files) {
-			const files = e.target.files
-			for (let index = 0; index < files.length; index++) {
-				const file = e.target.files[index]
-				const url: string = URL.createObjectURL(file)
-				const response = await GetHeightAndWidthFromImageURL(url)
-				if (!file.type.includes("image/")) {
-					enqueueSnackbar("The image format must be PNG", { variant: "info" })
-					setLoadImage(false)
-					setTimeout(() => {
-						setLoadImage(true)
-					}, 100)
-					return
-				}
-				if (response.width > 800 || response.height > 800) {
-					enqueueSnackbar("The image cannot be larger than 600px x 500px", { variant: "info" })
-					setLoadImage(false)
-					setTimeout(() => {
-						setLoadImage(true)
-					}, 100)
-					return
-				}
-				if (file.size > 380000) {
-					enqueueSnackbar("The image must be less than 65 Kbytes", { variant: "info" })
-					setLoadImage(false)
-					setTimeout(() => {
-						setLoadImage(true)
-					}, 100)
-					return
-				}
-
-				ArrayImages.push({ file, url: URL.createObjectURL(file) })
-			}
-			setProductImages(ArrayImages)
-			//Almacenar la ruta previa, antes de subirla, solo para validar si no esta vacio
-			setProductValue({ ...productValue, slide_images: [ArrayImages[0].url] })
-			setErrorEmpty({ ...errorEmpty, slideImages: false })
-		}
+		setProductValue({ ...productValue, [e.target.name]: e.target.value })
+		setErrorEmpty({ ...errorEmpty, [e.target.name]: false })
 	}
 
 	const HandleSelectCategory = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -198,8 +127,8 @@ export function BasicInformation(props: Props) {
 	}
 	const HandleSelectSubCategory = (e: ChangeEvent<HTMLSelectElement>) => {
 		const value = e.currentTarget.value
-		const category = categories?.find((category) => category.name === selectSubAndCategory.category)
-		const subcategory = subCategories?.find((subcategory) => subcategory.name === value)
+		const category = categories?.find((category) => category.id.toString() === selectSubAndCategory.category)
+		const subcategory = subCategories?.find((subcategory) => subcategory.id.toString() === value)
 		if (category) {
 			setProductValue({ ...productValue, subcategory: value, sku: `${category.name_abbr}${subcategory?.name_abbr}` })
 			setErrorEmpty({ ...errorEmpty, subcategory: false })
@@ -220,7 +149,7 @@ export function BasicInformation(props: Props) {
 			<TextField
 				textFieldProps={{
 					name: "title",
-					label: "Title:",
+					label: "Title",
 					error: errors.title?.message,
 					isRequired: true,
 					value: productValue.title,
@@ -229,40 +158,9 @@ export function BasicInformation(props: Props) {
 					type: TextFieldType.Text,
 				}}
 			/>
-			{loadImage && (
-				<LoadImageProvider images={coverImage || []} width={210} height={210}>
-					<TextField
-						textFieldProps={{
-							name: "image",
-							label: "Product Image:",
-							error: errors.image?.message,
-							controlExt: control,
-							isRequired: true,
-							onChange: (e) => HandleUploadImage(e),
-							type: TextFieldType.File,
-							help: `Esta imagen es la imagen principal del producto y se utiliza para representarlo en el sitio web. Se muestra en la página de detalles del producto, en los resultados de búsqueda y en otros lugares.\nLa imagen de portada debe ser una imagen de alta calidad que represente el producto de manera precisa. Debe tener un tamaño mínimo de 400 x 400 píxeles y un formato de archivo JPG, PNG o WEBP`,
-						}}
-					/>
-				</LoadImageProvider>
-			)}
-			<LoadImageProvider images={productImages || []} width={130} height={130}>
-				<TextField
-					textFieldProps={{
-						name: "slideImages",
-						label: "Slider Images:",
-						error: errors.slideImages?.message,
-						controlExt: control,
-						isRequired: true,
-						onChange: (e) => HandleUploadSlideImage(e),
-						type: TextFieldType.File,
-						multipleFile: true,
-						help: `Estas imágenes proporcionan más información sobre el producto. Pueden mostrar diferentes ángulos del producto, sus dimensiones, sus características o cómo se utiliza.\nLas imágenes detalladas deben ser imágenes de alta calidad que muestren el producto de manera precisa. Deben tener un tamaño mínimo de 500 x 500 píxeles y un formato de archivo JPG, PNG o WEBP.`,
-					}}
-				/>
-			</LoadImageProvider>
 			<TextArea
 				name="description"
-				label="Description:"
+				label="Description"
 				error={errors.description?.message}
 				controlExt={control}
 				value={productValue.description}
@@ -271,36 +169,35 @@ export function BasicInformation(props: Props) {
 			/>
 			<ComboBox
 				name="category"
-				label="Category:"
-				options={categories?.map((category) => category.name) || []}
+				label="Category"
+				options={categories?.map((category) => [category.id?.toString(), category.name]) || []}
 				error={errors.category?.message}
 				value={productValue.category}
 				controlExt={control}
 				onValueChange={HandleSelectCategory}
 				plaaceholder="-- Select a category --"
 			/>
-			<ComboBox
+			{<ComboBox
 				name="subcategory"
-				label="SubCategory:"
-				options={subCategories?.map((subcategory) => subcategory.name) || []}
+				label="SubCategory"
+				options={subCategories?.map((subcategory) => [subcategory.id?.toString(), subcategory.name]) || []}
 				error={errors.subcategory?.message}
 				value={productValue.subcategory}
 				controlExt={control}
 				onValueChange={HandleSelectSubCategory}
 				plaaceholder="-- Select a subcategory --"
-			/>
-			<TextField
-				textFieldProps={{
-					name: "brand",
-					label: "Brand",
-					error: errors.brand?.message,
-					isRequired: true,
-					value: productValue.brand,
-					controlExt: control,
-					onChange: (e) => HandleChangeValue(e),
-					type: TextFieldType.Text,
-				}}
-			/>
+			/>}
+			{<ComboBox
+				name="brand"
+				label="Brand"
+				options={brands?.map((brand) => [brand.name, brand.name]) || []}
+				error={errors.brand?.message}
+				value={productValue.brand}
+				controlExt={control}
+				onValueChange={HandleSelectBrand}
+				plaaceholder="-- Select a brand --"
+			/>}
+
 		</div>
 	)
 }
