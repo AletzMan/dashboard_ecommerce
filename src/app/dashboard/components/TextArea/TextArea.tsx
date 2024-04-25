@@ -1,6 +1,7 @@
 import { ChangeEvent, ChangeEventHandler } from "react"
 import styles from "./textarea.module.scss"
 import { Control, Controller, useForm } from "react-hook-form"
+import { ErrorIcon } from "@/app/SVG/componentsSVG"
 
 interface Props {
 	name: string
@@ -21,7 +22,7 @@ export function TextArea(props: Props) {
 			<Controller
 				name={name}
 				control={controlExt || control}
-				render={({ field: { onChange, name } }) => (
+				render={({ field: { name } }) => (
 					<textarea
 						name={name}
 						className={`${styles.area_text} ${isRequired && error && styles.area_textError} scrollBarStyle`}
@@ -30,7 +31,12 @@ export function TextArea(props: Props) {
 					></textarea>
 				)}
 			/>
-			{error && <span className={styles.area_error}>{error}</span>}
+			{error && (
+				<>
+					<p className={styles.area_error}>{error}</p>
+					{<ErrorIcon className={styles.area_iconError} />}
+				</>
+			)}
 		</div>
 	)
 }

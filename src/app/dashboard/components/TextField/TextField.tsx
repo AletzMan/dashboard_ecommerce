@@ -58,10 +58,11 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 
 	return (
 		<div
-			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield__disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile
+			className={`${styles.textfield} ${label !== "" && styles.textfieldHasLabel} ${disabled && styles.textfield_disabled} ${className} ${type === TextFieldType.File && styles.textfield_isFile
 				} ${type === TextFieldType.File && isRequired && error && styles.textfield_isFileError} ${error && styles.textfield_isError}`}
 			onBlur={() => setViewHelp(false)}
 		>
+			<label className={`${styles.textfield_label}    `}>{label}</label>
 			{type === TextFieldType.File && (
 				<div className={styles.content} title="No se ha seleccionado ningún archivo">
 					<UploadIcon className={styles.content_icon} />
@@ -72,11 +73,11 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 			<Controller
 				name={name}
 				control={controlExt || control}
-				render={({ field: { onChange, name } }) => (
+				render={({ field: { onChange: change, name } }) => (
 					<input
-						className={`${styles.textfield__input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput
-							} ${error && styles.textfield__inputError}`}
-						onChange={(e) => HandleOnChange(e, onChange)}
+						className={`${styles.textfield_input} ${isRequired && error && styles.textfield_isFileError} ${type === "file" && styles.textfield_isFileInput
+							} ${error && styles.textfield_inputError}`}
+						onChange={(e) => HandleOnChange(e, change)}
 						onKeyDown={HandleMouseEnter}
 						type={inputType}
 						placeholder={placeholder}
@@ -88,17 +89,16 @@ export function TextField({ textFieldProps, className }: { textFieldProps: TextF
 					/>
 				)}
 			/>
-			<label className={`${styles.textfield__label} ${styles.textfield__labelFill}  ${isRequired && error && styles.textfield__labelError} `}>{label}</label>
 			{help && (
 				<>
-					<button className={styles.help} title={help} onClick={HandleViewHelp}>
+					<button type="button" className={styles.help} title={help} onClick={HandleViewHelp}>
 						<HelpIcon className={styles.help_icon} />
 					</button>
 					{viewHelp && <label className={`${styles.help_label} ${viewHelp && styles.help_labelActive}`}>{help}</label>}
 				</>
 			)}
 			{type === "password" && (
-				<button className={styles.textfield__view} onClick={(e) => HandleSwitchPassword(e)}>
+				<button type="button" className={styles.textfield_view} onClick={(e) => HandleSwitchPassword(e)}>
 					{!viewPassword && <ViewOffIcon />}
 					{viewPassword && <ViewOnIcon />}
 				</button>

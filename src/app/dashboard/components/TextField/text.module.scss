@@ -2,173 +2,169 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0em;
+    gap: 0.25em;
     width: 100%;
-    margin: 0 0 0.25em 0;
+    padding: 0 0 1.4em 0;
 
-    &HasLabel {
-        margin: 0.5em 0 0.25em 0;
+    &_disabled {
+        opacity: 1;
+        cursor: not-allowed;
     }
 
-    &__disabled {
-        opacity: 0.6;
-        pointer-events: none;
+    &_iconError {
+        position: absolute;
+        color: var(--errorColor);
+        right: 2em;
+        top: calc(50% - 0.6em);
+        z-index: 3;
     }
-
 
     &_error {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        bottom: -1.4em;
+        bottom: 0em;
         font-size: 0.7em;
         font-weight: 400;
-        color: var(--errorColor);
-        background-color: var(--saleBackgroundColor);
+        color: var(--fontColor);
+        border-radius: 0.15em;
+        background-color: var(--errorColor);
         width: max-content;
-        padding: 0.15em;
-    }
+        padding: 0.15em 0.25em;
+        animation: errorAnimation 0.5s ease-in-out both;
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 3;
 
-    &_iconError {
-        position: absolute;
-        bottom: 0.45em;
-        right: 0.5em;
-        width: 1.2em;
-        height: 1.2em;
-        color: var(--errorColor);
-        pointer-events: none;
-    }
-
-    &__label {
-        position: absolute;
-        top: 0em;
-        left: 0;
-        font-size: 0.7em;
-        transform: translateX(1em) translateY(0.75em);
-        user-select: none;
-        transition: 0.25s ease-in-out all;
-        pointer-events: none;
-        padding: 0 0 0 1em;
-        color: var(--shadowColor);
-
-        &Fill {
-            font-size: 0.7em;
-            padding: 0 0 0 1.5em;
-            color: var(--clearanceBorderColor);
-            transform: translateX(-1.2em) translateY(-1.25em);
+        &::after {
+            position: absolute;
+            content: "";
+            top: -0.35em;
+            left: 0.5em;
+            width: 0;
+            height: 0;
+            border-left: 0.5em solid transparent;
+            border-right: 0.5em solid transparent;
+            border-bottom: 0.5em solid var(--errorColor);
         }
 
-        /* &:is(.textfield__labelError) {
-            &::before {
-                position: absolute;
-                left: 0em;
-                content: "*";
-                color: var(--errorColor);
-                font-size: 1.3em;
-                margin: 0 0.35em 0 0;
-            }
-        }*/
-
-        /* &:has(.textfield__labelError) {
-            &::before {
-                position: absolute;
-                left: 0em;
-                content: "P";
-                font-family: 'Wingdings 2';
-                font-size: 1.4em;
-                font-weight: 800;
-                color: var(--newBorderColor);
-                margin: 0 0.35em 0 0;
-
+        @keyframes errorAnimation {
+            0% {
+                transform: translateY(-1.5em);
+                opacity: 0;
             }
 
-        }*/
+            50% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+        }
     }
 
-    &__input {
+    &_label {
+        font-size: 0.8em;
+        font-weight: 500;
+        user-select: none;
+        pointer-events: none;
+        padding: 0 0 0 0.25em;
+        color: var(--clearanceBorderColor);
+
+        &Optional {
+            &::after {
+                content: " (opcional)";
+                font-size: 0.75em;
+                font-weight: 300;
+            }
+        }
+    }
+
+    &_input {
         width: 100%;
-        height: 100%;
-        padding: 0.5em 0.5rem 0.5em 0.5em;
-        border: 1px solid transparent;
-        font-family: var(--fontFamily);
-        font-weight: 300;
-        font-size: 0.9em;
+        height: 2.75em;
+        padding: 0.5em 1em;
+        font-family: var(--font-montserrat);
+        font-weight: 400;
+        font-size: 0.8em;
         color: var(--fontColor);
         background-color: var(--secondaryColor);
-        border: 1px solid transparent;
         border: 1px solid var(--borderCardColor);
-        border-radius: 0.15em;
-        outline: none;
+        outline: 2px solid transparent;
+        border-radius: 2px;
         transition: 0.25s ease-in-out all;
+        z-index: 1;
 
         &::-webkit-calendar-picker-indicator {
-            filter: invert(1);
+            filter: invert(0);
         }
 
         &Error {
             border: 1px dashed var(--errorColor);
         }
 
-
-
-        &:focus {
-            &:not(.textfield__inputError) {
-                border-bottom: 1px solid var(--highLightColor);
-            }
-
-            &~.textfield__label {
-                transform: translateX(-1.2em) translateY(-1.25em);
-                color: var(--clearanceBorderColor);
-                //font-size: 0.8em;
-                padding: 0 0 0 1.5em;
-
-
-            }
+        &Disabled {
+            color: var(--primaryColor);
+            font-weight: 500;
+            background-color: var(--backgroundColor);
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
+        &::placeholder {
+            color: #555555;
+        }
+
+        &[list] {
+            background-color: red;
+        }
+
+        &:focus {
+            outline: 2px solid #a5f10235;
+            //background-color: var(--fourthColor);
+
+
+
+            &:not(.textfield_inputError) {
+                border: 1px solid #a5f10260;
+            }
+        }
     }
 
-    &__view {
+    &_view {
         display: flex;
         position: absolute;
         right: 0;
-        bottom: 0;
+        bottom: 1.75em;
         border-radius: 2em;
-        background-color: transparent;
         border: none;
         transform: scale(0.6);
-        color: var(--fontSecondColor);
-        background-color: var(--fourthColor);
+        color: var(--shadowColor);
+        background-color: var(--secondaryColor);
         cursor: pointer;
-        transition: 0.35s ease-in-out color;
+        transition: color 0.35s ease-in-out;
+        z-index: 2;
 
 
         &:hover {
-            color: var(--clearanceBorderColor);
+            color: var(--highLightColor);
         }
     }
 }
 
 .textfield_isFile {
-    //position: absolute;
-    //top: 0;
     width: 100%;
     height: 100%;
-    //max-height: max-content;
-    //min-height: 15em;
-    border: 1px dashed var(--fourthColor);
-    background-color: var(--backCategoryColor);
+
 
 
     &Input {
         border: none;
         height: 100%;
         width: 100%;
-        //max-height: max-content;
-        //min-height: 15em;
         opacity: 0;
         cursor: pointer;
+
 
         &::file-selector-button {
             background-color: transreparent;
@@ -180,22 +176,23 @@
     &Error {
         border: 1px dashed var(--errorColor);
     }
-
-
 }
 
 .content {
     position: absolute;
+    top: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     row-gap: 0.5em;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 1em);
     color: var(--fontSecondColor);
     z-index: 0;
     opacity: 0.5;
+    border: 1px dashed var(--fourthColor);
+    background-color: #0338d515;
 
     &_icon {
         width: 3em;
@@ -216,7 +213,7 @@
 .help {
     position: absolute;
     right: 0em;
-    top: -1.5em;
+    top: 0em;
     display: flex;
     flex-direction: row;
     background-color: transparent;
@@ -228,27 +225,28 @@
     font-family: var(--font-montserrat);
 
     &_icon {
-
         width: 1.3em;
         height: 1.3em;
-        color: var(--clearanceBorderColor);
+        color: var(--clearanceColor);
         pointer-events: none;
     }
 
-
-
-
     &_label {
         position: absolute;
-        left: 0em;
+        right: 1.4em;
+        top: 1.4em;
         width: max-content;
         max-width: 20em;
         padding: 0.5em;
-        color: var(--primaryColor);
+        font-size: 0.8em;
+        font-weight: 500;
+        color: var(--font-dark-color);
+        border-radius: var(--borderRadius);
+        border: 1px solid var(--secondaryColor);
         background-color: var(--toolTipColor);
         opacity: 0;
         max-height: 0;
-        z-index: 3;
+        z-index: 4;
 
         &Active {
             opacity: 1;

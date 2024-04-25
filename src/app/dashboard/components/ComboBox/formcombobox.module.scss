@@ -3,12 +3,57 @@
     width: 100%;
     position: relative;
     z-index: 3;
-    margin: 0 0 0.5em 0;
+    padding: 0 0 1.4em 0;
+
+    &_error {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: absolute;
+        bottom: 0em;
+        font-size: 0.7em;
+        font-weight: 400;
+        color: var(--fontColor);
+        border-radius: 0.15em;
+        background-color: var(--errorColor);
+        width: max-content;
+        padding: 0.15em 0.25em;
+        animation: errorAnimation 0.5s ease-in-out both;
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 3;
+
+        &::after {
+            position: absolute;
+            content: "";
+            top: -0.35em;
+            left: 0.5em;
+            width: 0;
+            height: 0;
+            border-left: 0.5em solid transparent;
+            border-right: 0.5em solid transparent;
+            border-bottom: 0.5em solid var(--errorColor);
+        }
+
+        @keyframes errorAnimation {
+            0% {
+                transform: translateY(-1.5em);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+        }
+    }
 
     &Disabled {
         opacity: 0.5;
         cursor: default;
         pointer-events: none;
+        user-select: none;
 
     }
 
@@ -17,28 +62,20 @@
     }
 
     &_label {
+        font-size: 0.8em;
+        font-weight: 500;
+        user-select: none;
+        pointer-events: none;
+        padding: 0 0 0 0.25em;
         color: var(--clearanceBorderColor);
-        font-size: 0.7em;
-        padding: 0 0 0.5em 0.25em;
-
-        &Error {
-            position: absolute;
-            font-size: 0.7em;
-            color: var(--errorColor);
-            background-color: var(--saleBackgroundColor);
-            width: max-content;
-            padding: 0.15em;
-        }
     }
 
     &_iconError {
         position: absolute;
-        bottom: 0.45em;
-        right: 1em;
-        width: 1.2em;
-        height: 1.2em;
         color: var(--errorColor);
-        pointer-events: none;
+        right: 2em;
+        top: calc(50% - 0.6em);
+        z-index: 3;
     }
 
     &_default {
@@ -69,8 +106,7 @@
         background-color: var(--secondaryColor);
         border: none;
         border: 1px solid var(--borderCardColor);
-        border-bottom: 1px solid var(--fontSecondColor);
-        outline: none;
+        outline: 2px solid transparent;
         border-radius: 0.15em;
         transition: 0.25s ease-in-out all;
 
@@ -82,6 +118,14 @@
 
         &Error {
             border: 1px dashed var(--errorColor);
+        }
+
+        &:focus {
+            outline: 2px solid #a5f10235;
+
+            &:not(.textfield_inputError) {
+                border: 1px solid #a5f10260;
+            }
         }
     }
 
