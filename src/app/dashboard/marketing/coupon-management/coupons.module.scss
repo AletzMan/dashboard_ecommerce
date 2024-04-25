@@ -8,7 +8,7 @@
     gap: 0.5em;
     width: 100%;
     padding: 0.5em;
-    width: 100%;
+    height: calc(100svh - 7em);
 
     @media (width < 920px) {
         grid-column: 1 / span 2;
@@ -40,7 +40,7 @@
         flex-flow: column;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 1.5em;
+        gap: 0.5em;
         width: 100%;
         padding: 0.5em;
     }
@@ -53,5 +53,9 @@
         gap: 1em;
         width: 100%;
         padding: 1em 0.5em 0.5em 0.5em;
+
+        &Button {
+            // width: 10em;
+        }
     }
 }

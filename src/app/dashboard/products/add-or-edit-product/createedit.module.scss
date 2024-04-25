@@ -3,21 +3,180 @@
     padding: 0 0.5em 0.5em 0.5em;
     grid-column: 2 / 3;
 
+
+    &_form {
+        position: relative;
+        margin: 0.5em 0 0 0;
+        border-radius: var(--border-radius);
+        padding: 0.5em;
+        height: calc(100svh - 8em);
+        border: 1px solid var(--borderCardColor);
+
+        &Buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            column-gap: 1em;
+            height: 3em;
+            width: 100%;
+            padding: 1em 0.5em 0 0.5em;
+            align-self: end;
+        }
+
+        &Button {
+            max-width: 9em;
+        }
+    }
+
     @media (width < 920px) {
         grid-column: 1 / span 2;
     }
 
     &_header {
-        position: sticky;
+        position: relative;
         top: 0;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-        margin: 0 0 0.5em 0;
-        padding: 0.5em;
+        margin: 0 0 2em 0;
+        padding: 0.5em 0;
         z-index: 4;
+        border-radius: 0.25em;
         background-color: var(--primaryColor);
-        border-bottom: 1px solid var(--borderCardColor);
+        border: 1px solid var(--borderCardColor);
+
+        &Line {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 1.45em;
+            grid-row: 1;
+            height: 0.25em;
+            width: 100%;
+            border-radius: 1em;
+            background-color: var(--terciaryColor);
+            z-index: -1;
+        }
+
+        &Section {
+            background-color: var(--terciaryColor);
+            height: 100%;
+            width: 100%;
+            transform-origin: left center;
+            transition: transform 0.5s ease-in-out;
+            border-radius: 1em;
+
+            &:nth-child(1) {
+                background-color: var(--highLightHoverColor);
+            }
+
+        }
+
+        &Buttons {
+            grid-row: 1;
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        &Button {
+            position: relative;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 5em;
+            font-weight: 700;
+            color: var(--fontSecondColor);
+            border: 1px solid var(--highLightHoverColor);
+            background-color: var(--terciaryColor);
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+
+                &:not(.section_headerButtonError) {
+                    background-color: var(--highLightHoverColor);
+                    color: var(--primaryColor);
+                }
+
+                &:is(.section_headerButtonError) {
+                    background-color: var(--errorColor);
+                }
+            }
+
+            &Select {
+                background-color: var(--backgroundColor);
+                color: var(--primaryColor);
+            }
+
+
+            &Current {
+                background-color: #2b3c07;
+                color: var(--fontSecondColor);
+            }
+
+
+
+            &Error {
+                background-color: var(--saleColor);
+                color: var(--fontSecondColor);
+                border: 1px solid var(--saleBorderColor);
+
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    box-sizing: border-box;
+                    content: "";
+                    width: 2.3em;
+                    height: 2.3em;
+                    border-radius: 6em;
+                    transform-origin: center center;
+                    transform: scale(1);
+                    border: 3px solid #FF0000A5;
+                    z-index: -1;
+                    animation: animateErrorStep 1s ease-in-out infinite;
+                }
+
+                @keyframes animateErrorStep {
+                    from {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+
+                    to {
+                        transform: scale(1.75);
+                        opacity: 0;
+                    }
+                }
+
+            }
+
+
+            &Passed {
+                background-color: var(--highLightColor);
+                color: var(--primaryColor);
+            }
+
+
+        }
+
+        &Container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 0.5em;
+            width: 2.5em;
+        }
+
+
+        &Label {
+            text-align: center;
+            color: var(--highLightHoverColor);
+
+            @media (width < 500px) {
+                font-size: 0.75em;
+            }
+        }
     }
 
     &_title {
@@ -27,42 +186,60 @@
 }
 
 .article {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
     gap: 1em;
+    height: calc(100svh - 15.75em);
     margin: 0.5 0 2em 0;
-    padding: 0.5em 0 0 0;
+    padding: 0em 0 0 0;
 
     &_section {
-        position: relative;
+        position: absolute;
+        left: 0;
         display: flex;
         flex-direction: column;
         row-gap: 1.5em;
-        padding: 2em 0.5em 0.5em 0.5em;
+        padding: 0em 0.5em 0.5em 0.5em;
         width: 100%;
         //background: var(--backgroundGradient);
         background-color: var(--primaryColor);
         border-radius: var(--border-radius);
         border: 1px solid var(--borderCardHoverColor);
 
+        &Collapse {
+            visibility: collapse;
+        }
+
+        &Visible {
+            visibility: visible;
+        }
+
         &Basic {
             align-content: start;
         }
 
-        &:nth-child(2) {
-            display: flex;
-            flex-direction: column;
 
-        }
 
         &Title {
-            position: absolute;
-            top: -0.8em;
-            left: 0.5em;
             padding: 0.25em;
-            color: var(--fontColor);
+            text-align: center;
+            color: var(--highLightHoverColor);
             background-color: transparent;
             backdrop-filter: blur(5px);
+        }
+
+        &Icon {
+            width: 6em;
+            height: 6em;
+            justify-self: center;
+            align-self: center;
+        }
+
+        &Button {
+            max-width: 12em;
+            align-self: center;
+
         }
     }
 
@@ -110,11 +287,8 @@
         border: 1px solid var(--borderCardHoverColor);
 
         &Title {
-            position: absolute;
-            top: -0.85em;
             padding: 0.25em;
             font-weight: 500;
-            background-color: transparent;
             backdrop-filter: blur(2px);
             color: var(--fontSecondColor);
         }
@@ -141,40 +315,88 @@
     display: flex;
     flex-direction: column;
     row-gap: 1em;
-    padding: 2.5em 0.5em 0.5em 0.5em;
-    border: 1px solid var(--borderCardHoverColor);
+    padding: 0 0.5em 0.5em 0.5em;
+    //border: 1px solid var(--borderCardHoverColor);
+
+    &_header {
+        position: sticky;
+        top: 0;
+        display: grid;
+        place-items: center center;
+        height: 3em;
+        grid-template-columns: 10em 1fr 10em;
+        background-color: var(--primaryColor);
+        z-index: 3;
+    }
+
+    &_summary {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: transparent;
+
+        &Header {
+            display: grid;
+            grid-template-columns: 3em 1fr;
+            align-items: center;
+        }
+    }
 
     &_title {
-        position: absolute;
-        top: -0.85em;
-        padding: 0.25em;
         font-weight: 500;
         font-size: 1em;
-        background-color: var(--primaryColor);
-        color: var(--fontSecondColor);
+        grid-column: 2;
+        text-align: center;
+        color: var(--highLightHoverColor);
     }
 
-    &_characteristics {
-        position: relative;
+    &_subtitle {
         display: flex;
-        flex-direction: column;
-        row-gap: 1.5em;
-        padding: 2.5em 0.5em 0.5em 0.5em;
-        border: 1px solid var(--borderCardHoverColor);
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1em;
+        width: 2em;
+        height: 2em;
+        border-radius: 0.2em;
+        border: 1px solid var(--highLightHoverColor);
+        color: var(--fontSecondColor);
+        background-color: var(--newBackgroundColor);
     }
+
+    &_name {
+        font-size: 0.9em;
+        font-weight: 500;
+        color: var(--highLightColor);
+    }
+
+    &_arrow {
+        color: var(--highLightHoverColor);
+        width: 1.5em;
+        height: 1.5em;
+        grid-column: 2;
+    }
+
 
     &_characteristic {
         display: flex;
         flex-direction: column;
+        min-height: 3em;
         row-gap: 1.5em;
-        padding: 1.5em 0.5em 1em 0.5em;
+        padding: 0.5em;
+        background-color: #FFFFFF07;
         border-radius: var(--border-radius);
         //background-color: var(--terciaryColor);
-        border: 1px solid var(--newBackgroundColor);
+        border: 2px solid var(--fourthColor);
+
+        &Name {
+            margin: 1.5em 0 0 0;
+        }
 
 
         &None {
-            animation: animateUnload 0.5s forwards;
+            animation: animateUnload 1s forwards;
 
             @keyframes animateUnload {
                 from {
@@ -208,6 +430,10 @@
                 background-color: var(--borderCardHoverColor);
             }
         }
+
+        &Error {
+            border: 2px dotted var(--errorColor);
+        }
     }
 
     &_addFeature {
@@ -215,7 +441,8 @@
         align-items: center;
         justify-content: center;
         column-gap: 0.5em;
-        max-width: 7em;
+        grid-column: 3;
+        max-width: 9em;
         height: 2em;
     }
 
@@ -230,11 +457,8 @@
 
 
         &Title {
-            position: absolute;
-            top: -0.85em;
             padding: 0.25em;
             font-weight: 500;
-            background-color: var(--primaryColor);
             color: var(--fontSecondColor);
         }
     }
@@ -252,11 +476,12 @@
             align-items: center;
             justify-content: center;
             color: var(--fontSecondColor);
+            height: 2.5em;
             border: none;
             border-radius: var(--border-radius);
             background-color: var(--borderCardColor);
             transition: all 0.3s ease-in-out;
-            margin: 0.5em 0 0 0;
+            margin: 1.5em 0 0 0;
             cursor: pointer;
 
             &:hover {
@@ -264,6 +489,8 @@
                 background-color: var(--borderCardHoverColor);
             }
         }
+
+
     }
 
     &_addAttribute {

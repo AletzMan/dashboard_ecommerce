@@ -1,11 +1,9 @@
-import axios from "axios"
 import styles from "./brands.module.scss"
 import { IBrand } from "@/app/Types/types"
 import { AddBrands } from "./AddBrand"
-import { AddBrandButton } from "./AddBrandButton"
-import { SearchSection } from "../../components/SearchSection/SearchSection"
 import { DataGrid } from "../../components/DataGrid/DataGrid"
 import { URL_API } from "@/app/Constants/constants"
+import { HeaderSection } from "../../components/HeaderSection/HeaderSection"
 
 const GetBrands = async (params: [string, string][]) => {
 	let paramsString: string = ""
@@ -14,7 +12,7 @@ const GetBrands = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 
-	const response = await fetch(`${URL_API}brands${paramsString}`, { next: { revalidate: 7200 } })
+	const response = await fetch(`${URL_API}brands${paramsString}`, { next: { revalidate: 10000, tags: ["getbrands"] } })
 	const responseBrands = await response.json()
 
 	const data = responseBrands.response
@@ -26,11 +24,7 @@ const OptionsDate: Intl.DateTimeFormatOptions = {
 	timeZone: "America/Mexico_City",
 	year: "numeric",
 	month: "2-digit",
-	day: "2-digit",
-	//hour: "2-digit",
-	//minute: "2-digit",
-	//second: "2-digit",
-	//hour12: true, // Para usar el formato de 12 horas (AM/PM)
+	day: "2-digit"
 }
 
 interface IPagination {
@@ -49,10 +43,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 
 	return (
 		<section className={`${styles.section} `}>
-			<header className={styles.section_header}>
-				<SearchSection total={data.totalResults} placeholder="AMD, Intel, samsung, etc..." />
-				<AddBrandButton />
-			</header>
+			<HeaderSection results={data.totalResults} title="Add brand" ><AddBrands /></HeaderSection>
 			<div className={styles.table}>
 				<DataGrid
 					columns={[
@@ -65,11 +56,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 					]}
 					rows={data.results}
 					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
-					actions={["view", "edit", "delete"]}
-					linkEdit="/dashboard/products/brands"
+					actions={["edit", "delete"]}
+					detailsView={<>VISTA DETALLADA</>}
+					editView={<AddBrands></AddBrands>}
+					databaseName="brands"
 				/>
 			</div>
-			<AddBrands />
 		</section>
 	)
 }
