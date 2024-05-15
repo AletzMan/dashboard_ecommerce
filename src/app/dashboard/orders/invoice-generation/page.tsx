@@ -124,7 +124,6 @@ export default function () {
 	}
 
 	const HandleOnSubmit = (data: IInputs) => {
-		console.log(data)
 	}
 
 	return (

@@ -31,7 +31,6 @@ export function HeaderDashboard() {
 	const currentPage = pathname.split("/")[2] || usePathname().split("/")[1]
 	const section = pathname.split("/")[3] || usePathname().split("/")[1]
 
-	console.log(section)
 
 	// Polling the session every 1 hour
 	useEffect(() => {

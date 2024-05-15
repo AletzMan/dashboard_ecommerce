@@ -25,7 +25,9 @@ const GetCustomers = async (params: [string, string][]) => {
 		const data = await response.json()
 		const customers: ICustomersPagination = data.response
 		return customers
-	} catch (error) { }
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 export default async function CustomersPage({ searchParams }: { searchParams: string }) {
@@ -36,7 +38,7 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 	return (
 		<section className={styles.section}>
 			<header className={styles.section_header}>
-				<TotalCustomers />
+				<TotalCustomers count={data?.totalResults} />
 				<SearchSection total={data?.totalResults || 0} />
 			</header>
 			{data && (

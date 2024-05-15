@@ -28,7 +28,7 @@ const GetOrders = async () => {
 		return data.response as IPagination
 
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 		return undefined
 	}
 }

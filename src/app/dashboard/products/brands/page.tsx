@@ -12,12 +12,17 @@ const GetBrands = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 
-	const response = await fetch(`${URL_API}brands${paramsString}`, { next: { revalidate: 10000, tags: ["getbrands"] } })
-	const responseBrands = await response.json()
+	try {
+		const response = await fetch(`${URL_API}brands${paramsString}`, { next: { revalidate: 10000, tags: ["getbrands"] } })
+		const responseBrands = await response.json()
 
-	const data = responseBrands.response
+		const data = responseBrands.response
 
-	return data
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+
 }
 
 const OptionsDate: Intl.DateTimeFormatOptions = {
@@ -42,7 +47,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 
 	return (
 		<section className={`${styles.section} `}>
-			<HeaderSection results={data.totalResults} title="Add brand" ><AddBrands /></HeaderSection>
+			<HeaderSection results={data?.totalResults} title="Add brand" ><AddBrands /></HeaderSection>
 			<div className={styles.table}>
 				<DataGrid
 					columns={[
@@ -53,8 +58,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: { [
 						{ field: "last_modified", headerName: "Last Modified", width: "1fr", role: "date" },
 						{ field: "", headerName: "", width: "1fr", role: "actions" },
 					]}
-					rows={data.results}
-					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+					rows={data?.results}
+					paginacion={{ currentPage: data?.currentPage, totalPages: data?.totalPages }}
 					actions={["edit", "delete"]}
 					detailsView={<>VISTA DETALLADA</>}
 					editView={<AddBrands></AddBrands>}

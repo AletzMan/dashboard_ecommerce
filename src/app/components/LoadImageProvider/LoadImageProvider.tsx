@@ -23,7 +23,6 @@ export function LoadImageProvider(props: Props) {
 			setHeightImages(heightDiv)
 		}
 	}, [images, refContainer.current?.clientHeight])
-	//console.log(refContainer.current?.clientHeight)
 	return (
 		<div className={styles.slider} style={{ minWidth: width, minHeight: heightImages }}>
 			{children}

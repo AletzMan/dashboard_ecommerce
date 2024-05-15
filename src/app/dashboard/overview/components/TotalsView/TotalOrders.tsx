@@ -14,7 +14,7 @@ const GetOrdersCount = async () => {
 		const orders = responseOrders.response.totalResults
 		return orders
 	} catch (error) {
-		//console.log(error)
+		console.error(error)
 		return 0
 	}
 }

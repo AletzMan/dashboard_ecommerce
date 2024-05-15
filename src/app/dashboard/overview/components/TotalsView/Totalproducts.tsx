@@ -4,11 +4,29 @@ import styles from "./totalsview.module.scss"
 import { ArrowIcon, ProductsIcon } from "@/app/SVG/componentsSVG"
 import { URL_API } from "@/app/Constants/constants"
 
-export async function TotalProducts() {
-	const response = await fetch(`${URL_API}products`, { next: { revalidate: 3600, tags: ["totalproducts"] } })
-	const responseProducts = await response.json()
-	const products = responseProducts.response.totalResults
-	console.log(products)
+interface Props {
+	count?: number
+}
+
+const GetTotalProducts = async () => {
+	try {
+		const response = await fetch(`${URL_API}products`, { next: { revalidate: 10000, tags: ["totalproducts"] } })
+		const responseProducts = await response.json()
+		return responseProducts.response.totalResults
+	} catch (error) {
+		console.error(error)
+		return 0
+	}
+
+}
+
+
+export async function TotalProducts({ count }: Props) {
+	let products = count
+	if (!count) {
+		products = await GetTotalProducts()
+	}
+
 	return (
 		<article className={styles.article}>
 			<header className={styles.article_header}>

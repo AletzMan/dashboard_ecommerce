@@ -1,15 +1,23 @@
-import axios from "axios"
+
 import styles from "./topproducts.module.scss"
-import { IProductData, IProductInventory } from "@/app/Types/types"
+import { IProductInventory } from "@/app/Types/types"
 import { FormattedString } from "@/app/utils/functions"
-import { DataGrid } from "@/app/dashboard/components/DataGrid/DataGrid"
 import { URL_API } from "@/app/Constants/constants"
 
-export async function TopProducts() {
-	const response = await fetch(`${URL_API}products?order=sold_quantity&limit=7`, { next: { revalidate: 3600 } })
-	const responseTop = await response.json()
+const GetProducts = async () => {
+	try {
+		const response = await fetch(`${URL_API}products?order=sold_quantity&limit=7`, { next: { revalidate: 10000 } })
+		const responseTop = await response.json()
 
-	const products: IProductInventory[] = responseTop.response.results
+		return responseTop.response.results as IProductInventory[]
+	} catch (error) {
+		console.error(error)
+		return []
+	}
+}
+
+export async function TopProducts() {
+	const products = await GetProducts()
 	return (
 		<div className={`${styles.section} scrollBarStyle`}>
 			<article className={styles.article}>

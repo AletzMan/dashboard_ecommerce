@@ -12,10 +12,15 @@ const GetProducts = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await fetch(`${URL_API}products${paramsString}`, { next: { revalidate: 10000, tags: ["inventoryPage"] } })
-	const products = await response.json()
 
-	return products.response
+	try {
+		const response = await fetch(`${URL_API}products${paramsString}`, { next: { revalidate: 10000, tags: ["inventoryPage"] } })
+		const products = await response.json()
+
+		return products.response
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const GetAlerts = async () => {
@@ -50,16 +55,16 @@ export default async function InventoryPage({ searchParams }: { searchParams: { 
 		<section className={styles.section}>
 			<header className={styles.header}>
 				<HeaderInventory alerts={alerts} />
-				<SearchSection total={data.totalResults} placeholder="Search by name or SKU" />
+				<SearchSection total={data?.totalResults} placeholder="Search by name or SKU" />
 			</header>
 			{data &&
 				<section className={`${styles.products} scrollBarStyle`}>
-					{data.results?.map(product => (
+					{data?.results?.map(product => (
 						<ItemCard key={product.id} product={product} alerts={alerts} />
 					))}
 				</section>}
 			<footer className={styles.footer}>
-				<Pagination currentPage={data.currentPage} totalPages={data.totalPages} pathname="/dashboard/inventory" />
+				<Pagination currentPage={data?.currentPage} totalPages={data?.totalPages} pathname="/dashboard/inventory" />
 			</footer>
 		</section>
 	)

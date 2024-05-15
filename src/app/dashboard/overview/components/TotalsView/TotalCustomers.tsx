@@ -3,11 +3,27 @@ import styles from "./totalsview.module.scss"
 import { ArrowIcon, CustomersIcon } from "@/app/SVG/componentsSVG"
 import { URL_API } from "@/app/Constants/constants"
 
-export async function TotalCustomers() {
-	const response = await fetch(`${URL_API}users`, { next: { revalidate: 3600, tags: ["totalusers"] } })
-	const responseCustomers = await response.json()
-	const customers = responseCustomers.response.length
-	console.log(customers)
+const GetTotalCustomers = async () => {
+	try {
+		const response = await fetch(`${URL_API}users`, { next: { revalidate: 3600, tags: ["totalusers"] } })
+		const responseCustomers = await response.json()
+		return responseCustomers.response.length
+	} catch (error) {
+		console.error(error)
+		return 0
+	}
+}
+
+interface Props {
+	count?: number
+}
+
+export async function TotalCustomers({ count }: Props) {
+	let customers = count
+	if (!count) {
+		customers = await GetTotalCustomers()
+	}
+
 	return (
 		<article className={styles.article}>
 			<header className={styles.article_header}>

@@ -40,7 +40,6 @@ export function OptionsSales(props: Props) {
 		setSalesPeriod(e)
 	}
 
-	//console.log(year)
 
 	return (
 		<header className={styles.header}>

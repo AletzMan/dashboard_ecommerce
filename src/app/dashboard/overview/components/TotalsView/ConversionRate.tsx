@@ -3,10 +3,19 @@ import styles from "./totalsview.module.scss"
 import { ArrowIcon, ConversionIcon } from "@/app/SVG/componentsSVG"
 import { URL_API } from "@/app/Constants/constants"
 
+const GetOrders = async () => {
+	try {
+		const response = await fetch(`${URL_API}orders`, { next: { revalidate: 10000, tags: ["totalorders"] } })
+		const responseOrders = await response.json()
+		return responseOrders.response.totalResults
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 export async function ConversionRate() {
-	const response = await fetch(`${URL_API}orders`, { next: { revalidate: 3600, tags: ["totalorders"] } })
-	const responseOrders = await response.json()
-	const orders = responseOrders.response.totalResults
+
+	const orders = await GetOrders()
 
 	const visitors = 2138
 	return (

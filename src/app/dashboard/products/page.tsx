@@ -8,7 +8,6 @@ import { TotalProducts } from "../overview/components/TotalsView/Totalproducts"
 import styles from "./productcatalog.module.scss"
 import { ProductHeader } from "./ProductHeader"
 import { URL_API } from "@/app/Constants/constants"
-import { ProductCard } from "./components/ProductDetails/ProductCard"
 
 export interface PaginationProducts {
 	results: ProductType[]
@@ -26,11 +25,14 @@ const GetProducts = async (params: [string, string][]) => {
 	})
 	try {
 		const response = await fetch(`${URL_API}products/${paramsString}`, { next: { revalidate: 10000, tags: ['productsPage'] } })
-		const responseProducts = await response.json()
-		const products: PaginationProducts = responseProducts.response
-		return products
+		if (response.ok) {
+			const responseProducts = await response.json()
+			const products: PaginationProducts = responseProducts.response
+			return products
+		}
 	} catch (error) {
-		console.log(error)
+		console.error(error)
+		return { results: {}, totalResults: 0, currentPage: 0, pageSize: 15, totalPages: 0 } as PaginationProducts
 	}
 }
 
@@ -48,18 +50,18 @@ export default async function Products({ searchParams }: { searchParams: string 
 					<header className={styles.header}>
 						<div className={styles.header_top}>
 							<Suspense fallback={<SkeletonTotalViews />}>
-								<TotalProducts />
+								{<TotalProducts count={data?.totalResults} />}
 							</Suspense>
 							<Suspense fallback={<SkeletonTotalViews />}>
-								<BestProduct />
+								{<BestProduct />}
 							</Suspense>
 						</div>
-						<ProductHeader products={data.results} totalResults={data?.totalResults || 0} searchText={search ? search[1] : ""} />
+						<ProductHeader products={data?.results} totalResults={data?.totalResults || 0} searchText={search ? search[1] : ""} />
 					</header>
 
 					<div className={styles.articles}>
 						<DataGrid
-							rows={data.results}
+							rows={data?.results}
 							columns={[
 								{ field: "id", headerName: "ID", role: "text", width: 60 },
 								{ field: "sku", headerName: "SKU", role: "text", width: "1fr" },
@@ -70,7 +72,7 @@ export default async function Products({ searchParams }: { searchParams: string 
 								{ field: "status", headerName: "Status", role: "status", width: "1fr" },
 								{ field: "", headerName: "", role: "actions", width: "1fr" },
 							]}
-							paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+							paginacion={{ currentPage: data?.currentPage, totalPages: data?.totalPages }}
 							actions={["edit", "delete"]}
 							statusOptions={{
 								statusArray: ["active", "out-of-stock", "inactive"],
