@@ -30,7 +30,7 @@ export async function TopProducts() {
 				</ul>
 				<section className={styles.products}>
 					{products.map((product) => (
-						<ul className={styles.product}>
+						<ul key={product.sku} className={styles.product}>
 							<li className={styles.product_name}>{product.title}</li>
 							<li className={styles.product_sku}>{product.sku}</li>
 							<li className={styles.product_price}>{FormattedString(Number(product.price))}</li>

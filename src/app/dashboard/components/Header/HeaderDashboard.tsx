@@ -28,8 +28,8 @@ export function HeaderDashboard() {
 	const [viewMenu, setViewMenu] = useState<boolean>(false)
 	const [viewNotifications, setViewNotifications] = useState<boolean>(false)
 	const pathname = usePathname()
-	const currentPage = pathname.split("/")[2] || usePathname().split("/")[1]
-	const section = pathname.split("/")[3] || usePathname().split("/")[1]
+	const currentPage = pathname.split("/")[2] || pathname.split("/")[1]
+	const section = pathname.split("/")[3] || pathname.split("/")[1]
 
 
 	// Polling the session every 1 hour
@@ -82,7 +82,7 @@ export function HeaderDashboard() {
 						</button>
 						<FloatingMenu isActive={viewNotifications}>
 							<span className={styles.notifications_title}>Notifications</span>
-							<span className={styles.notifications_option}>You don't have notifications</span>
+							<span className={styles.notifications_option}>You don not have notifications</span>
 						</FloatingMenu>
 					</div>
 					<div className={styles.header_profile} onBlur={() => setViewMenu(false)}>

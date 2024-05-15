@@ -44,7 +44,7 @@ type IInputs = {
 	dueDate: string
 }
 
-export default function () {
+export default function Page() {
 	const { handleSubmit, formState, control } = useForm<IInputs>({
 		resolver: zodResolver(invoiceSchema),
 		defaultValues: { items: [{ id: crypto.randomUUID(), item: "", quantity: "0", cost: "0" }] },
@@ -102,9 +102,9 @@ export default function () {
 		setPayment(value)
 	}
 
-	const HandleSave = () => {
-		if (!isValid) enqueueSnackbar("Invalid fields exist", { variant: "error", anchorOrigin: { horizontal: "center", vertical: "top" } })
-		else enqueueSnackbar("Invoice successfully created", { variant: "success", anchorOrigin: { horizontal: "center", vertical: "top" } })
+	const HandleError = () => {
+		enqueueSnackbar("Invalid fields exist", { variant: "error", anchorOrigin: { horizontal: "center", vertical: "top" } })
+
 	}
 
 	const HandleAddProduct = () => {
@@ -124,10 +124,11 @@ export default function () {
 	}
 
 	const HandleOnSubmit = (data: IInputs) => {
+		enqueueSnackbar("Invoice successfully created", { variant: "success", anchorOrigin: { horizontal: "center", vertical: "top" } })
 	}
 
 	return (
-		<form onSubmit={handleSubmit(HandleOnSubmit)} className={`${styles.section} scrollBarStyle`}>
+		<form onSubmit={handleSubmit(HandleOnSubmit, HandleError)} className={`${styles.section} scrollBarStyle`}>
 			<section className={styles.invoice}>
 				<h3 className={styles.invoice_title}>Invoice</h3>
 				<div className={styles.invoice_group}>
@@ -306,7 +307,7 @@ export default function () {
 						buttonProps={{
 							text: "Save",
 							type: "submit",
-							onClick: HandleSave,
+							onClick: () => { },
 							iconButton: <SaveIcon />,
 						}}
 					/>
