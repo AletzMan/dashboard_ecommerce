@@ -30,7 +30,7 @@ export const ProductCard: FC = () => {
                 setProduct(data.response)
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 

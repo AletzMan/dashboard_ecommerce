@@ -32,9 +32,13 @@ const GetCoupons = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await fetch(`${URL_API}coupons${paramsString}`, { next: { revalidate: 10000, tags: ["getcoupons"] } })
-	const data = await response.json()
-	return data.response
+	try {
+		const response = await fetch(`${URL_API}coupons${paramsString}`, { next: { revalidate: 10000, tags: ["getcoupons"] } })
+		const data = await response.json()
+		return data.response
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string } }) {
@@ -43,11 +47,11 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 
 	return (
 		<section className={`${styles.section} `}>
-			<HeaderSection results={data.totalResults} title="Add Coupon">
+			<HeaderSection results={data?.totalResults} title="Add Coupon">
 				<AddCoupon />
 			</HeaderSection>
 			<DataGrid
-				rows={data.results}
+				rows={data?.results}
 				columns={[
 					{ field: "id", headerName: "ID", role: "text", width: 60 },
 					{ field: "code", headerName: "Code", role: "text", width: 110 },
@@ -60,8 +64,8 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 					{ field: "actions", headerName: "Actions", role: "actions", width: 50 }
 				]}
 				paginacion={{
-					currentPage: data.currentPage,
-					totalPages: data.totalPages,
+					currentPage: data?.currentPage,
+					totalPages: data?.totalPages,
 				}}
 				actions={["delete"]}
 				databaseName="coupons"

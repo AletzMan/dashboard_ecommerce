@@ -27,8 +27,6 @@ export const ComboBox: FC<Props> = ({ options, name, controlExt, error, loading,
 		setSelectOption(newValue)
 	}
 
-	console.log(options)
-
 	useEffect(() => {
 		setSelectOption(value)
 	}, [value])

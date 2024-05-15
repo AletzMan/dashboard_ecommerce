@@ -66,7 +66,6 @@ export function FormProduct({ productSelect }: Props) {
 	})
 
 	const HandleOnSubmit = (data: IInputs) => {
-		//console.log(data)
 	}
 
 	useEffect(() => {

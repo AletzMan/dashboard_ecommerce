@@ -54,7 +54,6 @@ export default function MyAccountPage() {
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 if (error.response.status === 401) {
-                    setLoading(false)
                     navigate.push("/login")
                 } else if (error.response.status === 422) {
                     enqueueSnackbar(error.response.data.message, { variant: "error" })
@@ -64,12 +63,12 @@ export default function MyAccountPage() {
                         newData = { ...newData, [issue.path[0] as string]: issue.message }
                     })
                     setErrors(newData)
-                    setLoading(false)
                 } else {
                     console.error(error)
-                    setLoading(false)
+                    enqueueSnackbar(error.response.data.message, { variant: "error" })
                 }
             }
+            setLoading(false)
         }
     }
 
