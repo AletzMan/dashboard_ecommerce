@@ -37,7 +37,6 @@ interface IPagination {
 
 export default async function ProductsPage({ searchParams }: { searchParams: { [key: string]: string } }) {
 	const params = Object.entries(searchParams)
-	const search = searchParams.search
 	const response = await GetBrands(params)
 	const data: IPagination = response as IPagination
 

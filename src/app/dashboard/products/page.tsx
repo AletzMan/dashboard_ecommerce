@@ -25,7 +25,7 @@ const GetProducts = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
-		const response = await fetch(`${URL_API}products/${paramsString}`, { next: { revalidate: 7200, tags: ['productsPage'] } })
+		const response = await fetch(`${URL_API}products/${paramsString}`, { next: { revalidate: 10000, tags: ['productsPage'] } })
 		const responseProducts = await response.json()
 		const products: PaginationProducts = responseProducts.response
 		return products

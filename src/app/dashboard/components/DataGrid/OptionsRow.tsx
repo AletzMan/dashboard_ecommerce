@@ -57,7 +57,7 @@ export function OptionsRow({ row, linkEdit, actions, databaseName, detailsView, 
 
 	const HandleView = async () => {
 		if (linkView) {
-			router.push(`${linkView}/${row[0].value}`)
+			router.push(`${linkView}/details?id=${row[0].value}`)
 		} else {
 			setViewID(row[0].value)
 			setTypeModal("View")

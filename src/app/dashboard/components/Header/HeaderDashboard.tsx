@@ -29,6 +29,9 @@ export function HeaderDashboard() {
 	const [viewNotifications, setViewNotifications] = useState<boolean>(false)
 	const pathname = usePathname()
 	const currentPage = pathname.split("/")[2] || usePathname().split("/")[1]
+	const section = pathname.split("/")[3] || usePathname().split("/")[1]
+
+	console.log(section)
 
 	// Polling the session every 1 hour
 	useEffect(() => {
@@ -69,7 +72,7 @@ export function HeaderDashboard() {
 						{MenuOptions.find((menu) => menu.section === currentPage)?.icon}
 						{`${currentPage}`}
 						{pathname.split("/").length > 3 && " /"}
-						<span className={styles.header_subtitle}>{MenuOptions.find((menu) => menu.section === currentPage)?.subSections?.find((sub, index) => sub.toLowerCase().replaceAll(" ", "-") === pathname.split("/")[3])}</span>
+						{section === "details" && <span className={styles.header_subtitle}>{section}</span>}
 					</h1>
 				</div>
 				<p className={styles.header_date}>{date}</p>

@@ -15,13 +15,10 @@ const crypt = new Cryptr(KEY_SECRET)
 export interface IUser {
 	id: string
 	name: string
-	//lastname: string
 	email: string
 	password: string
 	image: string
 	privileges: number
-	//datebirth: string
-	//phonenumber: number
 }
 
 interface IResponseUser {

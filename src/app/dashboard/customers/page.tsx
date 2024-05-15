@@ -21,9 +21,8 @@ const GetCustomers = async (params: [string, string][]) => {
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
 	try {
-		const response = await fetch(`${URL_API}customers${paramsString}`, { next: { revalidate: 1, tags: ["customers"] } })
+		const response = await fetch(`${URL_API}customers${paramsString}`, { next: { revalidate: 10000, tags: ["customers"] } })
 		const data = await response.json()
-		console.log(data)
 		const customers: ICustomersPagination = data.response
 		return customers
 	} catch (error) { }
@@ -41,22 +40,24 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 				<SearchSection total={data?.totalResults || 0} />
 			</header>
 			{data && (
-				<DataGrid
-					rows={data?.results}
-					columns={[
-						{ field: "id", headerName: "ID", role: "text", width: 70 },
-						{ field: "name", headerName: "Name", role: "text", width: 130 },
-						{ field: "lastname", headerName: "Last Name", role: "text", width: 150 },
-						{ field: "email", headerName: "E-mail", role: "text", width: "1fr" },
-						{ field: "phonenumber", headerName: "Phone Number", role: "text", width: "1fr" },
-						{ field: "", headerName: "", role: "actions", width: "1fr" },
-					]}
-					paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
-					linkView="/dashboard/customers"
-					databaseName="customers"
-					actions={["view"]}
-					detailsView={<></>}
-				/>
+				<div className={styles.datagrid}>
+					<DataGrid
+						rows={data?.results}
+						columns={[
+							{ field: "id", headerName: "ID", role: "text", width: 70 },
+							{ field: "name", headerName: "Name", role: "text", width: 130 },
+							{ field: "lastname", headerName: "Last Name", role: "text", width: 150 },
+							{ field: "email", headerName: "E-mail", role: "text", width: "1fr" },
+							{ field: "phonenumber", headerName: "Phone Number", role: "text", width: "1fr" },
+							{ field: "", headerName: "", role: "actions", width: "1fr" },
+						]}
+						paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}
+						linkView="/dashboard/customers"
+						databaseName="customers"
+						actions={["view"]}
+						detailsView={<></>}
+					/>
+				</div>
 			)}
 		</section>
 	)

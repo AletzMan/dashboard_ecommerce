@@ -12,6 +12,7 @@
     width: 100%;
     row-gap: 0.5em;
     padding: 0.5em;
+    min-height: 5.5em;
     border-radius: 0.25em;
     //border: 1px solid var(--borderCardColor);
     background: var(--backgroundGradient);
@@ -106,6 +107,18 @@
             color: #0ede11;
             border: 1px solid #17c41a;
             background-color: #17c41a20;
+        }
+
+        &Pending {
+            color: #cdde0e;
+            border: 1px solid #cdde0e;
+            background-color: #cdde0e20;
+        }
+
+        &Way {
+            color: #0e6cde;
+            border: 1px solid #0e6cde;
+            background-color: #0e6cde20;
         }
     }
 

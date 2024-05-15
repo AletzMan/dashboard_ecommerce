@@ -1,4 +1,4 @@
-import { OptionsDateLocal } from "@/app/Constants/constants"
+import { OptionsDateLocal, URL_API } from "@/app/Constants/constants"
 import { IAddress, IOrder, IOrderDetails, ProductType } from "@/app/Types/types"
 import { FormattedString } from "@/app/utils/functions"
 import axios from "axios"
@@ -7,20 +7,14 @@ import { DataGrid } from "../../components/DataGrid/DataGrid"
 import styles from "../orders.module.scss"
 import { UpdateOrder } from "./UpdateOrder"
 
-interface IPagination {
-    products: IOrder[]
-    totalProducts: number
-    totalPages: number
-    currentPage: number
-    pageSize: number
-}
 
 
 const GetOrder = async (id: string) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/orders/${id}`)
-        if (response.status === 200) {
-            return response.data.order[0]
+        const response = await fetch(`${URL_API}orders/${id}`, { next: { revalidate: 10000, tags: ["orderDetails"] } })
+        const data = await response.json()
+        if (response.ok) {
+            return data.response
         }
     } catch (error) {
         console.error(error)
@@ -36,9 +30,10 @@ const GetOrderProducts = async (id: string, params: [string, string][]) => {
             paramsString += `&${param[0]}=${param[1]}`
     })
     try {
-        const response = await axios.get(`http://localhost:3000/api/orders/${id}/details${paramsString}`)
-        if (response.status === 200) {
-            return response.data.data
+        const response = await fetch(`${URL_API}orders/${id}/details${paramsString}`, { next: { revalidate: 10000 } })
+        const data = await response.json()
+        if (response.ok) {
+            return data.response
         }
     } catch (error) {
         console.error(error)
@@ -47,9 +42,10 @@ const GetOrderProducts = async (id: string, params: [string, string][]) => {
 
 const GetAddress = async (id: string) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/address/${id}`)
-        if (response.status === 200) {
-            return response.data.address[0]
+        const response = await fetch(`${URL_API}customers/address/${id}`)
+        const data = await response.json()
+        if (response.ok) {
+            return data.response
         }
     } catch (error) {
         console.error(error)
@@ -58,19 +54,20 @@ const GetAddress = async (id: string) => {
 
 export default async function OrderPage({ searchParams }: { searchParams: string }) {
     const params = Object.entries(searchParams)
-    const headersList = headers();
-    const pathname = headersList.get("next-url")
+
+
     let order: IOrder | undefined = undefined
-    let products: IPagination | undefined = undefined
+    let products: IOrderDetails[] | undefined = undefined
     let address: IAddress | undefined = undefined
 
-    if (pathname) {
-        const id = pathname?.split("/")[3] || ""
+
+    if (params) {
+        const id = params.find(param => param[0] == "id")?.[1] || ""
         order = await GetOrder(id)
-        if (order) {
-            address = await GetAddress(order?.address_id.toString())
+
+        if (order?.id) {
             products = await GetOrderProducts(order?.order_id.toString(), params)
-            //console.log(products)
+            address = await GetAddress(order?.address_id.toString())
         }
 
     }
@@ -87,7 +84,7 @@ export default async function OrderPage({ searchParams }: { searchParams: string
                         <h4 className={styles.details_orderTitle}>Order Details</h4>
                         <div className={styles.details_field}>
                             <label className={styles.details_fieldLabel}>Name</label>
-                            <span className={styles.details_fieldText}>{`${order?.name} ${order?.lastname}`}</span>
+                            <span className={styles.details_fieldText}>{`${order?.name} `}</span>
                         </div>
                         <div className={styles.details_field}>
                             <label className={styles.details_fieldLabel}>Creation Date</label>
@@ -124,23 +121,22 @@ export default async function OrderPage({ searchParams }: { searchParams: string
             <article className={styles.products}>
                 {products &&
                     <DataGrid
-                        rows={products?.products}
+                        rows={products}
                         columns={[
                             { field: "id", headerName: "ID", role: "text", width: 60 },
-                            { field: "sku", headerName: "SKU", role: "text", width: "1fr" },
-                            { field: "image", headerName: "Image", role: "image", width: 70 },
+                            { field: "order_id", headerName: "Order ID", role: "text", width: 200 },
+                            { field: "item_id", headerName: "SKU", role: "text", width: 150 },
                             { field: "quantity", headerName: "Qty", role: "text", width: 80 },
-                            { field: "brand", headerName: "Brand", role: "text", width: 130 },
-                            { field: "subcategory", headerName: "Subcategory", role: "text", width: "1fr" },
-                            { field: "price", headerName: "Price", role: "price", width: 110 }
+                            { field: "unit_price", headerName: "Unit Price", role: "price", width: 130 },
+                            { field: "title", headerName: "Description", role: "text", width: 250 },
                         ]}
-                        paginacion={{ currentPage: products.currentPage, totalPages: products.totalPages }}
                         actions={["view", "edit", "delete"]}
                         statusOptions={{
                             statusArray: ["active", "out-of-stock", "inactive"],
                             colors: ["#0cd315", "#cebc19", "#FF5722"]
                         }}
                         linkEdit={"/dashboard/products/add-or-edit-product"}
+                        detailsView={<></>}
                     />}
             </article>
         </section>

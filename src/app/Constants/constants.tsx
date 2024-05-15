@@ -1,14 +1,47 @@
 import {
+	ChairIcon,
+	ComponentsIcon,
 	CustomersIcon,
 	DashboardIcon,
+	DeskIcon,
+	FanIcon,
+	FlashUSBIcon,
+	FurnitureIcon,
+	GPUIcon,
+	GamingIcon,
+	HardDiskIcon,
+	HeadsetsIcon,
 	InventoryIcon,
+	KeyboardAndMouseIcon,
+	KeyboardIcon,
+	LaptopsIcon,
 	MarketingIcon,
+	MicroPhoneIcon,
+	MobileIcon,
+	MonitorIcon,
+	MotherBoardsIcon,
+	MouseIcon,
+	NetworkAdapterIcon,
+	NetworkingIcon,
 	OrdersIcon,
 	OverviewIcon,
+	PCIcon,
+	PowerSupplyIcon,
+	ProcessorsIcon,
 	ProductsIcon,
+	ProjectorIcon,
+	RAMIcon,
+	RecordingIcon,
+	RouterIcon,
+	SSDIcon,
 	SalesIcon,
 	SecurityIcon,
 	SettingsIcon,
+	SpeakerIcon,
+	StorageIcon,
+	SwitchIcon,
+	TabletIcon,
+	VideoIcon,
 } from "../SVG/componentsSVG"
 import { MenuOptionsTypes, OptionsType } from "../Types/types"
 
@@ -258,3 +291,318 @@ export const OptionsDateLocal: Intl.DateTimeFormatOptions = {
 	//second: "2-digit",
 	//hour12: true, // Para usar el formato de 12 horas (AM/PM)
 }
+
+
+export const Categories = {
+	title: "Categories",
+	items: [
+		{
+			id: 1,
+			name: "Storage",
+			link: "category/storage",
+			icon: <StorageIcon />,
+			subs: {
+				title: "Storage",
+				subcategories: [
+					{
+						id: 1,
+						name: "Hard Disks",
+						link: "category/storage/hard-disks",
+						icon: <HardDiskIcon />,
+					},
+					{
+						id: 2,
+						name: "Solid State Disks",
+						link: "category/storage/solid-state-disks",
+						icon: <SSDIcon />,
+					},
+					{
+						id: 3,
+						name: "Flash USB",
+						link: "category/storage/flash-usb",
+						icon: <FlashUSBIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 2,
+			name: "Speakers and Audio",
+			link: "category/speakers-and-audio",
+			icon: <SpeakerIcon />,
+			subs: {
+				title: "Speakers and Audio",
+				subcategories: [
+					{
+						id: 4,
+						name: "Headphones / Headsets",
+						link: "category/speakers-and-audio/headphones_headsets",
+						icon: <HeadsetsIcon />,
+					},
+					{
+						id: 5,
+						name: "Speakers",
+						link: "category/speakers-and-audio/speakers",
+						icon: <SpeakerIcon />,
+					},
+					{
+						id: 6,
+						name: "Recording",
+						link: "category/speakers-and-audio/recording",
+						icon: <RecordingIcon />,
+					},
+					{
+						id: 7,
+						name: "Microphones",
+						link: "category/speakers-and-audio/microphones",
+						icon: <MicroPhoneIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 3,
+			name: "PC Components",
+			link: "category/pc-components",
+			icon: <ComponentsIcon />,
+			subs: {
+				title: "PC Components",
+				subcategories: [
+					{
+						id: 10,
+						name: "Power Supplies",
+						link: "category/pc-components/power-supplies",
+						icon: <PowerSupplyIcon />,
+					},
+					{
+						id: 11,
+						name: "Cabinets",
+						link: "category/pc-components/cabinets",
+						icon: <ComponentsIcon />,
+					},
+					{
+						id: 12,
+						name: "RAM Memory",
+						link: "category/pc-components/ram-memory",
+						icon: <RAMIcon />,
+					},
+					{
+						id: 13,
+						name: "Processors",
+						link: "category/pc-components/processors",
+						icon: <ProcessorsIcon />,
+					},
+					{
+						id: 14,
+						name: "Graphics Cards",
+						link: "category/pc-components/graphics-cards",
+						icon: <GPUIcon />,
+					},
+					{
+						id: 15,
+						name: "Mother Boards",
+						link: "category/pc-components/mother-boards",
+						icon: <MotherBoardsIcon />,
+					},
+					{
+						id: 16,
+						name: "Fans and Heatsinks",
+						link: "category/pc-components/fans-and-heatsinks",
+						icon: <FanIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 4,
+			name: "PC and Mobile",
+			link: "category/pc-and-mobile",
+			icon: <PCIcon />,
+			subs: {
+				title: "PC and Mobile",
+				subcategories: [
+					{
+						id: 17,
+						name: "Mobiles",
+						link: "category/pc-and-mobile/mobiles",
+						icon: <MobileIcon />,
+					},
+					{
+						id: 18,
+						name: "PCs",
+						link: "category/pc-and-mobile/desktop-pc",
+						icon: <PCIcon />,
+					},
+					{
+						id: 19,
+						name: "Laptops",
+						link: "category/pc-and-mobile/laptops",
+						icon: <LaptopsIcon />,
+					},
+					{
+						id: 21,
+						name: "Tablets",
+						link: "category/pc-and-mobile/tablets",
+						icon: <TabletIcon />,
+					},
+				],
+			},
+		},
+		/*{
+			id: 21,
+			name: "Energy",
+			link: "category/energy",
+			icon: <EnergyIcon />,
+			subs: {
+				title: "Energy",
+				subcategories: [
+					{
+						id: 21,
+						name: "Batteries",
+						link: "category/energy/batteries",
+						icon: <BatteryIcon />,
+					},
+					{
+						id: 21,
+						name: "AC Adapters",
+						link: "category/energy/ac-adapters",
+						icon: <ChargerIcon />,
+					},
+					{
+						id: 21,
+						name: "UPS",
+						link: "category/energy/ups",
+						icon: <NoBreakIcon />,
+					},
+					{
+						id: 21,
+						name: "Surge Protectors",
+						link: "category/energy/surge-protectors",
+						icon: <RegulatorIcon />,
+					},
+					{
+						id: 21,
+						name: "Transformers / Converters",
+						link: "category/energy/transformers-|-converters",
+						icon: <TransformerIcon />,
+					},
+				],
+			},
+		},*/
+		{
+			id: 6,
+			name: "Video",
+			link: "category/video",
+			icon: <VideoIcon />,
+			subs: {
+				title: "Video",
+				subcategories: [
+					{
+						id: 29,
+						name: "Monitors",
+						link: "category/video/monitors",
+						icon: <MonitorIcon />,
+					},
+					{
+						id: 30,
+						name: "Projectors",
+						link: "category/video/projectors",
+						icon: <ProjectorIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 7,
+			name: "Mice and Keyboards",
+			link: "category/mice-and-keyboards",
+			icon: <KeyboardAndMouseIcon />,
+			subs: {
+				title: "Mice and Keyboards",
+				subcategories: [
+					{
+						id: 32,
+						name: "Gamepads",
+						link: "category/mice-and-keyboards/gamepads",
+						icon: <GamingIcon />,
+					},
+					{
+						id: 33,
+						name: "Mice",
+						link: "category/mice-and-keyboards/mice",
+						icon: <MouseIcon />,
+					},
+					{
+						id: 35,
+						name: "Keyboards",
+						link: "category/mice-and-keyboards/keyboards",
+						icon: <KeyboardIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 8,
+			name: "Networking",
+			link: "category/networking",
+			icon: <NetworkingIcon />,
+			subs: {
+				title: "Networking",
+
+				subcategories: [
+					{
+						id: 37,
+						name: "Network Adapters",
+						link: "category/networking/network-adapters",
+						icon: <NetworkAdapterIcon />,
+					},
+					{
+						id: 38,
+						name: "Routers",
+						link: "category/networking/routers",
+						icon: <RouterIcon />,
+					},
+					{
+						id: 39,
+						name: "Switches",
+						link: "category/networking/switches",
+						icon: <SwitchIcon />,
+					},
+				],
+			},
+		},
+		{
+			id: 9,
+			name: "Furniture",
+			link: "category/furniture",
+			icon: <FurnitureIcon />,
+			subs: {
+				title: "Furniture",
+
+				subcategories: [
+					{
+						id: 41,
+						name: "Chairs",
+						link: "category/furniture/chairs",
+						icon: <ChairIcon />,
+					},
+					{
+						id: 42,
+						name: "Desks",
+						link: "category/furniture/desks",
+						icon: <DeskIcon />,
+					},
+				],
+			},
+		},
+	],
+}
+
+interface ISubCategory {
+	id: number
+	name: string
+	link: string
+	icon: JSX.Element
+}
+
+export const SubCategories: ISubCategory[] = Categories.items.flatMap(items => items.subs.subcategories)

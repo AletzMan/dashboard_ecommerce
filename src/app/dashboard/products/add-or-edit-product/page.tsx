@@ -1,16 +1,14 @@
 import styles from "./createedit.module.scss"
-import axios from "axios"
-import { ProductType } from "@/app/Types/types"
 import { FormProduct } from "./FormProduct"
 import { URL_API } from "@/app/Constants/constants"
 import { IProduct } from "@/app/interfaces/product"
 
 const GetProduct = async (id: string) => {
 	try {
-		const response = await fetch(`${URL_API}products/${id}`)
+		const response = await fetch(`${URL_API}products?id=${id}`, { next: { revalidate: 10000, tags: ["productEdit"] } })
 		if (response.status === 200) {
 			const responseProduct = await response.json()
-			const product: IProduct = responseProduct.response
+			const product: IProduct = responseProduct.response.results[0]
 			return product
 		}
 	} catch (error) {
