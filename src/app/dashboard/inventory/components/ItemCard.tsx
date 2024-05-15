@@ -1,6 +1,6 @@
 "use client"
 import { Modal } from '@/app/components/Modal/Modal'
-import { CancelIcon, UpdateIcon, UploadIcon } from '@/app/SVG/componentsSVG'
+import { CancelIcon, UpdateIcon } from '@/app/SVG/componentsSVG'
 import { IAlertInventory, IProductInventory, TextFieldType } from '@/app/Types/types'
 import { inventorySchema } from '@/app/validations/inventorySchema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,8 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../components/Button/Button'
 import { TextField } from '../../components/TextField/TextField'
 import styles from './itemcard.module.scss'
-import { URL_API } from '@/app/Constants/constants'
+import { Categories, URL_API } from '@/app/Constants/constants'
+import { Revailidate } from '@/app/services/actions'
 
 interface IForm {
     inventoryQuantity: string
@@ -37,6 +38,7 @@ export default function ItemCard({ product, alerts }: Props) {
                 if (response.status === 200) {
                     setOpenModal(false)
                     router.refresh()
+                    Revailidate("inventoryPage")
                     enqueueSnackbar("Stock updated", { variant: "success", anchorOrigin: { vertical: "top", horizontal: "center" } })
                 }
             } catch (error) {
@@ -59,7 +61,7 @@ export default function ItemCard({ product, alerts }: Props) {
         <article className={styles.card}>
             <header className={styles.header}>
                 <span className={styles.header_sku}>{product.sku}</span>
-                <span className={styles.header_category}>{product.category}</span>
+                <span className={styles.header_category}>{Categories.items.find(category => category.id.toString() === product.category)?.name}</span>
             </header>
             <section className={styles.section}>
                 <Image className={styles.section_image} src={product.image} alt={product.title} width={100} height={100} />

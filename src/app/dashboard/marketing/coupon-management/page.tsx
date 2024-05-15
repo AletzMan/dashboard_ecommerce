@@ -32,7 +32,7 @@ const GetCoupons = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await fetch(`${URL_API}coupons${paramsString}`, { next: { revalidate: 7200, tags: ["coupons"] } })
+	const response = await fetch(`${URL_API}coupons${paramsString}`, { next: { revalidate: 10000, tags: ["getcoupons"] } })
 	const data = await response.json()
 	return data.response
 }
@@ -43,24 +43,20 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 
 	return (
 		<section className={`${styles.section} `}>
-			{/*<header className={styles.header}>
-				<SearchSection total={data.total} placeholder="Search by code or description" />
-				<ButtonAddCoupon />
-	</header>*/}
 			<HeaderSection results={data.totalResults} title="Add Coupon">
 				<AddCoupon />
 			</HeaderSection>
 			<DataGrid
 				rows={data.results}
 				columns={[
-					{ field: "id", headerName: "ID", role: "text", width: 70 },
-					{ field: "code", headerName: "Code", role: "text", width: 130 },
+					{ field: "id", headerName: "ID", role: "text", width: 60 },
+					{ field: "code", headerName: "Code", role: "text", width: 110 },
 					{ field: "description", headerName: "Description", role: "text", width: "1fr" },
 					{ field: "discount", headerName: "Discount", role: "text", width: 100 },
-					{ field: "limits", headerName: "Limits", role: "text", width: 70 },
-					{ field: "uses", headerName: "Uses", role: "text", width: 70 },
-					{ field: "start_date", headerName: "Start Date", role: "date", width: 130 },
-					{ field: "end_date", headerName: "End Date", role: "date", width: 130 },
+					{ field: "limits", headerName: "Limits", role: "text", width: 80 },
+					{ field: "uses", headerName: "Uses", role: "text", width: 80 },
+					{ field: "start_date", headerName: "Start Date", role: "date", width: 120 },
+					{ field: "end_date", headerName: "End Date", role: "date", width: 120 },
 					{ field: "actions", headerName: "Actions", role: "actions", width: 50 }
 				]}
 				paginacion={{

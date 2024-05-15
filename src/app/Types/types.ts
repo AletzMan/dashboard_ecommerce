@@ -137,6 +137,8 @@ export interface IOrderDetails {
 	order_id: string
 	item_id: number
 	quantity: number
+	unit_price: number
+	title: string
 }
 
 export enum ButtonType {

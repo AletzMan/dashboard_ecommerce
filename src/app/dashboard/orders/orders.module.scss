@@ -31,20 +31,10 @@
 }
 
 .totals {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
     gap: 0.5em;
     width: 100%;
-
-    &>article {
-        width: 32.5%;
-        min-width: 14em;
-
-        @media (width < 500px) {
-            width: 100%;
-        }
-
-    }
 }
 
 .orders {
@@ -57,9 +47,10 @@
     min-width: 24em;
     padding: 0.5em 1em 0.5em 0.5em;
     row-gap: 1.5em;
+    height: calc(100svh - 11em);
     border-radius: var(--border-radius);
     //border: 1px solid var(--borderCardColor);
-    overflow: hidden;
+    //overflow: hidden;
 
     @media (width < 450px) {
         width: 100%;
@@ -69,6 +60,10 @@
     &_title {
         font-size: 1.3em;
     }
+}
+
+.datagrid {
+    height: calc(100% - 12em);
 }
 
 
@@ -137,22 +132,22 @@
         color: var(--fontColor);
 
         &Label {
-            color: var(--shadowColor);
-            font-size: 0.85em;
+            color: var(--clearanceColor);
+            font-size: 0.75em;
+            font-weight: 600;
         }
 
         &Text {
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 500;
             border-radius: 2em;
             width: max-content;
-
-
+            padding: 0.25em 0 0 0.25em;
 
             &Amount {
                 padding: 0.15em 0.75em;
                 background-color: var(--backCategoryColor);
-                color: var(--fontColor);
+                color: var(--saleBorderColor);
                 font-weight: 600;
             }
         }
@@ -169,20 +164,21 @@
     justify-content: space-between;
 
     &_select {
-        background-color: transparent;
+        background-color: var(--backCategoryColor);
         border: none;
         font-size: 0.9em;
+        //color: var(--fontColor);
 
         &Delivered {
-            color: var(--newBorderColor);
+            color: var(--newColor);
         }
 
         &Pending {
-            color: var(--freeBorderColor);
+            color: var(--freeColor);
         }
 
         &Way {
-            color: var(--clearanceBorderColor);
+            color: var(--clearanceColor);
         }
 
         &Cancelled {
@@ -193,7 +189,7 @@
     }
 
     &_option {
-        background-color: transparent;
+        background-color: var(--backCategoryColor);
     }
 
     &_button {

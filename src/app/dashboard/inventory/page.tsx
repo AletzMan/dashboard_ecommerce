@@ -1,7 +1,5 @@
 import { Pagination } from '@/app/components/Pagination/Pagination'
 import { IAlertInventory, IProductInventory } from '@/app/Types/types'
-import axios from 'axios'
-import { ComboBox } from '../components/ComboBox/ComboBox'
 import { SearchSection } from '../components/SearchSection/SearchSection'
 import HeaderInventory from './components/HeaderInventory/HeaderInventory'
 import ItemCard from './components/ItemCard'
@@ -14,15 +12,15 @@ const GetProducts = async (params: [string, string][]) => {
 		if (index === 0) paramsString += `?${param[0]}=${param[1]}`
 		else paramsString += `&${param[0]}=${param[1]}`
 	})
-	const response = await fetch(`${URL_API}products${paramsString}`, { next: { revalidate: 10000, tags: ["productsPage"] } })
+	const response = await fetch(`${URL_API}products${paramsString}`, { next: { revalidate: 10000, tags: ["inventoryPage"] } })
 	const products = await response.json()
-	console.log(products)
+
 	return products.response
 }
 
 const GetAlerts = async () => {
 	try {
-		const response = await fetch(`${URL_API}products/statistics/alerts`, { next: { revalidate: 7200, tags: ["alerts"] } })
+		const response = await fetch(`${URL_API}products/statistics/alerts`, { next: { revalidate: 10000, tags: ["alerts"] } })
 		const data = await response.json()
 		if (response.status === 200) {
 			return data.response
@@ -55,7 +53,7 @@ export default async function InventoryPage({ searchParams }: { searchParams: { 
 				<SearchSection total={data.totalResults} placeholder="Search by name or SKU" />
 			</header>
 			{data &&
-				<section className={styles.products}>
+				<section className={`${styles.products} scrollBarStyle`}>
 					{data.results?.map(product => (
 						<ItemCard key={product.id} product={product} alerts={alerts} />
 					))}

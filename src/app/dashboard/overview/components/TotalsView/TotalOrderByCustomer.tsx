@@ -1,6 +1,6 @@
-import axios from "axios"
+
 import styles from "./totalsview.module.scss"
-import { ArrowIcon, OrdersIcon } from "@/app/SVG/componentsSVG"
+import { OrdersIcon } from "@/app/SVG/componentsSVG"
 import { URL_API } from "@/app/Constants/constants"
 
 interface Props {
@@ -10,12 +10,11 @@ interface Props {
 
 export async function TotalOrdersByCustomer(props: Props) {
     const { title, id } = props
-    const response = await fetch(`${URL_API}orders/statistics/count?user_id=${id}`, { next: { revalidate: 7200, tags: ["ordersCount"] } })
-    const responseOrders = await response.json()
-    console.log(responseOrders)
 
-    const orders: number = responseOrders.response
-    console.log(orders)
+    const response = await fetch(`${URL_API}orders?user_id=${id}`, { next: { revalidate: 10000, tags: ["ordersCount"] } })
+
+    const responseOrders = await response.json()
+    const orders: number = responseOrders.response.totalResults
     return (
         <article className={styles.article}>
             <header className={styles.article_header}>

@@ -9,7 +9,7 @@ interface Props {
 
 const GetOrdersCount = async () => {
 	try {
-		const response = await fetch(`${URL_API}orders`, { next: { revalidate: 3600, tags: ["totalorders"] } })
+		const response = await fetch(`${URL_API}orders`, { next: { revalidate: 10000, tags: ["totalorders"] } })
 		const responseOrders = await response.json()
 		const orders = responseOrders.response.totalResults
 		return orders
@@ -23,9 +23,7 @@ export async function TotalOrders(props: Props) {
 	const { title } = props
 
 	const orders: number = await GetOrdersCount()
-	console.log(orders)
 
-	console.log("ORDERS: ", orders)
 	return (
 		<article className={styles.article}>
 			<header className={styles.article_header}>
