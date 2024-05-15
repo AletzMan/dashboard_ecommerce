@@ -38,10 +38,12 @@ function FormLogin() {
 			redirect: false,
 		})
 		if (response?.ok) {
+			console.log("OK LOGIN")
 			router.push("/dashboard/overview")
 			setLoading(false)
 		}
 		if (response?.error) {
+			console.log("ERROR LOGIN")
 			if (response.error === "500") {
 				enqueueSnackbar("We're sorry, we were unable to process your request at this time. Please try again later.", { variant: "error" })
 			} else {
