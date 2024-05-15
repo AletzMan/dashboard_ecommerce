@@ -47,12 +47,6 @@ export async function middleware(req: NextRequest) {
 	}
 
 	//SI SE INGRESA A LA RUTA REDIRIGIR A HOME
-	if (pathname.endsWith("/dashboard")) {
-		req.nextUrl.pathname = "/dashboard/overview"
-		return NextResponse.redirect(req.nextUrl)
-	}
-
-	//SI SE INGRESA A LA RUTA REDIRIGIR A HOME
 	if (pathname.endsWith("/")) {
 		req.nextUrl.pathname = "/dashboard/overview"
 		return NextResponse.redirect(req.nextUrl)

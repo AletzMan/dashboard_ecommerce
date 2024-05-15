@@ -1,10 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import GoogleProvider from "next-auth/providers/google"
-import { pool } from "@/app/utils/database"
 import Cryptr from "cryptr"
-import { RowDataPacket } from "mysql2"
-import { IsValidMail } from "@/app/utils/functions"
 import { URL_API } from "@/app/Constants/constants"
 import axios from "axios"
 import { ZodError } from "zod"
@@ -78,6 +74,8 @@ const handler = NextAuth({
 								},
 							])
 							throw new Error(JSON.stringify(zodError))
+						} else if (error.code == "ECONNREFUSED") {
+							throw new Error("500")
 						} else {
 							throw new Error(JSON.stringify(error))
 						}
@@ -93,17 +91,13 @@ const handler = NextAuth({
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
-		jwt({ token, user, trigger, session }) {
-			if (trigger === "update" && session.name) {
-				token.name = session.name
-			}
+		jwt({ token, user }) {
 			if (user)
 				token.user = { id: user.id, name: user.name, email: user.email, image: user.image }
 			return token
 		},
 		session({ session, token }) {
 			session.user = token.user as UserToken
-
 			return session
 		},
 	},

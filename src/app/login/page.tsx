@@ -1,7 +1,7 @@
 "use client"
 
 
-import { ChangeEvent, FormEvent, useState, useEffect } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import { signIn, useSession } from "next-auth/react"
@@ -11,10 +11,6 @@ import { Button } from "../dashboard/components/Button/Button"
 import { TextFieldType } from "../Types/types"
 import HeaderHome from "../components/HeaderHome/HeaderHome"
 import { TextField } from "../dashboard/components/TextField/TextField"
-import { loginSchema } from "../validations/loginSchema"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { KeyboardEvent } from "react"
 import { ZodError } from "zod"
 
 interface ICredentials {
@@ -41,6 +37,10 @@ function FormLogin() {
 			password: credentials.password,
 			redirect: false,
 		})
+		if (response?.ok) {
+			router.push("/dashboard/overview")
+			setLoading(false)
+		}
 		if (response?.error) {
 			if (response.error === "500") {
 				enqueueSnackbar("We're sorry, we were unable to process your request at this time. Please try again later.", { variant: "error" })
@@ -58,9 +58,6 @@ function FormLogin() {
 				})
 				setErrors({ email: errorEmail, password: errorPassword })
 			}
-			setLoading(false)
-		} else {
-			router.push("/dashboard/overview")
 			setLoading(false)
 		}
 	}
