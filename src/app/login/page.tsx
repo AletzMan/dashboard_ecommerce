@@ -41,7 +41,7 @@ function FormLogin() {
 			router.refresh()
 			console.log("OK LOGIN")
 			setLoading(false)
-			router.push("/dashboard/overview")
+			router.push("/dashboard")
 		}
 		if (response?.error) {
 			console.log("ERROR LOGIN")
