@@ -1,12 +1,10 @@
 
 import { OptionsDateLocal, URL_API } from "@/app/Constants/constants"
 import { ICustomer, IOrder } from "@/app/Types/types"
-import { headers } from "next/headers"
 import Image from "next/image"
 import { Suspense } from "react"
 import { DataGrid } from "../../components/DataGrid/DataGrid"
 import { SkeletonTotalViews } from "../../overview/components/SkeletonTotalViews/SkeletonTotalViews"
-import { TotalOrdersByCustomer } from "../../overview/components/TotalsView/TotalOrderByCustomer"
 import styles from "../customers.module.scss"
 
 const GetCustomer = async (id: string) => {
