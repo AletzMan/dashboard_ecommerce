@@ -15,6 +15,7 @@ import { loginSchema } from "../validations/loginSchema"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { KeyboardEvent } from "react"
+import { ZodError } from "zod"
 
 interface ICredentials {
 	email: string
@@ -25,17 +26,12 @@ function FormLogin() {
 	const router = useRouter()
 	const { data: session, status } = useSession()
 	const [credentials, setCredentials] = useState({ email: "", password: "" })
-	const [error, setError] = useState({ email: false, password: false })
+	const [errors, setErrors] = useState({ email: "", password: "" })
 	const [loading, setLoading] = useState(false)
-	const { handleSubmit, formState, control } = useForm<ICredentials>({
-		resolver: zodResolver(loginSchema),
-		defaultValues: { email: "", password: "" }
-	})
-	const { errors, isValid } = formState
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setCredentials({ ...credentials, [e.target.name]: e.target.value })
-		setError({ email: false, password: false })
+		setErrors({ email: "", password: "" })
 	}
 
 	useEffect(() => {
@@ -49,64 +45,63 @@ function FormLogin() {
 			redirect: false,
 			callbackUrl: "/dashboard/overview",
 		})
-		if (response?.ok) {
+		if (response?.error) {
+			if (response.error === "500") {
+				enqueueSnackbar("We're sorry, we were unable to process your request at this time. Please try again later.", { variant: "error" })
+			} else {
+				const errorsZod: ZodError = JSON.parse(response?.error)
+				enqueueSnackbar("Invalid login credentials. Please try again.", { variant: "error" })
+				let errorPassword = ""
+				let errorEmail = ""
+				errorsZod?.issues?.map(issue => {
+					if (issue.path[0] === "email") {
+						errorEmail = issue.message
+					} else if (issue.path[0] === "password") {
+						errorPassword = issue.message
+					}
+				})
+				setErrors({ email: errorEmail, password: errorPassword })
+			}
+			setLoading(false)
+		} else {
 			router.push("/dashboard/overview")
 			setLoading(false)
 		}
-		if (response?.error) {
-			enqueueSnackbar("Invalid login credentials. Please try again.", { variant: "error" })
-			setError({
-				email: response.error.includes("email"),
-				password: response.error.includes("password"),
-			})
-
-		}
 	}
 
-	const HandleLogin = () => {
+	const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		setLoading(true)
-		if (isValid) {
-			ValidateInfoAndSend()
-		}
-		setLoading(false)
+		e.preventDefault()
+		ValidateInfoAndSend()
 	}
 
 
-	const HandleMouseEnter = () => {
-		setLoading(true)
-		if (isValid) {
-			ValidateInfoAndSend()
-		}
-		setLoading(false)
-	}
 
 	return (
 		<>
 			<SnackbarProvider autoHideDuration={4500} preventDuplicate={true} anchorOrigin={{ horizontal: "left", vertical: "top" }} />
 			<HeaderHome title="e-Commerce Dashboard" />
 			<main className={styles.login}>
-				<form className={styles.login__form} onSubmit={handleSubmit(data => data)}>
+				<form className={styles.login__form} onSubmit={HandleSubmit}>
 					<h2 className={styles.login__title}>Login to your account</h2>
 					<LogInIcon className={styles.login__icon} />
 					<TextField
 						textFieldProps={{
 							name: "email",
 							label: "E-mail",
-							controlExt: control,
 							onChange: handleChange,
 							type: TextFieldType.Mail,
-							error: errors.email?.message || error.email ? "Invalid email" : "",
+							error: errors.email,
 						}}
 					/>
 					<TextField
 						textFieldProps={{
 							name: "password",
 							label: "Password",
-							controlExt: control,
 							onChange: handleChange,
-							onKeyDown: () => HandleMouseEnter(),
+							onKeyDown: () => { },
 							type: TextFieldType.Password,
-							error: errors.password?.message || error.password ? "Invalid password" : "",
+							error: errors.password,
 						}}
 					/>
 					<Button
@@ -115,7 +110,7 @@ function FormLogin() {
 							text: !loading ? (status === "authenticated" ? "ACCESSING..." : "SIGN IN") : "",
 							iconButton: loading ? <LoadingIcon /> : undefined,
 							disabled: loading || status === "authenticated",
-							onClick: HandleLogin,
+							onClick: () => { },
 							type: "submit",
 						}}
 					/>
