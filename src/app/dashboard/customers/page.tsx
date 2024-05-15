@@ -49,8 +49,8 @@ export default async function CustomersPage({ searchParams }: { searchParams: st
 							{ field: "id", headerName: "ID", role: "text", width: 70 },
 							{ field: "name", headerName: "Name", role: "text", width: 130 },
 							{ field: "lastname", headerName: "Last Name", role: "text", width: 150 },
-							{ field: "email", headerName: "E-mail", role: "text", width: "1fr" },
-							{ field: "phonenumber", headerName: "Phone Number", role: "text", width: "1fr" },
+							{ field: "email", headerName: "E-mail", role: "text", width: 200 },
+							{ field: "phonenumber", headerName: "Phone Number", role: "text", width: 150 },
 							{ field: "", headerName: "", role: "actions", width: "1fr" },
 						]}
 						paginacion={{ currentPage: data.currentPage, totalPages: data.totalPages }}

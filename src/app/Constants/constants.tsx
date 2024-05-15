@@ -112,6 +112,7 @@ export const MenuOptions: OptionsType[] = [
 ]
 
 export const URL_API = process.env.NEXT_PUBLIC_URL_API
+export const URL_API_LOCAL = process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://dashboard-ecommerce-seven.vercel.app/api/"
 export const URL_ProductImage = "https://c1.neweggimages.com/ProductImage/"
 export const URL_BrandImage = "https://c1.neweggimages.com/Brandimage_70x28/"
 export const URL_MainImage = "https://c1.neweggimages.com/ProductImageCompressAll300/"

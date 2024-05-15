@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { LoadingIcon } from "@/app/SVG/componentsSVG"
 import { IMonthlySales } from "@/app/utils/mockdata"
 import { IAllTimePeriod } from "@/app/Types/types"
+import { URL_API_LOCAL } from "@/app/Constants/constants"
 
 interface IChart {
 	options: IOptionsChart
@@ -31,7 +32,7 @@ export function Stats() {
 
 	const GetData = async () => {
 		setLoading(true)
-		const response = await axios.get(`http://localhost:3000/api/sales?period=${period}&year=${year}`)
+		const response = await axios.get(`${URL_API_LOCAL}sales?period=${period}&year=${year}`)
 		const data: number[] = response.data.data
 		setDataSales(data)
 		setCurrentData(response.data.current)
