@@ -52,7 +52,7 @@ export async function LatestOrders() {
 				</ul>
 				<div className={styles.table_orders}>
 					{orders?.results?.map((order) => (
-						<ul className={styles.order}>
+						<ul key={order.order_id} className={styles.order}>
 							<li className={`${styles.order_item} ${styles.order_id}`}>{order.id}</li>
 							<li className={`${styles.order_item} ${styles.order_products}`}>{order.address_id}</li>
 							<li className={`${styles.order_item} ${styles.order_state}`}>{order.state}</li>
