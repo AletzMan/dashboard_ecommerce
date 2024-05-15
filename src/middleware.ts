@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
-import { verify } from "./app/services/jwt_sign_verify"
 
 //export { default } from "next-auth/middleware"
 
 export async function middleware(req: NextRequest) {
-	let myTokenLogin = req.cookies.get("next-auth.session-token")
-	let isRegisterSuccesful = req.cookies.get("seccesfulRegister")
-	let isSuccesOrderCreated = req.cookies.get("succesOrderCreated")
+	const nameCookie =
+		process.env.NODE_ENV === "development"
+			? "next-auth.session-token"
+			: "__Secure-next-auth.session-token"
+	let myTokenLogin = req.cookies.get(nameCookie)
 	const KEY_SECRET = process.env.NEXT_PUBLIC_KEY_SECRET_LOGIN as string
 	const { pathname } = req.nextUrl
 
