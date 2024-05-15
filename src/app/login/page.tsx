@@ -34,16 +34,12 @@ function FormLogin() {
 		setErrors({ email: "", password: "" })
 	}
 
-	useEffect(() => {
-		router.refresh()
-	}, [])
 
 	const ValidateInfoAndSend = async () => {
 		const response = await signIn("credentials", {
 			email: credentials.email,
 			password: credentials.password,
 			redirect: false,
-			callbackUrl: "/dashboard/overview",
 		})
 		if (response?.error) {
 			if (response.error === "500") {
