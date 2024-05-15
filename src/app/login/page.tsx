@@ -43,14 +43,12 @@ function FormLogin() {
 	}, [])
 
 	const ValidateInfoAndSend = async () => {
-		//const response = await fetch("http://localhost:4100/users", {
 		const response = await signIn("credentials", {
 			email: credentials.email,
 			password: credentials.password,
 			redirect: false,
 			callbackUrl: "/dashboard/overview",
 		})
-		console.log(response)
 		if (response?.ok) {
 			router.push("/dashboard/overview")
 			setLoading(false)

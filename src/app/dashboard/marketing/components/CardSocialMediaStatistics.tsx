@@ -2,7 +2,6 @@ import axios from "axios"
 import styles from "./marketingcomp.module.scss"
 import { ISocialMedia } from "@/app/utils/mockdata"
 import { FacebookIcon, InstagramIcon, TikTokIcon, TwitterIcon, YoutubeIcon } from "@/app/SVG/componentsSVG"
-import { useCallback } from "react"
 
 interface Props {
 	name: "Facebook" | "Twitter" | "Instagram" | "YouTube" | "TikTok"
@@ -53,10 +52,10 @@ export async function CardSocialMediaStatistics(props: Props) {
 }
 
 const GetSocialMediaStatistics = async (name: string) => {
-	console.log(name)
+
 	try {
 		const response = await axios.get(`http://localhost:3000/api/socialmedia/interactions?socialmedia=${name}`)
-		console.log(response.data)
+
 		const statistics = response.data.statistics as ISocialMedia
 		return statistics
 	} catch (error) {
