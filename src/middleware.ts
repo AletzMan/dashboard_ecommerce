@@ -27,12 +27,10 @@ export async function middleware(req: NextRequest) {
 	//SI NO ESTA LOGEADO SEGUIR A LA RUTA DE LA QUE SE VIENE
 	if (pathname.endsWith("/login")) {
 		if (myTokenLogin !== undefined) {
-			try {
-				req.nextUrl.pathname = "/dashboard"
-				return NextResponse.redirect(req.nextUrl)
-			} catch (error) {
-				return NextResponse.next()
-			}
+			req.nextUrl.pathname = "/dashboard"
+			return NextResponse.redirect(req.nextUrl)
+		} else {
+			return NextResponse.next()
 		}
 	}
 
@@ -44,12 +42,6 @@ export async function middleware(req: NextRequest) {
 		} else {
 			return NextResponse.next()
 		}
-	}
-
-	//SI SE INGRESA A LA RUTA REDIRIGIR A HOME
-	if (pathname.endsWith("/")) {
-		req.nextUrl.pathname = "/dashboard/overview"
-		return NextResponse.redirect(req.nextUrl)
 	}
 }
 
