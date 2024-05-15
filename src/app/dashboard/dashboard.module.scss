@@ -4,5 +4,29 @@
     grid-template-rows: 4em 1fr;
     height: 100svh;
     width: 100%;
+}
 
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (width < 920px) {
+        grid-column: 1 / span 2;
+    }
+
+    &_title {
+        color: var(--highLightColor);
+        text-align: center;
+        padding: 1em;
+        font-size: 2.5em;
+    }
+
+    &_p {
+        text-align: center;
+        padding: 2em 0.5em 0 0.5em;
+        color: var(--fontSecondColor);
+        max-width: 800px;
+        text-wrap: balance;
+    }
 }
